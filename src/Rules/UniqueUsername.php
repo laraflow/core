@@ -2,8 +2,8 @@
 
 namespace Laraflow\Laraflow\Rules;
 
-use Laraflow\Laraflow\Services\Auth\VerifyService;
 use Illuminate\Contracts\Validation\Rule;
+use Laraflow\Laraflow\Services\Auth\VerifyService;
 
 class UniqueUsername implements Rule
 {

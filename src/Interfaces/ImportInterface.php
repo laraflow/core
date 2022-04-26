@@ -4,5 +4,4 @@ namespace Laraflow\Laraflow\Interfaces;
 
 interface ImportInterface
 {
-
 }

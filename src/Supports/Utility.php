@@ -1,17 +1,16 @@
 <?php
 
-
 namespace Laraflow\Laraflow\Supports;
 
-use Laraflow\Laraflow\Models\Backend\Common\Address;
-use Laraflow\Laraflow\Models\Backend\Setting\ExamLevel;
-use Laraflow\Laraflow\Models\Backend\Setting\ExamTitle;
-use Laraflow\Laraflow\Repositories\Eloquent\Backend\Setting\UserRepository;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
+use Laraflow\Laraflow\Models\Backend\Common\Address;
+use Laraflow\Laraflow\Models\Backend\Setting\ExamLevel;
+use Laraflow\Laraflow\Models\Backend\Setting\ExamTitle;
+use Laraflow\Laraflow\Repositories\Eloquent\Backend\Setting\UserRepository;
 
 /***
  * Class Utility
@@ -43,7 +42,7 @@ class Utility
     public static function generateUsername(string $name, UserRepository $userRepository = null): string
     {
         if (is_null($userRepository)) {
-            $userRepository = new UserRepository;
+            $userRepository = new UserRepository();
         }
 
         //removed white space from name
@@ -54,7 +53,6 @@ class Utility
 
         //verify generated username is unique
         return ($userRepository->verifyUniqueUsername($username)) ? $username : self::generateUsername($name, $userRepository);
-
     }
 
     /**
@@ -75,10 +73,12 @@ class Utility
             "bg-warning text-dark",
             "bg-info text-white",
             "bg-light text-dark",
-            "bg-dark"
+            "bg-dark",
         ];
 
-        if ($rounded) $class .= "rounded-pill ";
+        if ($rounded) {
+            $class .= "rounded-pill ";
+        }
 
         $class .= $badges[array_rand($badges)];
 
@@ -95,7 +95,6 @@ class Utility
     {
         return preg_replace('/laravel\-([\d]{4})-([\d]{2})-([\d]{2})\.log/', '$3/$2/$1', $filename);
     }
-
 
     /**
      * Convert Route Name Human Readable Style
@@ -139,8 +138,9 @@ class Utility
         if (isset($routeCollection[$method])) {
             foreach ($routeCollection[$method] as $route) {
                 $routeName = $route->getName();
-                if ($routeName === null)
+                if ($routeName === null) {
                     continue;
+                }
 
                 $routes[$method][$routeName] = self::permissionDisplay($routeName);
             }
@@ -157,23 +157,23 @@ class Utility
     {
         $address = ($addressBook->street_1 ?? null) . ', ';
 
-        if (!empty($addressBook->street_2)):
+        if (! empty($addressBook->street_2)):
             $address .= ($addressBook->street_2 . ', ');
         endif;
 
-        if (!empty($addressBook->post_code)):
+        if (! empty($addressBook->post_code)):
             $address .= ($addressBook->post_code . ', ');
         endif;
 
-        if (!empty($addressBook->city_id)):
+        if (! empty($addressBook->city_id)):
             $address .= ($addressBook->city->name . ', ');
         endif;
 
-        if (!empty($addressBook->state_id)):
+        if (! empty($addressBook->state_id)):
             $address .= ($addressBook->state->name . ', ');
         endif;
 
-        if (!empty($addressBook->country_id)):
+        if (! empty($addressBook->country_id)):
             $address .= ($addressBook->country->name . /*', ' . $addressBook->country->iso3 .*/ '.');
         endif;
 
@@ -196,11 +196,15 @@ class Utility
             $currencyConfig = config('money.USD');
         }
 
-        if(is_numeric($amount)) {
-            $formattedAmount = number_format($amount, $currencyConfig['precision'],
-                $currencyConfig['decimal_mark'], $currencyConfig['thousands_separator']);
+        if (is_numeric($amount)) {
+            $formattedAmount = number_format(
+                $amount,
+                $currencyConfig['precision'],
+                $currencyConfig['decimal_mark'],
+                $currencyConfig['thousands_separator']
+            );
 
-            $amount =  ($onlyCurrency == true)
+            $amount = ($onlyCurrency == true)
                 ? $currency . ' ' . $formattedAmount
                 : (($currencyConfig['symbol_first'] == true)
                     ? $currencyConfig['symbol'] . ' ' . $formattedAmount

@@ -2,20 +2,20 @@
 
 namespace Laraflow\Laraflow\Abstracts\Import;
 
-use Laraflow\Laraflow\Interfaces\ExportInterface;
-use Laraflow\Laraflow\Services\Auth\AuthenticatedSessionService;
 use Box\Spout\Common\Entity\Style\Border;
 use Box\Spout\Common\Entity\Style\CellAlignment;
 use Box\Spout\Common\Entity\Style\Color;
 use Box\Spout\Common\Exception\InvalidArgumentException;
 use Box\Spout\Writer\Common\Creator\Style\BorderBuilder;
 use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
+use Laraflow\Laraflow\Interfaces\ExportInterface;
+use Laraflow\Laraflow\Services\Auth\AuthenticatedSessionService;
 use Rap2hpoutre\FastExcel\FastExcel;
 
 abstract class FastExcelImport extends FastExcel implements ExportInterface
 {
     /**
-     * @var BorderBuilder $border
+     * @var BorderBuilder
      */
     protected $borderStyle = null;
 
@@ -30,7 +30,7 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
     protected $rowStyle = null;
 
     /**
-     * @var array $formatRow
+     * @var array
      */
     public $formatRow = [];
 
@@ -40,7 +40,7 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
      * @param $row
      * @return array
      */
-    public abstract function map($row): array;
+    abstract public function map($row): array;
 
     /**
      * Export Constructor
@@ -69,7 +69,6 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
             ->setFontSize(12)
             ->setShouldWrapText()
             ->setCellAlignment(CellAlignment::LEFT));
-
     }
 
     /**
@@ -79,6 +78,7 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
     public function setBorderStyle(BorderBuilder $borderBuilder): self
     {
         $this->borderStyle = $borderBuilder;
+
         return $this;
     }
 
@@ -116,6 +116,7 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
         $style = $styleBuilder->build();
 
         $this->headerStyle($style);
+
         return $this;
     }
 
@@ -131,14 +132,14 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
                 ? $row->deleted_at->format(config('backend.datetime'))
                 : null;
 
-            $this->formatRow['Creator'] = ($row->createdBy != null)
+        $this->formatRow['Creator'] = ($row->createdBy != null)
                 ? $row->createdBy->name
                 : null;
 
-            $this->formatRow['Editor'] = ($row->updatedBy != null)
+        $this->formatRow['Editor'] = ($row->updatedBy != null)
                 ? $row->updatedBy->name
                 : null;
-            $this->formatRow['Destructor'] = ($row->deletedBy != null)
+        $this->formatRow['Destructor'] = ($row->deletedBy != null)
                 ? $row->deletedBy->name
                 : null;
         endif;

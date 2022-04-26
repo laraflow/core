@@ -10,8 +10,8 @@ class PhoneNumber implements Rule
 
     public function __construct($country_code = '')
     {
-        if (!is_array($country_code)) {
-            $country_code = array($country_code);
+        if (! is_array($country_code)) {
+            $country_code = [$country_code];
         }
 
         $this->countryCode = $country_code;

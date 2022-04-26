@@ -2,19 +2,19 @@
 
 namespace Laraflow\Laraflow\Abstracts\Export;
 
-use Laraflow\Laraflow\Interfaces\ExportInterface;
 use Box\Spout\Common\Entity\Style\Border;
 use Box\Spout\Common\Entity\Style\CellAlignment;
 use Box\Spout\Common\Entity\Style\Color;
 use Box\Spout\Common\Exception\InvalidArgumentException;
 use Box\Spout\Writer\Common\Creator\Style\BorderBuilder;
 use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
+use Laraflow\Laraflow\Interfaces\ExportInterface;
 use Rap2hpoutre\FastExcel\FastExcel;
 
 abstract class FastExcelExport extends FastExcel implements ExportInterface
 {
     /**
-     * @var BorderBuilder $border
+     * @var BorderBuilder
      */
     protected $borderStyle;
 
@@ -29,7 +29,7 @@ abstract class FastExcelExport extends FastExcel implements ExportInterface
     protected $rowStyle;
 
     /**
-     * @var array $formatRow
+     * @var array
      */
     public $formatRow = [];
 
@@ -39,7 +39,7 @@ abstract class FastExcelExport extends FastExcel implements ExportInterface
      * @param $row
      * @return array
      */
-    public abstract function map($row): array;
+    abstract public function map($row): array;
 
     /**
      * Export Constructor
@@ -68,7 +68,6 @@ abstract class FastExcelExport extends FastExcel implements ExportInterface
             ->setFontSize(12)
             ->setShouldWrapText()
             ->setCellAlignment(CellAlignment::LEFT));
-
     }
 
     /**
@@ -78,6 +77,7 @@ abstract class FastExcelExport extends FastExcel implements ExportInterface
     public function setBorderStyle(BorderBuilder $borderBuilder): self
     {
         $this->borderStyle = $borderBuilder;
+
         return $this;
     }
 
@@ -115,6 +115,7 @@ abstract class FastExcelExport extends FastExcel implements ExportInterface
         $style = $styleBuilder->build();
 
         $this->headerStyle($style);
+
         return $this;
     }
 }

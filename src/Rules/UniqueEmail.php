@@ -2,8 +2,8 @@
 
 namespace Laraflow\Laraflow\Rules;
 
-use Laraflow\Laraflow\Services\Backend\Common\ValidationService;
 use Illuminate\Contracts\Validation\Rule;
+use Laraflow\Laraflow\Services\Backend\Common\ValidationService;
 
 class UniqueEmail implements Rule
 {
