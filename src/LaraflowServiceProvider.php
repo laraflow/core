@@ -2,9 +2,9 @@
 
 namespace Laraflow\Laraflow;
 
+use Laraflow\Laraflow\Commands\LaraflowCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Laraflow\Laraflow\Commands\LaraflowCommand;
 
 class LaraflowServiceProvider extends PackageServiceProvider
 {
