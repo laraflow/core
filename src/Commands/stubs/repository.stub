@@ -1,0 +1,25 @@
+<?php
+
+namespace {{ namespace }};
+
+use Laraflow\Laraflow\Abstracts\Service\Service;
+
+/**
+ * Describe this service purposes
+ *
+ * Class {{ class }}
+ * @package {{{ namespace }}
+ *
+ */
+class {{ class }} extends Service
+{
+    /**
+     * {{ class }} constructor
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //
+    }
+}
