@@ -63,25 +63,25 @@ class CHTML
         $HTML = '';
         if (in_array('delete', $actions)) :
             $HTML .= view("layouts.partials.soft-delete-modal", [
-                'model' => $modelName
+                'model' => $modelName,
             ]);
         endif;
 
         if (in_array('restore', $actions)) :
             $HTML .= view("layouts.partials.restore-modal", [
-                'model' => $modelName
+                'model' => $modelName,
             ]);
         endif;
 
         if (in_array('export', $actions)) :
             $HTML .= view("layouts.partials.export-modal", [
-                'model' => $modelName
+                'model' => $modelName,
             ]);
         endif;
 
         if (in_array('import', $actions)) :
             $HTML .= view("layouts.partials.import-modal", [
-                'model' => $modelName
+                'model' => $modelName,
             ]);
         endif;
 
@@ -98,7 +98,7 @@ class CHTML
             'created' => '<i class="fas fa-plus bg-success" data-toggle="tooltip" data-placement="top" title="Created"></i>',
             'updated' => '<i class="fas fa-edit bg-primary" data-toggle="tooltip" data-placement="top" title="Updated"></i>',
             'deleted' => '<i class="fas fa-trash bg-danger" data-toggle="tooltip" data-placement="top" title="Deleted"></i>',
-            'restored' => '<i class="fas fa-trash-restore bg-warning" data-toggle="tooltip" data-placement="top" title="Restored"></i>'
+            'restored' => '<i class="fas fa-trash-restore bg-warning" data-toggle="tooltip" data-placement="top" title="Restored"></i>',
         ];
 
         return $eventIcons[$event] ?? '<i class="fas fa-user bg-secondary" data-toggle="tooltip" data-placement="top" title="Undefined"></i>';
@@ -114,14 +114,13 @@ class CHTML
         $HTML = "";
         if (count($tags) > 0) :
             $HTML = "<div class='d-inline-block'>";
-            $icon = ($icon_class !== null) ?  "<i class='{$icon_class} mr-1'></i>" : null;
-            foreach ($tags as $tag):
+        $icon = ($icon_class !== null) ? "<i class='{$icon_class} mr-1'></i>" : null;
+        foreach ($tags as $tag):
                 $HTML .= "<span class='ml-1 badge badge-pill p-2 d-block d-md-inline-block " . Utility::randomBadgeBackground() . "'>{$icon} {$tag}</span>";
-            endforeach;
-            $HTML .= "</div>";
+        endforeach;
+        $HTML .= "</div>";
         endif;
 
         return $HTML;
     }
 }
-
