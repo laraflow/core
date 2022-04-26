@@ -2,7 +2,7 @@
 
 namespace {{ namespace }};
 
-use Laraflow\Laraflow\Abstracts\Service\Service;
+use Laraflow\Laraflow\Abstracts\Repository\EloquentRepository;
 
 /**
  * Describe this service purposes
@@ -11,7 +11,7 @@ use Laraflow\Laraflow\Abstracts\Service\Service;
  * @package {{{ namespace }}
  *
  */
-class {{ class }} extends Service
+class {{ class }} extends EloquentRepository
 {
     /**
      * {{ class }} constructor
