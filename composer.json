@@ -18,8 +18,14 @@
     "require": {
         "php": "^7.4|^8.1",
         "illuminate/contracts": "^8.83",
+        "intervention/image": "^2.7",
+        "laravolt/avatar": "^4.1",
+        "owen-it/laravel-auditing": "^13.0",
         "rap2hpoutre/fast-excel": "^3.2",
-        "spatie/laravel-package-tools": "^1.9.2"
+        "spatie/laravel-medialibrary": "^9.12",
+        "spatie/laravel-package-tools": "^1.9.2",
+        "spatie/laravel-permission": "^5.5",
+        "yoeunes/notify": "^1.0"
     },
     "require-dev": {
         "nunomaduro/collision": "^5.11",
