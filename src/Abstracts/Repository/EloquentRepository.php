@@ -20,7 +20,7 @@ use PDOException;
 abstract class EloquentRepository implements RepositoryInterface
 {
     /**
-     * @var Model $model
+     * @var Model
      */
     public $model;
 
@@ -76,7 +76,7 @@ abstract class EloquentRepository implements RepositoryInterface
      * update record in the database
      *
      * @param array $data
-     * @param string|integer $id
+     * @param string|int $id
      * @return bool
      * @throws Exception
      */
@@ -85,6 +85,7 @@ abstract class EloquentRepository implements RepositoryInterface
         try {
             $recordModel = $this->model->findOrFail($id);
             $this->setModel($recordModel);
+
             return $this->model->update($data);
         } catch (Exception $exception) {
             $this->handleException($exception);
@@ -95,7 +96,7 @@ abstract class EloquentRepository implements RepositoryInterface
 
     /**
      * remove record from the database
-     * @param string|integer $id
+     * @param string|int $id
      * @return bool
      */
     public function delete($id): bool
@@ -105,7 +106,7 @@ abstract class EloquentRepository implements RepositoryInterface
 
     /**
      * show the record with the given id
-     * @param string|integer $id
+     * @param string|int $id
      * @param bool $purge
      * @return mixed
      * @throws Exception
@@ -129,7 +130,7 @@ abstract class EloquentRepository implements RepositoryInterface
 
     /**
      * remove record from the database
-     * @param string|integer $id
+     * @param string|int $id
      * @return bool
      */
     public function restore($id): bool

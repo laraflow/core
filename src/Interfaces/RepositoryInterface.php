@@ -29,21 +29,21 @@ interface RepositoryInterface
      * update record in the database
      *
      * @param array $data
-     * @param string|integer $id
+     * @param string|int $id
      * @return bool
      */
     public function update(array $data, $id): bool;
 
     /**
      * remove record from the database
-     * @param string|integer $id
+     * @param string|int $id
      * @return bool
      */
     public function delete($id): bool;
 
     /**
      * show the record with the given id
-     * @param string|integer $id
+     * @param string|int $id
      * @param bool $purge
      * @return mixed
      * @throws Exception
@@ -125,7 +125,7 @@ interface RepositoryInterface
 
     /**
      * Restore any Soft-Deleted Table Row/Model
-     * @param string|integer $id
+     * @param string|int $id
      * @return bool
      */
     public function restore($id): bool;
