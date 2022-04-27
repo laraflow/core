@@ -37,7 +37,7 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
     /**
      * Modify Output Row Cells
      *
-     * @param $row
+     * @param mixed $row
      * @return array
      */
     abstract public function map($row): array;
@@ -73,7 +73,7 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
 
     /**
      * @param BorderBuilder $borderBuilder
-     * @return FastExport
+     * @return FastExcelImport
      */
     public function setBorderStyle(BorderBuilder $borderBuilder): self
     {
@@ -84,7 +84,7 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
 
     /**
      * @param StyleBuilder $styleBuilder
-     * @return FastExport
+     * @return FastExcelImport
      */
     public function setRowStyle(StyleBuilder $styleBuilder): self
     {
@@ -103,7 +103,7 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
 
     /**
      * @param StyleBuilder $styleBuilder
-     * @return FastExport
+     * @return FastExcelImport
      */
     public function setHeadingStyle(StyleBuilder $styleBuilder): self
     {
@@ -118,30 +118,5 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
         $this->headerStyle($style);
 
         return $this;
-    }
-
-    /**
-     * Returns all super admin columns
-     *
-     * @param $row
-     */
-    public function getSupperAdminColumns($row)
-    {
-        if (AuthenticatedSessionService::isSuperAdmin()):
-            $this->formatRow['Deleted'] = ($row->deleted_at != null)
-                ? $row->deleted_at->format(config('backend.datetime'))
-                : null;
-
-        $this->formatRow['Creator'] = ($row->createdBy != null)
-                ? $row->createdBy->name
-                : null;
-
-        $this->formatRow['Editor'] = ($row->updatedBy != null)
-                ? $row->updatedBy->name
-                : null;
-        $this->formatRow['Destructor'] = ($row->deletedBy != null)
-                ? $row->deletedBy->name
-                : null;
-        endif;
     }
 }
