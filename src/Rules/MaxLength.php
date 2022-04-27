@@ -11,11 +11,11 @@ class MaxLength implements Rule
     /**
      * Create a new rule instance.
      *
-     * @return void
+     * @param int $limit
      */
     public function __construct($limit)
     {
-        $this->limit = $limit;
+        $this->limit = intval($limit);
     }
 
     /**
