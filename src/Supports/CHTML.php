@@ -12,17 +12,19 @@ use Illuminate\Support\HtmlString;
 class CHTML
 {
     /**
+     * Switch function for enable and disable status of model
+     *
      * @param Model $model
      * @param string $field
      * @param array $options
-     * @param null $current_value
+     * @param mixed|null $current_value
      * @param array $states
      * @return HtmlString
      */
     public static function flagChangeButton(Model $model, string $field, array $options = [], $current_value = null, array $states = []): HtmlString
-    { //Get Model information
-        $model_id_field = $model->getKeyName();
-        $model_id = $model->$model_id_field;
+    {
+        //Get Model information
+        $model_id = $model->${$model->getKeyName()};
         $model_path = get_class($model); //generate switch states
         $options['on'] = $options['on'] ?? array_shift($options);
         $options['off'] = $options['off'] ?? array_shift($options); //generate switch states colors
@@ -43,6 +45,8 @@ class CHTML
     }
 
     /**
+     * Custom pagination query string appending function
+     *
      * @param $collection
      * @param string $type [default, simple]
      * @return mixed
@@ -54,6 +58,9 @@ class CHTML
     }
 
     /**
+     * Confirmation model popup handler for delete, restore and export
+     * authorization confirmation approval.
+     *
      * @param string $modelName
      * @param array $actions
      * @return HtmlString
@@ -89,8 +96,10 @@ class CHTML
     }
 
     /**
+     * Audit Operation event icon style provider return string
+     *
      * @param string $event
-     * @return string
+     * @return HtmlString
      */
     public static function eventIcons(string $event): string
     {
@@ -101,26 +110,28 @@ class CHTML
             'restored' => '<i class="fas fa-trash-restore bg-warning" data-toggle="tooltip" data-placement="top" title="Restored"></i>',
         ];
 
-        return $eventIcons[$event] ?? '<i class="fas fa-user bg-secondary" data-toggle="tooltip" data-placement="top" title="Undefined"></i>';
+        return new HtmlString($eventIcons[$event] ?? '<i class="fas fa-user bg-secondary" data-toggle="tooltip" data-placement="top" title="Undefined"></i>');
     }
 
     /**
+     * Display tags as inline list items
+     *
      * @param array $tags
      * @param string|null $icon_class
-     * @return string
+     * @return HtmlString
      */
     public static function displayTags(array $tags, string $icon_class = null): string
     {
         $HTML = "";
         if (count($tags) > 0) :
             $HTML = "<div class='d-inline-block'>";
-        $icon = ($icon_class !== null) ? "<i class='{$icon_class} mr-1'></i>" : null;
-        foreach ($tags as $tag):
+            $icon = ($icon_class !== null) ? "<i class='{$icon_class} mr-1'></i>" : null;
+            foreach ($tags as $tag):
                 $HTML .= "<span class='ml-1 badge badge-pill p-2 d-block d-md-inline-block " . Utility::randomBadgeBackground() . "'>{$icon} {$tag}</span>";
-        endforeach;
-        $HTML .= "</div>";
+            endforeach;
+            $HTML .= "</div>";
         endif;
 
-        return $HTML;
+        return new HtmlString($HTML);
     }
 }
