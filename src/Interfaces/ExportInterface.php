@@ -5,12 +5,16 @@ namespace Laraflow\Laraflow\Interfaces;
 use Box\Spout\Writer\Common\Creator\Style\BorderBuilder;
 use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
 
+/**
+ * Interface ExportInterface
+ * @package Laraflow\Laraflow\Interfaces
+ */
 interface ExportInterface
 {
     /**
      * Modify Output Row Cells
      *
-     * @param $row
+     * @param mixed $row
      * @return array
      */
     public function map($row): array;
@@ -32,11 +36,4 @@ interface ExportInterface
      * @return mixed
      */
     public function setHeadingStyle(StyleBuilder $styleBuilder);
-
-    /**
-     * Returns all super admin columns
-     * @param $row
-     * @return void
-     */
-    public function getSupperAdminColumns($row);
 }
