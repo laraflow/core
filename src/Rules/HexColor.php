@@ -4,18 +4,12 @@ namespace Laraflow\Laraflow\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
+/**
+ * Class HexColor
+ * @package Laraflow\Laraflow\Rules
+ */
 class HexColor implements Rule
 {
-    /**
-     * Create a new rule instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
     /**
      * Determine if the validation rule passes.
      *
