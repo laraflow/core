@@ -7,12 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
-use Laraflow\Laraflow\Models\Backend\Common\Address;
-use Laraflow\Laraflow\Models\Backend\Setting\ExamLevel;
-use Laraflow\Laraflow\Models\Backend\Setting\ExamTitle;
-use Laraflow\Laraflow\Repositories\Eloquent\Backend\Setting\UserRepository;
 
-/***
+/**
  * Class Utility
  * @package Laraflow\Laraflow\Supports
  */
@@ -126,10 +122,13 @@ class Utility
     }
 
     /**
+     * return a list of route names filtered with http verbs
+     * [GET, POST, PUT, DELETE, etc]
+     *
      * @param string $method
      * @return array
      */
-    public static function routeMethodNameArray(string $method = 'GET'): array
+    public static function routeNames(string $method = 'GET'): array
     {
         $routeCollection = Route::getRoutes()->getRoutesByMethod();
 
@@ -149,36 +148,37 @@ class Utility
         return $routes;
     }
 
-    /**
+    /*
      * @param Address $addressBook
      * @return string
-     */
+
     public static function getAddressBlock(Address $addressBook): string
     {
         $address = ($addressBook->street_1 ?? null) . ', ';
 
-        if (! empty($addressBook->street_2)):
+        if (!empty($addressBook->street_2)):
             $address .= ($addressBook->street_2 . ', ');
         endif;
 
-        if (! empty($addressBook->post_code)):
+        if (!empty($addressBook->post_code)):
             $address .= ($addressBook->post_code . ', ');
         endif;
 
-        if (! empty($addressBook->city_id)):
+        if (!empty($addressBook->city_id)):
             $address .= ($addressBook->city->name . ', ');
         endif;
 
-        if (! empty($addressBook->state_id)):
+        if (!empty($addressBook->state_id)):
             $address .= ($addressBook->state->name . ', ');
         endif;
 
-        if (! empty($addressBook->country_id)):
-            $address .= ($addressBook->country->name . /*', ' . $addressBook->country->iso3 .*/ '.');
+        if (!empty($addressBook->country_id)):
+            $address .= ($addressBook->country->name . '.');
         endif;
 
         return $address;
     }
+     */
 
     /**
      * Return Currency Formatted string from number
@@ -214,29 +214,4 @@ class Utility
         return $amount;
     }
 
-    /**
-     * @param string $code
-     * @return mixed
-     */
-    public static function getExamLevelByCode(string $code)
-    {
-        return ExamLevel::where('code', '=', $code)->first();
-    }
-
-    /**
-     *
-     * @param int $exam_level_id
-     * @return array
-     */
-    public static function getExamTitleById(int $exam_level_id)
-    {
-        $examTitleCollection = ExamTitle::where('exam_level_id', '=', $exam_level_id)->get();
-
-        $examTitleArray = [];
-        foreach ($examTitleCollection as $item):
-            $examTitleArray[$item->id] = $item->name;
-        endforeach;
-
-        return $examTitleArray;
-    }
 }
