@@ -6,16 +6,16 @@ use Illuminate\Contracts\Validation\Rule;
 
 class MinLength implements Rule
 {
-    private $limit = null;
+    private $limit;
 
     /**
      * Create a new rule instance.
      *
-     * @param $limit
+     * @param int $limit
      */
     public function __construct($limit)
     {
-        $this->limit = $limit;
+        $this->limit = intval($limit);
     }
 
     /**
