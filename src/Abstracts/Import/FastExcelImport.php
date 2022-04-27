@@ -9,7 +9,6 @@ use Box\Spout\Common\Exception\InvalidArgumentException;
 use Box\Spout\Writer\Common\Creator\Style\BorderBuilder;
 use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
 use Laraflow\Laraflow\Interfaces\ExportInterface;
-use Laraflow\Laraflow\Services\Auth\AuthenticatedSessionService;
 use Rap2hpoutre\FastExcel\FastExcel;
 
 abstract class FastExcelImport extends FastExcel implements ExportInterface

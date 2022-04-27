@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Laraflow\Laraflow\Supports;
 
 /**

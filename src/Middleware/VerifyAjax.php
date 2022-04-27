@@ -2,7 +2,6 @@
 
 namespace Laraflow\Laraflow\Middleware;
 
-
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Validation\UnauthorizedException;
