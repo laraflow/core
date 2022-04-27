@@ -29,21 +29,21 @@ interface RepositoryInterface
      * update record in the database
      *
      * @param array $data
-     * @param $id
-     * @return mixed
+     * @param string|integer $id
+     * @return bool
      */
     public function update(array $data, $id): bool;
 
     /**
      * remove record from the database
-     * @param $id
+     * @param string|integer $id
      * @return bool
      */
     public function delete($id): bool;
 
     /**
      * show the record with the given id
-     * @param $id
+     * @param string|integer $id
      * @param bool $purge
      * @return mixed
      * @throws Exception
@@ -66,7 +66,7 @@ interface RepositoryInterface
     /**
      * Eager load database relationships
      *
-     * @param $relations
+     * @param string|array $relations
      * @return Builder
      */
     public function with($relations): Builder;
@@ -81,7 +81,7 @@ interface RepositoryInterface
      *
      * @param string $column
      * @param string $operator
-     * @param $value
+     * @param mixed $value
      * @return Model|null
      * @throws Exception
      */
@@ -92,7 +92,7 @@ interface RepositoryInterface
      *
      * @param string $column
      * @param string $operator
-     * @param $value
+     * @param mixed $value
      * @param array $with
      * @return Collection|null
      * @throws Exception
@@ -111,7 +111,7 @@ interface RepositoryInterface
     /**
      * Handle All catch Exceptions
      *
-     * @param $exception
+     * @param mixed $exception
      * @throws Exception
      */
     public function handleException($exception);
@@ -125,8 +125,8 @@ interface RepositoryInterface
 
     /**
      * Restore any Soft-Deleted Table Row/Model
-     * @param $id
-     * @return mixed
+     * @param string|integer $id
+     * @return bool
      */
     public function restore($id): bool;
 }
