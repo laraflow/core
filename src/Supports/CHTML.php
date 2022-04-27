@@ -101,7 +101,7 @@ class CHTML
      * @param string $event
      * @return HtmlString
      */
-    public static function eventIcons(string $event): string
+    public static function eventIcons(string $event): HtmlString
     {
         $eventIcons = [
             'created' => '<i class="fas fa-plus bg-success" data-toggle="tooltip" data-placement="top" title="Created"></i>',
@@ -120,7 +120,7 @@ class CHTML
      * @param string|null $icon_class
      * @return HtmlString
      */
-    public static function displayTags(array $tags, string $icon_class = null): string
+    public static function displayTags(array $tags, string $icon_class = null): HtmlString
     {
         $HTML = "";
         if (count($tags) > 0) :

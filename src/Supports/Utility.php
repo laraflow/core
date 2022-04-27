@@ -26,7 +26,7 @@ class Utility
         return Hash::make($password);
     }
 
-    /**
+    /*
      * Create a unique random username with given having input
      * As prefix text and a random number
      *
@@ -34,7 +34,7 @@ class Utility
      * @param UserRepository|null $userRepository
      * @return string
      * @throws \Exception
-     */
+     *
     public static function generateUsername(string $name, UserRepository $userRepository = null): string
     {
         if (is_null($userRepository)) {
@@ -50,6 +50,7 @@ class Utility
         //verify generated username is unique
         return ($userRepository->verifyUniqueUsername($username)) ? $username : self::generateUsername($name, $userRepository);
     }
+    */
 
     /**
      * Admin LTE 3 Supported Random Badge Colors
@@ -179,39 +180,4 @@ class Utility
         return $address;
     }
      */
-
-    /**
-     * Return Currency Formatted string from number
-     *
-     * @param null $amount
-     * @param string $currency
-     * @param bool $onlyCurrency
-     * @return string|null
-     */
-    public static function money($amount = null, string $currency = 'USD', bool $onlyCurrency = false)
-    {
-        $currencyConfig = config('money.' . $currency);
-
-        if (empty($currencyConfig)) {
-            $currencyConfig = config('money.USD');
-        }
-
-        if (is_numeric($amount)) {
-            $formattedAmount = number_format(
-                $amount,
-                $currencyConfig['precision'],
-                $currencyConfig['decimal_mark'],
-                $currencyConfig['thousands_separator']
-            );
-
-            $amount = ($onlyCurrency == true)
-                ? $currency . ' ' . $formattedAmount
-                : (($currencyConfig['symbol_first'] == true)
-                    ? $currencyConfig['symbol'] . ' ' . $formattedAmount
-                    : $formattedAmount . ' ' . $currencyConfig['symbol']);
-        }
-
-        return $amount;
-    }
-
 }
