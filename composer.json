@@ -25,7 +25,6 @@
         "rap2hpoutre/fast-excel": "^3.2",
         "spatie/laravel-medialibrary": "^9.12",
         "spatie/laravel-package-tools": "^1.9.2",
-        "spatie/laravel-permission": "^5.5",
         "yoeunes/notify": "^1.0"
     },
     "require-dev": {
