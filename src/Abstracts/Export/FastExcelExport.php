@@ -36,7 +36,7 @@ abstract class FastExcelExport extends FastExcel implements ExportInterface
     /**
      * Modify Output Row Cells
      *
-     * @param $row
+     * @param mixed $row
      * @return array
      */
     abstract public function map($row): array;
