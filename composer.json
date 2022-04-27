@@ -28,6 +28,7 @@
         "yoeunes/notify": "^1.0"
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.8",
         "nunomaduro/collision": "^5.11",
         "nunomaduro/larastan": "^1.0",
         "orchestra/testbench": "^6.24",
