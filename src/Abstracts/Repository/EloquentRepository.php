@@ -2,22 +2,25 @@
 
 namespace Laraflow\Laraflow\Abstracts\Repository;
 
+use BadMethodCallException;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 use Laraflow\Laraflow\Interfaces\RepositoryInterface;
 use PDOException;
 
 /**
  * Class EloquentRepository
- * @package Modules\Backend\Repositories
+ * @package Laraflow\Laraflow\Abstracts\Repository
  */
 abstract class EloquentRepository implements RepositoryInterface
 {
     /**
-     * @var Model eloquent Model Object
+     * @var Model $model
      */
     public $model;
 
@@ -73,7 +76,7 @@ abstract class EloquentRepository implements RepositoryInterface
      * update record in the database
      *
      * @param array $data
-     * @param $id
+     * @param string|integer $id
      * @return bool
      * @throws Exception
      */
@@ -93,7 +96,7 @@ abstract class EloquentRepository implements RepositoryInterface
 
     /**
      * remove record from the database
-     * @param $id
+     * @param string|integer $id
      * @return bool
      */
     public function delete($id): bool
@@ -103,7 +106,7 @@ abstract class EloquentRepository implements RepositoryInterface
 
     /**
      * show the record with the given id
-     * @param $id
+     * @param string|integer $id
      * @param bool $purge
      * @return mixed
      * @throws Exception
@@ -127,7 +130,7 @@ abstract class EloquentRepository implements RepositoryInterface
 
     /**
      * remove record from the database
-     * @param $id
+     * @param string|integer $id
      * @return bool
      */
     public function restore($id): bool
@@ -157,7 +160,7 @@ abstract class EloquentRepository implements RepositoryInterface
     /**
      * Eager load database relationships
      *
-     * @param $relations
+     * @param string|array $relations
      * @return Builder
      */
     public function with($relations): Builder
@@ -178,7 +181,7 @@ abstract class EloquentRepository implements RepositoryInterface
      *
      * @param string $column
      * @param string $operator
-     * @param $value
+     * @param mixed $value
      * @return Model|null
      * @throws Exception
      */
@@ -200,14 +203,14 @@ abstract class EloquentRepository implements RepositoryInterface
      *
      * @param string $column
      * @param string $operator
-     * @param $value
+     * @param mixed $value
      * @param array $with
-     * @return mixed
+     * @return Collection
      * @throws Exception
      */
-    public function findAllWhere(string $column, string $operator, $value, array $with = [])
+    public function findAllWhere(string $column, string $operator, $value, array $with = []): ?Collection
     {
-        $collection = [];
+        $collection = new Collection();
 
         try {
             $collection = $this->model->where($column, $operator, $value)->with($with)->get();
@@ -241,31 +244,25 @@ abstract class EloquentRepository implements RepositoryInterface
     /**
      * Handle All catch Exceptions
      *
-     * @param $exception
+     * @param mixed $exception
      * @throws Exception
      */
     public function handleException($exception)
     {
-        \Log::error("Query Exception: ");
-        \Log::error($exception->getMessage());
+        Log::error("Query Exception: ");
+        Log::error($exception->getMessage());
         //if application is on production keep silent
-        if (\App::environment('production')) {
-            \Log::error($exception->getMessage());
-        }
-
-        //Eloquent Model Exception
+        if (App::environment('production')) {
+            Log::error($exception->getMessage());
+        } //Eloquent Model Exception
         elseif ($exception instanceof ModelNotFoundException) {
             throw new ModelNotFoundException($exception->getMessage());
-        }
-
-        //DB Error
+        } //DB Error
         elseif ($exception instanceof PDOException) {
             throw new PDOException($exception->getMessage());
         } elseif ($exception instanceof \BadMethodCallException) {
             throw new \BadMethodCallException($exception->getMessage());
-        }
-
-        //Through general Exception
+        } //Through general Exception
         else {
             throw new Exception($exception->getMessage());
         }

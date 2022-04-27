@@ -97,7 +97,7 @@ interface RepositoryInterface
      * @return Collection|null
      * @throws Exception
      */
-    public function findAllWhere(string $column, string $operator, $value, array $with = []);
+    public function findAllWhere(string $column, string $operator, $value, array $with = []): ?Collection;
 
     /**
      * Get the all Model Columns Collection

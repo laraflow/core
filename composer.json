@@ -17,6 +17,7 @@
     ],
     "require": {
         "php": "^7.4|^8.1",
+        "ext-pdo": "*",
         "illuminate/contracts": "^8.83",
         "intervention/image": "^2.7",
         "laravolt/avatar": "^4.1",
