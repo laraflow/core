@@ -19,6 +19,7 @@ class LaraflowServiceProvider extends PackageServiceProvider
             ->name('laraflow')
             ->hasConfigFile()
             ->hasViews()
+            ->hasRoute('web')
             ->hasMigration('create_laraflow_table')
             ->hasCommand(LaraflowCommand::class);
     }

@@ -3,8 +3,6 @@
 namespace App\Observers\Setting;
 
 
-
-
 use App\Models\Setting\Role;
 use App\Notifications\Setting\Role\RoleCreatedNotification;
 use App\Services\Backend\Setting\UserService;

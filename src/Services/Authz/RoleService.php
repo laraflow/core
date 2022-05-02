@@ -8,12 +8,12 @@ use App\Abstracts\Service\Service;
 use App\Exports\Backend\Setting\StateExport;
 use App\Models\Backend\Setting\Role;
 use App\Repositories\Eloquent\Backend\Setting\RoleRepository;
-use Laraflow\Laraflow\Services\Auth\AuthenticatedSessionService;
 use App\Supports\Constant;
 use Box\Spout\Common\Exception\InvalidArgumentException;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Laraflow\Laraflow\Services\Auth\AuthenticatedSessionService;
 use Spatie\Permission\PermissionRegistrar;
 use Throwable;
 use function __;
@@ -67,7 +67,7 @@ class RoleService extends Service
      */
     public function getRoleById(int $id, bool $purge = false)
     {
-        if($purge == false) {
+        if ($purge == false) {
             $purge = AuthenticatedSessionService::isSuperAdmin();
         }
 

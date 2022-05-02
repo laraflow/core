@@ -4,11 +4,11 @@ namespace App\Repositories\Eloquent\Backend;
 
 use App\Abstracts\Repository\EloquentRepository;
 use App\Models\Backend\Organization;
-use Laraflow\Laraflow\Services\Auth\AuthenticatedSessionService;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Laraflow\Laraflow\Services\Auth\AuthenticatedSessionService;
 
 /**
  * @class OrganizationRepository
@@ -25,6 +25,25 @@ class OrganizationRepository extends EloquentRepository
          * Set the model that will be used for repo
          */
         parent::__construct(new Organization);
+    }
+
+    /**
+     * Pagination Generator
+     * @param array $filters
+     * @param array $eagerRelations
+     * @param bool $is_sortable
+     * @return LengthAwarePaginator
+     * @throws Exception
+     */
+    public function paginateWith(array $filters = [], array $eagerRelations = [], bool $is_sortable = false): LengthAwarePaginator
+    {
+        try {
+            $query = $this->filterData($filters, $is_sortable);
+        } catch (Exception $exception) {
+            $this->handleException($exception);
+        } finally {
+            return $query->with($eagerRelations)->paginate($this->itemsPerPage);
+        }
     }
 
     /**
@@ -59,25 +78,6 @@ class OrganizationRepository extends EloquentRepository
         endif;
 
         return $query;
-    }
-
-    /**
-     * Pagination Generator
-     * @param array $filters
-     * @param array $eagerRelations
-     * @param bool $is_sortable
-     * @return LengthAwarePaginator
-     * @throws Exception
-     */
-    public function paginateWith(array $filters = [], array $eagerRelations = [], bool $is_sortable = false): LengthAwarePaginator
-    {
-        try {
-            $query = $this->filterData($filters, $is_sortable);
-        } catch (Exception $exception) {
-            $this->handleException($exception);
-        } finally {
-            return $query->with($eagerRelations)->paginate($this->itemsPerPage);
-        }
     }
 
     /**

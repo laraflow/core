@@ -55,6 +55,15 @@ class FileUploadService extends Service
     }
 
     /**
+     * @param string $extension
+     * @return string
+     */
+    public function randomFileName(string $extension = 'jpg'): string
+    {
+        return Str::random(32) . '.' . $extension;
+    }
+
+    /**
      * @param UploadedFile $file
      * @param string $extension
      * @return string|null
@@ -89,14 +98,5 @@ class FileUploadService extends Service
         }
 
         return null;
-    }
-
-    /**
-     * @param string $extension
-     * @return string
-     */
-    public function randomFileName(string $extension = 'jpg'): string
-    {
-        return Str::random(32) . '.' . $extension;
     }
 }

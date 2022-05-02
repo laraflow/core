@@ -2,9 +2,9 @@
 
 namespace Laraflow\LaraFlow\Http\Requests\Auth;
 
+use Illuminate\Foundation\Http\FormRequest;
 use Laraflow\Laraflow\Rules\PhoneNumber;
 use Laraflow\Laraflow\Rules\Username;
-use Illuminate\Foundation\Http\FormRequest;
 use Laraflow\Laraflow\Supports\Constant;
 
 class RegisterRequest extends FormRequest

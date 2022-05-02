@@ -30,7 +30,7 @@ class RegisteredUserService
      * @param UserRepository $userRepository
      * @param FileUploadService $fileUploadService
      */
-    public function __construct(UserRepository    $userRepository,
+    public function __construct(UserRepository $userRepository,
                                 FileUploadService $fileUploadService)
     {
         $modelPath = config('triplea.user');

@@ -15,8 +15,8 @@
 
 @section('content')
     <div class="login-box">
-        @include('layouts.includes.app-logo')
-        <!-- /.login-logo -->
+    @include('layouts.includes.app-logo')
+    <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Sign in to start your session</p>

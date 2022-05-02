@@ -22,17 +22,6 @@ class MoneyService
     }
 
     /**
-     * Return single currency
-     *
-     * @param string $name
-     * @return array|null
-     */
-    public static function get(string $name)
-    {
-        return (Money::$currency[$name] ?? null);
-    }
-
-    /**
      * Return Currency Formatted string from number
      *
      * @param mixed $amount
@@ -64,5 +53,16 @@ class MoneyService
         }
 
         return $amount;
+    }
+
+    /**
+     * Return single currency
+     *
+     * @param string $name
+     * @return array|null
+     */
+    public static function get(string $name)
+    {
+        return (Money::$currency[$name] ?? null);
     }
 }

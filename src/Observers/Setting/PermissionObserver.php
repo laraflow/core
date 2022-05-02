@@ -3,7 +3,6 @@
 namespace App\Observers\Setting;
 
 
-
 use App\Models\Setting\Permission;
 use App\Notifications\Setting\Permission\PermissionCreatedNotification;
 use App\Notifications\Setting\Permission\PermissionDeletedNotification;
@@ -34,7 +33,7 @@ class PermissionObserver
     public function created(Permission $permission)
     {
         //send notification to all super admin about new user
-        if($admins = $this->userService->getUsersByRoleName('Super Administrator')) {
+        if ($admins = $this->userService->getUsersByRoleName('Super Administrator')) {
             foreach ($admins as $admin)
                 $admin->notify(new PermissionCreatedNotification($permission));
         }
@@ -61,7 +60,7 @@ class PermissionObserver
     public function deleted(Permission $permission)
     {
         //send notification to all super admin about new user
-        if($admins = $this->userService->getUsersByRoleName('Super Administrator')) {
+        if ($admins = $this->userService->getUsersByRoleName('Super Administrator')) {
             foreach ($admins as $admin)
                 $admin->notify(new PermissionDeletedNotification($permission));
         }

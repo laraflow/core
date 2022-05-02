@@ -14,32 +14,21 @@ use Rap2hpoutre\FastExcel\FastExcel;
 abstract class FastExcelImport extends FastExcel implements ExportInterface
 {
     /**
+     * @var array
+     */
+    public $formatRow = [];
+    /**
      * @var BorderBuilder
      */
     protected $borderStyle = null;
-
     /**
      * @var StyleBuilder
      */
     protected $headingStyle = null;
-
     /**
      * @var StyleBuilder
      */
     protected $rowStyle = null;
-
-    /**
-     * @var array
-     */
-    public $formatRow = [];
-
-    /**
-     * Modify Output Row Cells
-     *
-     * @param mixed $row
-     * @return array
-     */
-    abstract public function map($row): array;
 
     /**
      * Export Constructor
@@ -68,6 +57,25 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
             ->setFontSize(12)
             ->setShouldWrapText()
             ->setCellAlignment(CellAlignment::LEFT));
+    }
+
+    /**
+     * @param StyleBuilder $styleBuilder
+     * @return FastExcelImport
+     */
+    public function setHeadingStyle(StyleBuilder $styleBuilder): self
+    {
+        //add Border Style for excel and ods
+        if ($this->borderStyle instanceof BorderBuilder) {
+            $borderStyle = $this->borderStyle->build();
+            $styleBuilder->setBorder($borderStyle);
+        }
+
+        $style = $styleBuilder->build();
+
+        $this->headerStyle($style);
+
+        return $this;
     }
 
     /**
@@ -101,21 +109,10 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
     }
 
     /**
-     * @param StyleBuilder $styleBuilder
-     * @return FastExcelImport
+     * Modify Output Row Cells
+     *
+     * @param mixed $row
+     * @return array
      */
-    public function setHeadingStyle(StyleBuilder $styleBuilder): self
-    {
-        //add Border Style for excel and ods
-        if ($this->borderStyle instanceof BorderBuilder) {
-            $borderStyle = $this->borderStyle->build();
-            $styleBuilder->setBorder($borderStyle);
-        }
-
-        $style = $styleBuilder->build();
-
-        $this->headerStyle($style);
-
-        return $this;
-    }
+    abstract public function map($row): array;
 }

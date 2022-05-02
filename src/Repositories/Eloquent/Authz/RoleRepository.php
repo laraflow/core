@@ -6,11 +6,11 @@ namespace App\Repositories\Eloquent\Backend\Setting;
 
 use App\Abstracts\Repository\EloquentRepository;
 use App\Models\Backend\Setting\Role;
-use Laraflow\Laraflow\Services\Auth\AuthenticatedSessionService;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Laraflow\Laraflow\Services\Auth\AuthenticatedSessionService;
 
 class RoleRepository extends EloquentRepository
 {
@@ -95,6 +95,26 @@ class RoleRepository extends EloquentRepository
     }
 
     /**
+     * Pagination Generator
+     * @param array $filters
+     * @param array $eagerRelations
+     * @param bool $is_sortable
+     * @return LengthAwarePaginator
+     * @throws Exception
+     */
+    public function paginateWith(array $filters = [], array $eagerRelations = [], bool $is_sortable = false): LengthAwarePaginator
+    {
+        $query = $this->getQueryBuilder();
+        try {
+            $query = $this->filterData($filters, $is_sortable);
+        } catch (Exception $exception) {
+            $this->handleException($exception);
+        } finally {
+            return $query->with($eagerRelations)->paginate($this->itemsPerPage);
+        }
+    }
+
+    /**
      * Search Function for Permissions
      *
      * @param array $filters
@@ -137,26 +157,6 @@ class RoleRepository extends EloquentRepository
         endif;
 
         return $query;
-    }
-
-    /**
-     * Pagination Generator
-     * @param array $filters
-     * @param array $eagerRelations
-     * @param bool $is_sortable
-     * @return LengthAwarePaginator
-     * @throws Exception
-     */
-    public function paginateWith(array $filters = [], array $eagerRelations = [], bool $is_sortable = false): LengthAwarePaginator
-    {
-        $query = $this->getQueryBuilder();
-        try {
-            $query = $this->filterData($filters, $is_sortable);
-        } catch (Exception $exception) {
-            $this->handleException($exception);
-        } finally {
-            return $query->with($eagerRelations)->paginate($this->itemsPerPage);
-        }
     }
 
     /**

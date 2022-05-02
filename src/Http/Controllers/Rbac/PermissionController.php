@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Backend\Setting;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Setting\PermissionRequest;
-use Laraflow\Laraflow\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Setting\PermissionService;
 use App\Supports\Utility;
 use Exception;
@@ -13,6 +12,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Laraflow\Laraflow\Services\Auth\AuthenticatedSessionService;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class PermissionController extends Controller
@@ -31,7 +31,7 @@ class PermissionController extends Controller
      * @param PermissionService $permissionService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                PermissionService              $permissionService)
+                                PermissionService $permissionService)
     {
 
         $this->authenticatedSessionService = $authenticatedSessionService;

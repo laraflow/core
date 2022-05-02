@@ -27,7 +27,7 @@ class MinLength implements Rule
      */
     public function passes($attribute, $value): bool
     {
-        return (! (strlen($value) < $this->limit));
+        return (!(strlen($value) < $this->limit));
     }
 
     /**

@@ -21,7 +21,7 @@ use Throwable;
 class SurveyService extends Service
 {
     /**
-     * @var SurveyRepository 
+     * @var SurveyRepository
      */
     private $surveyRepository;
 
@@ -36,21 +36,8 @@ class SurveyService extends Service
     }
 
     /**
-     * Get All Survey models as collection
-     * 
-     * @param array $filters
-     * @param array $eagerRelations
-     * @return Builder[]|Collection
-     * @throws Exception
-     */
-    public function getAllSurveys(array $filters = [], array $eagerRelations = [])
-    {
-        return $this->surveyRepository->getWith($filters, $eagerRelations, true);
-    }
-
-    /**
      * Create Survey Model Pagination
-     * 
+     *
      * @param array $filters
      * @param array $eagerRelations
      * @return LengthAwarePaginator
@@ -63,7 +50,7 @@ class SurveyService extends Service
 
     /**
      * Show Survey Model
-     * 
+     *
      * @param int $id
      * @param bool $purge
      * @return mixed
@@ -76,7 +63,7 @@ class SurveyService extends Service
 
     /**
      * Save Survey Model
-     * 
+     *
      * @param array $inputs
      * @return array
      * @throws Exception
@@ -106,7 +93,7 @@ class SurveyService extends Service
 
     /**
      * Update Survey Model
-     * 
+     *
      * @param array $inputs
      * @param $id
      * @return array
@@ -141,7 +128,7 @@ class SurveyService extends Service
 
     /**
      * Destroy Survey Model
-     * 
+     *
      * @param $id
      * @return array
      * @throws Throwable
@@ -170,7 +157,7 @@ class SurveyService extends Service
 
     /**
      * Restore Survey Model
-     * 
+     *
      * @param $id
      * @return array
      * @throws Throwable
@@ -224,5 +211,18 @@ class SurveyService extends Service
             $surveyArray[$survey->id] = $survey->name;
 
         return $surveyArray;
+    }
+
+    /**
+     * Get All Survey models as collection
+     *
+     * @param array $filters
+     * @param array $eagerRelations
+     * @return Builder[]|Collection
+     * @throws Exception
+     */
+    public function getAllSurveys(array $filters = [], array $eagerRelations = [])
+    {
+        return $this->surveyRepository->getWith($filters, $eagerRelations, true);
     }
 }

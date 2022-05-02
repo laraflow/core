@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Backend\Setting;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Setting\UserRequest;
-use Laraflow\Laraflow\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Setting\CountryService;
 use App\Services\Backend\Setting\RoleService;
 use App\Services\Backend\Setting\UserService;
@@ -15,6 +14,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Laraflow\Laraflow\Services\Auth\AuthenticatedSessionService;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class UserController extends Controller

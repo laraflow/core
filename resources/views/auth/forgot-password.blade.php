@@ -104,9 +104,9 @@
                     },
                     @endif
 
-                            @if(config('auth.credential_field') == \App\Supports\Constant::LOGIN_MOBILE
-                            || (config('auth.credential_field') == \App\Supports\Constant::LOGIN_OTP
-                            && config('auth.credential_otp_field') == \App\Supports\Constant::OTP_MOBILE))
+                        @if(config('auth.credential_field') == \App\Supports\Constant::LOGIN_MOBILE
+                        || (config('auth.credential_field') == \App\Supports\Constant::LOGIN_OTP
+                        && config('auth.credential_otp_field') == \App\Supports\Constant::OTP_MOBILE))
                     mobile: {
                         required: true,
                         minlength: 11,
@@ -115,7 +115,7 @@
                     },
                     @endif
 
-                            @if(config('auth.credential_field') == \App\Supports\Constant::LOGIN_USERNAME)
+                        @if(config('auth.credential_field') == \App\Supports\Constant::LOGIN_USERNAME)
                     username: {
                         required: true,
                         minlength: 5,

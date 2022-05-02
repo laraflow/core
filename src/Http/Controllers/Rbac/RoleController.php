@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Backend\Setting;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Setting\RoleRequest;
-use Laraflow\Laraflow\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Setting\PermissionService;
 use App\Services\Backend\Setting\RoleService;
 use App\Supports\Utility;
@@ -16,6 +15,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Laraflow\Laraflow\Services\Auth\AuthenticatedSessionService;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Throwable;
 
@@ -44,8 +44,8 @@ class RoleController extends Controller
      * @param PermissionService $permissionService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                RoleService                 $roleService,
-                                PermissionService              $permissionService)
+                                RoleService $roleService,
+                                PermissionService $permissionService)
     {
         $this->roleService = $roleService;
         $this->authenticatedSessionService = $authenticatedSessionService;

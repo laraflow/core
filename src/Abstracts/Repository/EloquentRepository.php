@@ -73,6 +73,52 @@ abstract class EloquentRepository implements RepositoryInterface
     }
 
     /**
+     * Get the associated model
+     * @return Model
+     */
+    public function getModel(): Model
+    {
+        return $this->model;
+    }
+
+    /**
+     * Associated Dynamically  model
+     * @param Model $model
+     * @return void
+     */
+    public function setModel(Model $model)
+    {
+        $this->model = $model;
+    }
+
+    /**
+     * Handle All catch Exceptions
+     *
+     * @param mixed $exception
+     * @throws Exception
+     */
+    public function handleException($exception)
+    {
+        Log::error("Query Exception: ");
+        Log::error($exception->getMessage());
+        //if application is on production keep silent
+        if (App::environment('production')) {
+            Log::error($exception->getMessage());
+        } //Eloquent Model Exception
+        elseif ($exception instanceof ModelNotFoundException) {
+            throw new ModelNotFoundException($exception->getMessage());
+        } //DB Error
+        elseif ($exception instanceof PDOException) {
+            throw new PDOException($exception->getMessage());
+        } elseif ($exception instanceof \BadMethodCallException) {
+            throw new \BadMethodCallException($exception->getMessage());
+        } //Through general Exception
+        else {
+            throw new Exception($exception->getMessage());
+        }
+    }
+
+    /**
      * update record in the database
      *
      * @param array $data
@@ -136,25 +182,6 @@ abstract class EloquentRepository implements RepositoryInterface
     public function restore($id): bool
     {
         return (bool)$this->model->withTrashed()->find($id)->restore($id);
-    }
-
-    /**
-     * Get the associated model
-     * @return Model
-     */
-    public function getModel(): Model
-    {
-        return $this->model;
-    }
-
-    /**
-     * Associated Dynamically  model
-     * @param Model $model
-     * @return void
-     */
-    public function setModel(Model $model)
-    {
-        $this->model = $model;
     }
 
     /**
@@ -238,33 +265,6 @@ abstract class EloquentRepository implements RepositoryInterface
             $this->handleException($exception);
         } finally {
             return $column;
-        }
-    }
-
-    /**
-     * Handle All catch Exceptions
-     *
-     * @param mixed $exception
-     * @throws Exception
-     */
-    public function handleException($exception)
-    {
-        Log::error("Query Exception: ");
-        Log::error($exception->getMessage());
-        //if application is on production keep silent
-        if (App::environment('production')) {
-            Log::error($exception->getMessage());
-        } //Eloquent Model Exception
-        elseif ($exception instanceof ModelNotFoundException) {
-            throw new ModelNotFoundException($exception->getMessage());
-        } //DB Error
-        elseif ($exception instanceof PDOException) {
-            throw new PDOException($exception->getMessage());
-        } elseif ($exception instanceof \BadMethodCallException) {
-            throw new \BadMethodCallException($exception->getMessage());
-        } //Through general Exception
-        else {
-            throw new Exception($exception->getMessage());
         }
     }
 

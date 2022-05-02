@@ -4,13 +4,13 @@
 namespace Laraflow\Laraflow\Repositories\Eloquent\Auth;
 
 
-use Illuminate\Database\Eloquent\Model;
-use Laraflow\Laraflow\Abstracts\Repository\EloquentRepository;
-use Laraflow\Laraflow\Services\Auth\AuthenticatedSessionService;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Laraflow\Laraflow\Abstracts\Repository\EloquentRepository;
+use Laraflow\Laraflow\Services\Auth\AuthenticatedSessionService;
 
 
 class UserRepository extends EloquentRepository
@@ -30,20 +30,6 @@ class UserRepository extends EloquentRepository
 
         parent::__construct($model);
     }
-
-    /**
-     * @param Model|null $user
-     * @return Collection
-     */
-    public function getAssignedRoles(Model $user = null): ?Collection
-    {
-        if (is_null($user)) {
-            return $this->model->roles;
-        }
-
-        return $user->roles;
-    }
-
 
     /**
      * @param array $roles
@@ -67,6 +53,19 @@ class UserRepository extends EloquentRepository
     }
 
     /**
+     * @param Model|null $user
+     * @return Collection
+     */
+    public function getAssignedRoles(Model $user = null): ?Collection
+    {
+        if (is_null($user)) {
+            return $this->model->roles;
+        }
+
+        return $user->roles;
+    }
+
+    /**
      * @param string $roleName
      * @return mixed
      */
@@ -83,6 +82,26 @@ class UserRepository extends EloquentRepository
     public function verifyUniqueUsername(string $testUserName): bool
     {
         return ($this->findFirstWhere('username', '=', $testUserName) == null);
+    }
+
+    /**
+     * Pagination Generator
+     * @param array $filters
+     * @param array $eagerRelations
+     * @param bool $is_sortable
+     * @return LengthAwarePaginator
+     * @throws Exception
+     */
+    public function paginateWith(array $filters = [], array $eagerRelations = [], bool $is_sortable = false): LengthAwarePaginator
+    {
+        $query = $this->getQueryBuilder();
+        try {
+            $query = $this->filterData($filters, $is_sortable);
+        } catch (Exception $exception) {
+            $this->handleException($exception);
+        } finally {
+            return $query->with($eagerRelations)->paginate($this->itemsPerPage);
+        }
     }
 
     /**
@@ -146,26 +165,6 @@ class UserRepository extends EloquentRepository
 
 
         return $query;
-    }
-
-    /**
-     * Pagination Generator
-     * @param array $filters
-     * @param array $eagerRelations
-     * @param bool $is_sortable
-     * @return LengthAwarePaginator
-     * @throws Exception
-     */
-    public function paginateWith(array $filters = [], array $eagerRelations = [], bool $is_sortable = false): LengthAwarePaginator
-    {
-        $query = $this->getQueryBuilder();
-        try {
-            $query = $this->filterData($filters, $is_sortable);
-        } catch (Exception $exception) {
-            $this->handleException($exception);
-        } finally {
-            return $query->with($eagerRelations)->paginate($this->itemsPerPage);
-        }
     }
 
     /**

@@ -7,7 +7,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-use Illuminate\View\View;
 
 class ConfirmablePasswordController extends Controller
 {
@@ -30,7 +29,7 @@ class ConfirmablePasswordController extends Controller
      */
     public function store(Request $request)
     {
-        if (! guard('web')->validate([
+        if (!guard('web')->validate([
             'email' => $request->user()->email,
             'password' => $request->password,
         ])) {

@@ -120,6 +120,29 @@ class UserService extends Service
     }
 
     /**
+     * Attach avatar image to model
+     *
+     * @param User $user
+     * @param UploadedFile|null $photo
+     * @param bool $replace
+     * @return bool
+     * @throws FileDoesNotExist
+     * @throws FileIsTooBig
+     * @throws Exception
+     */
+    protected function attachAvatarImage(User $user, UploadedFile $photo = null, bool $replace = false): bool
+    {
+        if ($photo == null && $replace == true)
+            return true;
+        else {
+            $profileImagePath = ($photo != null)
+                ? $this->fileUploadService->createAvatarImageFromInput($photo)
+                : $this->fileUploadService->createAvatarImageFromText($user->name);
+            return (bool)$user->addMedia($profileImagePath)->toMediaCollection('avatars');
+        }
+    }
+
+    /**
      * @param string $roleName
      * @return mixed
      * @throws Exception
@@ -132,17 +155,6 @@ class UserService extends Service
             $this->userRepository->handleException($exception);
             return [];
         }
-    }
-
-    /**
-     * @param $id
-     * @param bool $purge
-     * @return mixed|null
-     * @throws Exception
-     */
-    public function getUserById($id, bool $purge = false)
-    {
-        return $this->userRepository->show($id, $purge);
     }
 
     /**
@@ -205,6 +217,17 @@ class UserService extends Service
 
     /**
      * @param $id
+     * @param bool $purge
+     * @return mixed|null
+     * @throws Exception
+     */
+    public function getUserById($id, bool $purge = false)
+    {
+        return $this->userRepository->show($id, $purge);
+    }
+
+    /**
+     * @param $id
      * @return array
      * @throws Exception
      */
@@ -226,29 +249,6 @@ class UserService extends Service
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
-        }
-    }
-
-    /**
-     * Attach avatar image to model
-     *
-     * @param User $user
-     * @param UploadedFile|null $photo
-     * @param bool $replace
-     * @return bool
-     * @throws FileDoesNotExist
-     * @throws FileIsTooBig
-     * @throws Exception
-     */
-    protected function attachAvatarImage(User $user, UploadedFile $photo = null, bool $replace = false): bool
-    {
-        if ($photo == null && $replace == true)
-            return true;
-        else {
-            $profileImagePath = ($photo != null)
-                ? $this->fileUploadService->createAvatarImageFromInput($photo)
-                : $this->fileUploadService->createAvatarImageFromText($user->name);
-            return (bool)$user->addMedia($profileImagePath)->toMediaCollection('avatars');
         }
     }
 

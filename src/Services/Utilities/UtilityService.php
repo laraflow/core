@@ -6,7 +6,6 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Str;
 
 /**
  * Class UtilityService
@@ -94,17 +93,6 @@ class UtilityService
     }
 
     /**
-     * Convert Route Name Human Readable Style
-     *
-     * @param string $permission
-     * @return string
-     */
-    public static function permissionDisplay(string $permission): string
-    {
-        return ucwords(str_replace(['.', '-', '_'], [' ', ' ', ' '], $permission));
-    }
-
-    /**
      * @param Model $model
      * @param string $group
      * @return array
@@ -147,6 +135,17 @@ class UtilityService
         }
 
         return $routes;
+    }
+
+    /**
+     * Convert Route Name Human Readable Style
+     *
+     * @param string $permission
+     * @return string
+     */
+    public static function permissionDisplay(string $permission): string
+    {
+        return ucwords(str_replace(['.', '-', '_'], [' ', ' ', ' '], $permission));
     }
 
     /*
