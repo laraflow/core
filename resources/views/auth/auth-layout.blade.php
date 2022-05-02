@@ -30,7 +30,15 @@
 <!-- Preloader -->
 {!! \Laraflow\Laraflow\Services\Utilities\CustomHtmlService::preloader() !!}
 
-@yield('content')
+<div class="login-box">
+    <!-- login-logo -->
+    <div class="login-logo">
+        <a href="{{ url('/') }}">{{ config('app.name', 'Laraflow') }}</a>
+    </div>
+    <!-- /.login-logo -->
+    @yield('content')
+</div>
+<!-- /.login-box -->
 
 <div class="lockscreen-footer text-center">
     Copyright &copy; {{ date('Y') }}
