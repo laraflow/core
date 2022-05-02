@@ -1,6 +1,6 @@
 <?php
 
-namespace Laraflow\Laraflow\Middleware;
+namespace Laraflow\Laraflow\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
