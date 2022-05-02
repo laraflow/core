@@ -1,4 +1,4 @@
-@extends('layouts.guest')
+@extends('laraflow::auth.auth-layout')
 
 @section('title', 'Login')
 

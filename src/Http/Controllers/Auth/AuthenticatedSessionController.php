@@ -5,7 +5,7 @@ namespace Laraflow\Laraflow\Http\Controllers\Auth;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Laraflow\LaraFlow\Http\Requests\Auth\LoginRequest;
 use Laraflow\Laraflow\Services\Auth\AuthenticatedSessionService;
@@ -36,7 +36,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
-        return view('auth.login');
+        return view('laraflow::auth.login');
     }
 
     /**

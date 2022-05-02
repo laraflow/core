@@ -27,7 +27,7 @@ Route::get('/', function () {
 /**
  * Authentication Route
  */
-Route::prefix(config('laraflow.auth.prefix'))->name('auth.')->group(function () {
+Route::prefix(config('laraflow.auth.prefix'))->name('backend.auth.')->group(function () {
 
     Route::view('/privacy-terms', 'auth::terms')
         ->name('terms');
