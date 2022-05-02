@@ -24,7 +24,7 @@ class UserRepository extends EloquentRepository
         /**
          * Set the model that will be used for repo
          */
-        $modelPath = config('triplea.user');
+        $modelPath = config('laraflow.auth.user');
 
         $model = $model ?? new $modelPath;
 
