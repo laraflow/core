@@ -18,6 +18,7 @@
     "require": {
         "php": "^7.4|^8.1",
         "ext-pdo": "*",
+        "hafijul233/form": "^0.0.9",
         "illuminate/contracts": "^8.83",
         "intervention/image": "^2.7",
         "laravolt/avatar": "^4.1",
