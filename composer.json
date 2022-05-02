@@ -70,7 +70,8 @@
                 "Laraflow\\Laraflow\\LaraflowServiceProvider"
             ],
             "aliases": {
-                "Laraflow": "Laraflow\\Laraflow\\Facades\\Laraflow"
+                "Laraflow": "Laraflow\\Laraflow\\Facades\\Laraflow",
+                "Constant" : "Laraflow\\Laraflow\\Supports\\Constant"
             }
         }
     },
