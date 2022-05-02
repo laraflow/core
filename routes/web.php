@@ -27,7 +27,7 @@ Route::get('/', function () {
 /**
  * Authentication Route
  */
-Route::group(['prefix' => config('laraflow.auth.prefix')], function () {
+Route::prefix(config('laraflow.auth.prefix'))->name('auth.')->group(function () {
 
     Route::view('/privacy-terms', 'auth::terms')
         ->name('terms');
@@ -88,7 +88,7 @@ Route::group(['prefix' => config('laraflow.auth.prefix')], function () {
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
         ->middleware('auth')
         ->name('logout');
-})->name('auth.');
+});
 
 /*Route::group(function () {
 
