@@ -1,6 +1,6 @@
 <?php
 
-namespace Laraflow\Laraflow\Supports;
+namespace Laraflow\Laraflow\Services\Utilities;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
 /**
- * Class Utility
+ * Class UtilityService
  * @package Laraflow\Laraflow\Supports
  */
-class Utility
+class UtilityService
 {
     /**
      * Hash any text with laravel default has algo.
