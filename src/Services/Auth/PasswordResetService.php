@@ -3,13 +3,13 @@
 namespace Laraflow\Laraflow\Services\Auth;
 
 
-use App\Models\Backend\Setting\User;
-use App\Repositories\Eloquent\Backend\Setting\UserRepository;
-use App\Supports\Constant;
-use App\Supports\Utility;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
+use Laraflow\Laraflow\Repositories\Eloquent\Auth\UserRepository;
+use Laraflow\Laraflow\Services\Utilities\UtilityService;
+use Laraflow\Laraflow\Supports\Constant;
 
 class PasswordResetService
 {
@@ -105,7 +105,7 @@ class PasswordResetService
             $credentials,
             function ($user) use ($credentials) {
                 $confirmation = $this->userRepository->update([
-                    'password' => Utility::hashPassword($credentials['password']),
+                    'password' => UtilityService::hashPassword($credentials['password']),
                     'force_pass_reset' => 0,
                     'remember_token' => Str::random(60),
                 ], $user->id);
