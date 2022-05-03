@@ -1,4 +1,4 @@
-@extends('layouts.guest')
+@extends('laraflow::auth.auth-layout')
 
 @section('title', 'Forgot Password')
 
@@ -25,33 +25,30 @@
 @section('body-class', 'login-page')
 
 @section('content')
-    <div class="login-box">
-    @include('layouts.includes.app-logo')
-    <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
                 <p class="login-box-msg">
                     {{ __('Forgot your password? Here you can easily retrieve a new password.') }}
                 </p>
 
-                {!! \Form::open(['route' => 'auth.password.email', 'id' => 'password-reset-form', 'method' => 'post']) !!}
-                @if(config('auth.credential_field') == \App\Supports\Constant::LOGIN_EMAIL
-                                || (config('auth.credential_field') == \App\Supports\Constant::LOGIN_OTP
-                                    && config('auth.credential_otp_field') == \App\Supports\Constant::OTP_EMAIL))
+                {!! \Form::open(['route' => 'backend.auth.password.email', 'id' => 'password-reset-form', 'method' => 'post']) !!}
+                @if(config('laraflow.auth.credential_field') == \Constant::LOGIN_EMAIL
+                                || (config('laraflow.auth.credential_field') == \Constant::LOGIN_OTP
+                                    && config('laraflow.auth.credential_otp_field') == \Constant::OTP_EMAIL))
                     {!! \Form::iEmail('email', __('Email'), null, true, "fas fa-envelope", "after",
                                         [ 'minlength' => '5', 'maxlength' => '250',
                                             'size' => '250', 'placeholder' => 'Enter Email Address']) !!}
                 @endif
 
-                @if(config('auth.credential_field') == \App\Supports\Constant::LOGIN_MOBILE
-                || (config('auth.credential_field') == \App\Supports\Constant::LOGIN_OTP
-                    && config('auth.credential_otp_field') == \App\Supports\Constant::OTP_MOBILE))
+                @if(config('laraflow.auth.credential_field') == \Constant::LOGIN_MOBILE
+                || (config('laraflow.auth.credential_field') == \Constant::LOGIN_OTP
+                    && config('laraflow.auth.credential_otp_field') == \Constant::OTP_MOBILE))
                     {!! \Form::iTel('mobile', __('Mobile'), null, true, "fas fa-mobile", "after",
                                         [ 'minlength' => '11', 'maxlength' => '11',
                                             'size' => '11', 'placeholder' => 'Enter Mobile Number']) !!}
                 @endif
 
-                @if(config('auth.credential_field') == \App\Supports\Constant::LOGIN_USERNAME)
+                @if(config('laraflow.auth.credential_field') == \Constant::LOGIN_USERNAME)
                     {!! \Form::iText('username', __('Username'), null, true, "fas fa-user-shield", "after",
                                         [ 'minlength' => '5', 'maxlength' => '250',
                                             'size' => '250', 'placeholder' => 'Enter Username']) !!}
@@ -64,22 +61,20 @@
                 </div>
                 {!! \Form::close() !!}
 
-                @if(Route::has('auth.login'))
+                @if(Route::has('backend.auth.login'))
                     <p class="mb-0">
-                        <a href="{{ route('auth.login') }}" class="text-center">I already have a membership? Login</a>
+                        <a href="{{ route('backend.auth.login') }}" class="text-center">I already have a membership? Login</a>
                     </p>
                 @endif
 
-                @if(Route::has('auth.register') && config('auth.allow_register'))
+                @if(Route::has('backend.auth.register') && config('laraflow.auth.allow_register'))
                     <p class="mb-0">
-                        <a href="{{ route('auth.register') }}" class="text-center">Register a new membership</a>
+                        <a href="{{ route('backend.auth.register') }}" class="text-center">Register a new membership</a>
                     </p>
                 @endif
             </div>
             <!-- /.login-card-body -->
         </div>
-    </div>
-    <!-- /.login-box -->
 @endsection
 
 
@@ -93,9 +88,9 @@
         $(function () {
             $("#password-reset-form").validate({
                 rules: {
-                    @if(config('auth.credential_field') == \App\Supports\Constant::LOGIN_EMAIL
-                    || (config('auth.credential_field') == \App\Supports\Constant::LOGIN_OTP
-                    && config('auth.credential_otp_field') == \App\Supports\Constant::OTP_EMAIL))
+                    @if(config('laraflow.auth.credential_field') == \Constant::LOGIN_EMAIL
+                    || (config('laraflow.auth.credential_field') == \Constant::LOGIN_OTP
+                    && config('laraflow.auth.credential_otp_field') == \Constant::OTP_EMAIL))
                     email: {
                         required: true,
                         minlength: 3,
@@ -104,9 +99,9 @@
                     },
                     @endif
 
-                        @if(config('auth.credential_field') == \App\Supports\Constant::LOGIN_MOBILE
-                        || (config('auth.credential_field') == \App\Supports\Constant::LOGIN_OTP
-                        && config('auth.credential_otp_field') == \App\Supports\Constant::OTP_MOBILE))
+                        @if(config('laraflow.auth.credential_field') == \Constant::LOGIN_MOBILE
+                        || (config('laraflow.auth.credential_field') == \Constant::LOGIN_OTP
+                        && config('laraflow.auth.credential_otp_field') == \Constant::OTP_MOBILE))
                     mobile: {
                         required: true,
                         minlength: 11,
@@ -115,7 +110,7 @@
                     },
                     @endif
 
-                        @if(config('auth.credential_field') == \App\Supports\Constant::LOGIN_USERNAME)
+                        @if(config('laraflow.auth.credential_field') == \Constant::LOGIN_USERNAME)
                     username: {
                         required: true,
                         minlength: 5,
