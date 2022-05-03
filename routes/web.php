@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\Auth\PasswordResetController;
 use Illuminate\Support\Facades\Route;
 use Laraflow\Laraflow\Http\Controllers\Auth\AuthenticatedSessionController;
 use Laraflow\Laraflow\Http\Controllers\Auth\ConfirmablePasswordController;
 use Laraflow\Laraflow\Http\Controllers\Auth\EmailVerificationNotificationController;
 use Laraflow\Laraflow\Http\Controllers\Auth\EmailVerificationPromptController;
+use Laraflow\Laraflow\Http\Controllers\Auth\PasswordResetController;
 use Laraflow\Laraflow\Http\Controllers\Auth\RegisteredUserController;
 use Laraflow\Laraflow\Http\Controllers\Auth\VerifyEmailController;
 
@@ -28,9 +28,7 @@ Route::get('/', function () {
  * Authentication Route
  */
 Route::prefix(config('laraflow.auth.prefix'))
-    ->name('backend.auth.')
-    ->middleware('web')
-    ->group(function () {
+    ->name('backend.auth.')->middleware('web')->group(function () {
 
         Route::view('/privacy-terms', 'auth::terms')
             ->name('terms');
@@ -41,6 +39,10 @@ Route::prefix(config('laraflow.auth.prefix'))
 
         Route::post('/login', [AuthenticatedSessionController::class, 'store'])
             ->middleware('guest');
+
+        Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+            ->middleware('auth')
+            ->name('logout');
 
         if (config('laraflow.auth.allow_register')):
             Route::get('/register', [RegisteredUserController::class, 'create'])
@@ -87,10 +89,6 @@ Route::prefix(config('laraflow.auth.prefix'))
 
         Route::post('/confirm-password', [ConfirmablePasswordController::class, 'store'])
             ->middleware('auth');
-
-        Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
-            ->middleware('auth')
-            ->name('logout');
     });
 
 /*Route::group(function () {

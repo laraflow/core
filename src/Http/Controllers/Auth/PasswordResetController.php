@@ -27,9 +27,8 @@ class PasswordResetController extends Controller
     /**
      * Display the password reset link request view.
      *
-     * @return View
      */
-    public function create(): View
+    public function create()
     {
         return view('laraflow::auth.forgot-password');
     }
