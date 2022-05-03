@@ -79,15 +79,15 @@
             --}}
         <!-- /.social-auth-links -->
 
-            @if (Route::has('auth.password.request') && config('auth.allow_password_reset'))
+            @if (Route::has('backend.auth.password.request'))
                 <p class="mb-1">
-                    <a href="{{ route('auth.password.request') }}">I forgot my password</a>
+                    <a href="{{ route('backend.auth.password.request') }}">I forgot my password</a>
                 </p>
             @endif
 
-            @if(Route::has('auth.register') && config('auth.allow_register'))
+            @if(Route::has('backend.auth.register'))
                 <p class="mb-0">
-                    <a href="{{ route('auth.register') }}" class="text-center">Register a new membership</a>
+                    <a href="{{ route('backend.auth.register') }}" class="text-center">Register a new membership</a>
                 </p>
             @endif
         </div>
