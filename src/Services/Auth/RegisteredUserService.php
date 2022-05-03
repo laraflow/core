@@ -2,11 +2,11 @@
 
 namespace Laraflow\Laraflow\Services\Auth;
 
-use App\Repositories\Eloquent\Backend\Setting\UserRepository;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Laraflow\Laraflow\Repositories\Eloquent\Auth\UserRepository;
 use Laraflow\Laraflow\Services\Utilities\FileUploadService;
 use Laraflow\Laraflow\Services\Utilities\UtilityService;
 use Laraflow\Laraflow\Supports\Constant;
