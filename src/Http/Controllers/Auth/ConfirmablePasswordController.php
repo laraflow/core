@@ -2,10 +2,11 @@
 
 namespace Laraflow\Laraflow\Http\Controllers\Auth;
 
-use App\Providers\RouteServiceProvider;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Validation\ValidationException;
 
 class ConfirmablePasswordController extends Controller
@@ -13,11 +14,11 @@ class ConfirmablePasswordController extends Controller
     /**
      * Show the confirm password view.
      *
-     * @return Application|Factory|\Illuminate\Contracts\View\View
+     * @return Application|Factory|View
      */
     public function show()
     {
-        return view('auth.confirm-password');
+        return view('laraflow::auth.confirm-password');
     }
 
     /**
@@ -40,6 +41,6 @@ class ConfirmablePasswordController extends Controller
 
         $request->session()->put('auth.password_confirmed_at', time());
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return redirect()->back();
     }
 }

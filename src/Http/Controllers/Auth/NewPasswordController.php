@@ -2,10 +2,10 @@
 
 namespace Laraflow\Laraflow\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\NewPasswordRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\View\View;
 use Laraflow\Laraflow\Services\Auth\NewPasswordService;
 
@@ -38,8 +38,7 @@ class NewPasswordController extends Controller
      * Handle an incoming new password request.
      *
      * @param NewPasswordRequest $request
-     * @return RedirectResponse
-     *
+     * @return void
      */
     public function store(NewPasswordRequest $request)
     {

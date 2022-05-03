@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace Laraflow\Laraflow\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\NewPasswordRequest;
 use App\Http\Requests\Auth\PasswordResetRequest;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Controller;
 use Illuminate\View\View;
 use Laraflow\Laraflow\Services\Auth\PasswordResetService;
 
@@ -31,7 +31,7 @@ class PasswordResetController extends Controller
      */
     public function create(): View
     {
-        return view('auth.forgot-password');
+        return view('laraflow::auth.forgot-password');
     }
 
     /**
@@ -57,7 +57,7 @@ class PasswordResetController extends Controller
 
     public function edit($token)
     {
-        return view('auth.reset-password', ['token' => $token]);
+        return view('laraflow::auth.reset-password', ['token' => $token]);
     }
 
     public function update(NewPasswordRequest $request)
