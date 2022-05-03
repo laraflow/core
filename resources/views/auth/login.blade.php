@@ -98,11 +98,11 @@
 
 @push('plugin-script')
     <!-- jquery validation -->
-    <script src="{{ asset('plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('vendor/jquery-validation/jquery.validate.min.js') }}"></script>
 @endpush
 
 @push('page-script')
-    <script type="text/javascript">
+   {{-- <script type="text/javascript">
         $(function () {
             $("#login-form").validate({
                 rules: {
@@ -157,5 +157,5 @@
                 }
             });
         });
-    </script>
+    </script>--}}
 @endpush

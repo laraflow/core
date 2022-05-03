@@ -16,7 +16,7 @@
 
 @push('plugin-style')
     <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/icheck-bootstrap/icheck-bootstrap.min.css') }}">
 @endpush
 
 @push('page-style')
@@ -122,7 +122,7 @@
 
 
 @push('plugin-script')
-    <script src="{{ asset('plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('vendor/jquery-validation/jquery.validate.min.js') }}"></script>
 @endpush
 
 @push('page-script')
