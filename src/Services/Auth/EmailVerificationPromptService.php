@@ -2,7 +2,6 @@
 
 namespace Laraflow\Laraflow\Services\Auth;
 
-
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use function redirect;

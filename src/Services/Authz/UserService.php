@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Services\Backend\Setting;
-
 
 use App\Abstracts\Service\Service;
 use App\Exports\Backend\Setting\UserExport;
@@ -41,8 +39,10 @@ class UserService extends Service
      * @param UserRepository $userRepository
      * @param FileUploadService $fileUploadService
      */
-    public function __construct(UserRepository $userRepository,
-                                FileUploadService $fileUploadService)
+    public function __construct(
+        UserRepository $userRepository,
+        FileUploadService $fileUploadService
+    )
     {
         $this->userRepository = $userRepository;
         $this->fileUploadService = $fileUploadService;
@@ -132,9 +132,9 @@ class UserService extends Service
      */
     protected function attachAvatarImage(User $user, UploadedFile $photo = null, bool $replace = false): bool
     {
-        if ($photo == null && $replace == true)
+        if ($photo == null && $replace == true) {
             return true;
-        else {
+        } else {
             $profileImagePath = ($photo != null)
                 ? $this->fileUploadService->createAvatarImageFromInput($photo)
                 : $this->fileUploadService->createAvatarImageFromText($user->name);
@@ -179,7 +179,6 @@ class UserService extends Service
 
             //force password reset
             $requestData['force_pass_reset'] = false;
-
         } else {
             unset($requestData['password']);
         }
@@ -265,7 +264,6 @@ class UserService extends Service
                 DB::commit();
                 return ['status' => true, 'message' => __('User is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
-
             } else {
                 DB::rollBack();
                 return ['status' => false, 'message' => __('User is Restoration Failed'),

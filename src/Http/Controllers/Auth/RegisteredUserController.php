@@ -2,7 +2,6 @@
 
 namespace Laraflow\Laraflow\Http\Controllers\Auth;
 
-
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -10,7 +9,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
 use Laraflow\LaraFlow\Http\Requests\Auth\RegisterRequest;
 use Laraflow\Laraflow\Services\Auth\RegisteredUserService;
-
 
 class RegisteredUserController extends Controller
 {
@@ -26,8 +24,6 @@ class RegisteredUserController extends Controller
     public function __construct(RegisteredUserService $registeredUserService)
     {
         $this->registeredUserService = $registeredUserService;
-
-
     }
 
     /**

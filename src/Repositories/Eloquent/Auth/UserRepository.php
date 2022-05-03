@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Laraflow\Laraflow\Repositories\Eloquent\Auth;
-
 
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -11,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Laraflow\Laraflow\Abstracts\Repository\EloquentRepository;
 use Laraflow\Laraflow\Services\Auth\AuthenticatedSessionService;
-
 
 class UserRepository extends EloquentRepository
 {
@@ -26,7 +23,7 @@ class UserRepository extends EloquentRepository
          */
         $modelPath = config('laraflow.auth.user');
 
-        $model = $model ?? new $modelPath;
+        $model = $model ?? new $modelPath();
 
         parent::__construct($model);
     }
@@ -38,7 +35,6 @@ class UserRepository extends EloquentRepository
      */
     public function manageRoles(array $roles = [], bool $detachOldRoles = false): bool
     {
-
         $alreadyAssignedRoles = [];
 
         $roleCollection = $this->getAssignedRoles();
@@ -138,7 +134,6 @@ class UserRepository extends EloquentRepository
         //Role may be int, string, array
         if (isset($filters['role']) && !empty($filters['role'])) :
             $query->whereHas('roles', function ($subQuery) use ($filters) {
-
                 if (!is_array($filters['role'])):
                     $filters['role'][] = $filters['role'];
                 endif;
@@ -149,7 +144,7 @@ class UserRepository extends EloquentRepository
                 if (!empty($filters['role'])) :
                     foreach ($filters['role'] as $role):
                         $subQuery->orWhere('id', '=', $role);
-                    endforeach;
+                endforeach;
                 endif;
             });
         endif;

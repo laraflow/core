@@ -2,7 +2,6 @@
 
 namespace Laraflow\Laraflow\Services\Auth;
 
-
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
@@ -144,6 +143,5 @@ class PasswordResetService
         }
 
         return $confirmation;
-
     }
 }

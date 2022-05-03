@@ -141,7 +141,6 @@ class SurveyService extends Service
                 DB::commit();
                 return ['status' => true, 'message' => __('Survey is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
-
             } else {
                 DB::rollBack();
                 return ['status' => false, 'message' => __('Survey is Delete Failed'),
@@ -170,7 +169,6 @@ class SurveyService extends Service
                 DB::commit();
                 return ['status' => true, 'message' => __('Survey is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
-
             } else {
                 DB::rollBack();
                 return ['status' => false, 'message' => __('Survey is Restoration Failed'),
@@ -207,8 +205,9 @@ class SurveyService extends Service
     {
         $surveys = $this->getAllSurveys($filters);
         $surveyArray = [];
-        foreach ($surveys as $survey)
+        foreach ($surveys as $survey) {
             $surveyArray[$survey->id] = $survey->name;
+        }
 
         return $surveyArray;
     }

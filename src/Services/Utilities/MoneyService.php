@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Laraflow\Laraflow\Services\Utilities;
 
 use Laraflow\Laraflow\Supports\Money;

@@ -2,7 +2,6 @@
 
 namespace App\Services\Backend\Setting;
 
-
 use App\Abstracts\Service\Service;
 use App\Exports\Backend\Setting\CountryExport;
 use App\Models\Backend\Setting\Permission;
@@ -14,7 +13,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Throwable;
 use function __;
-
 
 class PermissionService extends Service
 {
@@ -152,7 +150,6 @@ class PermissionService extends Service
                 \DB::commit();
                 return ['status' => true, 'message' => __('Permission is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
-
             } else {
                 \DB::rollBack();
                 return ['status' => false, 'message' => __('Permission is Delete Failed'),
@@ -181,7 +178,6 @@ class PermissionService extends Service
                 \DB::commit();
                 return ['status' => true, 'message' => __('Permission is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
-
             } else {
                 \DB::rollBack();
                 return ['status' => false, 'message' => __('Permission is Restoration Failed'),

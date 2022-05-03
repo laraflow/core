@@ -2,7 +2,6 @@
 
 namespace App\Observers\Setting;
 
-
 use App\Models\Setting\Role;
 use App\Notifications\Setting\Role\RoleCreatedNotification;
 use App\Services\Backend\Setting\UserService;
@@ -31,10 +30,11 @@ class RoleObserver
      */
     public function created(Role $role)
     {
-//send notification to all super admin about new user
+        //send notification to all super admin about new user
         if ($admins = $this->userService->getUsersByRoleName('Super Administrator')) {
-            foreach ($admins as $admin)
+            foreach ($admins as $admin) {
                 $admin->notify(new RoleCreatedNotification($role));
+            }
         }
     }
 
@@ -60,8 +60,9 @@ class RoleObserver
     {
         //send notification to all super admin about new user
         if ($admins = $this->userService->getUsersByRoleName('Super Administrator')) {
-            foreach ($admins as $admin)
+            foreach ($admins as $admin) {
                 $admin->notify(new RoleDeletedNotification($role));
+            }
         }
     }
 

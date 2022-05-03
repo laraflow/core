@@ -125,11 +125,11 @@ class CustomHtmlService
         $HTML = "";
         if (count($tags) > 0) :
             $HTML = "<div class='d-inline-block'>";
-            $icon = ($icon_class !== null) ? "<i class='{$icon_class} mr-1'></i>" : null;
-            foreach ($tags as $tag):
+        $icon = ($icon_class !== null) ? "<i class='{$icon_class} mr-1'></i>" : null;
+        foreach ($tags as $tag):
                 $HTML .= "<span class='ml-1 badge badge-pill p-2 d-block d-md-inline-block " . UtilityService::randomBadgeBackground() . "'>{$icon} {$tag}</span>";
-            endforeach;
-            $HTML .= "</div>";
+        endforeach;
+        $HTML .= "</div>";
         endif;
 
         return new HtmlString($HTML);

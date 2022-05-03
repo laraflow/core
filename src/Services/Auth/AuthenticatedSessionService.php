@@ -2,7 +2,6 @@
 
 namespace Laraflow\Laraflow\Services\Auth;
 
-
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -144,8 +143,7 @@ class AuthenticatedSessionService
                     'message' => __('auth.login.banned'),
                     'level' => Constant::MSG_TOASTR_WARNING,
                     'title' => 'Alert!'];
-
-            } else if ($this->hasForcePasswordReset()) {
+            } elseif ($this->hasForcePasswordReset()) {
                 //make this user as guest to reset password
                 Auth::logout();
 
@@ -158,7 +156,6 @@ class AuthenticatedSessionService
                     'level' => Constant::MSG_TOASTR_WARNING,
                     'title' => 'Notification!',
                     'landing_page' => route('auth.password.reset', $tokenInfo['token'])];
-
             } else {
                 //set the auth user redirect page
                 $confirmation['landing_page'] = (Auth::user()->home_page ?? Constant::DASHBOARD_ROUTE);
@@ -182,12 +179,10 @@ class AuthenticatedSessionService
             || (config('auth.credential_field') == Constant::LOGIN_OTP
                 && config('auth.credential_otp_field') == Constant::OTP_EMAIL)) {
             $credentials['email'] = $request['email'] ?? null;
-
         } elseif (config('auth.credential_field') == Constant::LOGIN_MOBILE
             || (config('auth.credential_field') == Constant::LOGIN_OTP
                 && config('auth.credential_otp_field') == Constant::OTP_MOBILE)) {
             $credentials['mobile'] = $request['mobile'] ?? null;
-
         } elseif (config('auth.credential_field') == Constant::LOGIN_USERNAME) {
             $credentials['username'] = $request['username'] ?? null;
         }
@@ -238,7 +233,6 @@ class AuthenticatedSessionService
      */
     public static function isUserEnabled(): bool
     {
-
         if ($authUser = Auth::user()) {
             return ($authUser->enabled == Constant::ENABLED_OPTION);
         }
@@ -269,19 +263,16 @@ class AuthenticatedSessionService
     public function validate(Request $request): bool
     {
         if (config('auth.credential_field') != Constant::LOGIN_OTP) {
-
             $credentials = [];
 
             if (config('auth.credential_field') == Constant::LOGIN_EMAIL
                 || (config('auth.credential_field') == Constant::LOGIN_OTP
                     && config('auth.credential_otp_field') == Constant::OTP_EMAIL)) {
                 $credentials['email'] = $request->user()->email;
-
             } elseif (config('auth.credential_field') == Constant::LOGIN_MOBILE
                 || (config('auth.credential_field') == Constant::LOGIN_OTP
                     && config('auth.credential_otp_field') == Constant::OTP_MOBILE)) {
                 $credentials['mobile'] = $request->user()->mobile;
-
             } elseif (config('auth.credential_field') == Constant::LOGIN_USERNAME) {
                 $credentials['username'] = $request->user()->username;
             }
@@ -303,7 +294,6 @@ class AuthenticatedSessionService
      */
     public function attemptLogout(Request $request): array
     {
-
         try {
             Auth::logout();
 
