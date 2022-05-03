@@ -11,7 +11,6 @@
     @stack('webfont')
 
     <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/mdi/css/materialdesignicons.min.css') }}">
     @stack('icon')
 
     @notify_css
