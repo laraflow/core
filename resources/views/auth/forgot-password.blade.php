@@ -53,7 +53,7 @@
                                         [ 'minlength' => '5', 'maxlength' => '250',
                                             'size' => '250', 'placeholder' => 'Enter Username']) !!}
                 @endif
-                <div class="row">
+                <div class="row mb-4">
                     <div class="col-12">
                         <button type="submit" class="btn btn-warning btn-block">Request new Password</button>
                     </div>

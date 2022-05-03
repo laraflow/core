@@ -47,7 +47,7 @@
                                      'minlength' => '5', 'maxlength' => '250', 'size' => '250']) !!}
             @endif
 
-            <div class="row">
+            <div class="row mb-4">
                 @if(config('laraflow.auth.allow_remembering'))
                     <div class="col-8">
                         <div class="icheck-primary">

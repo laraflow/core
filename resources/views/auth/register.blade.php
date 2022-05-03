@@ -67,7 +67,7 @@
                                      'maxlength' => '255', 'size' => '255']) !!}
 
             @endif
-            <div class="row">
+            <div class="row mb-4">
                 <div class="col-8">
                     <div class="icheck-primary">
                         {!! \Form::checkbox('agree_terms', 'agree', null, ['id' => 'agree_terms']) !!}
