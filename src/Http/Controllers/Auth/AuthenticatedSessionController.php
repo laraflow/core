@@ -7,7 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
-use Laraflow\LaraFlow\Http\Requests\Auth\LoginRequest;
+use Laraflow\Laraflow\Http\Requests\Auth\LoginRequest;
 use Laraflow\Laraflow\Services\Auth\AuthenticatedSessionService;
 
 /**
