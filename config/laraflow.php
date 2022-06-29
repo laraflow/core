@@ -1,5 +1,5 @@
 <?php
-// config for Laraflow/Laraflow
+// config for laraflow/core
 return [
 
     'auth' => [

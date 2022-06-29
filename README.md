@@ -1,9 +1,9 @@
 # Laraflow Core
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/laraflow/laraflow.svg?style=flat-square)](https://packagist.org/packages/laraflow/laraflow)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/laraflow/laraflow/run-tests?label=tests)](https://github.com/laraflow/laraflow/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/laraflow/laraflow/Check%20&%20fix%20styling?label=code%20style)](https://github.com/laraflow/laraflow/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/laraflow/laraflow.svg?style=flat-square)](https://packagist.org/packages/laraflow/laraflow)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/laraflow/core.svg?style=flat-square)](https://packagist.org/packages/laraflow/core)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/laraflow/core/run-tests?label=tests)](https://github.com/laraflow/core/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/laraflow/core/Check%20&%20fix%20styling?label=code%20style)](https://github.com/laraflow/core/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/laraflow/core.svg?style=flat-square)](https://packagist.org/packages/laraflow/core)
 
 set of wrapper class for laraflow apps
 
@@ -12,7 +12,7 @@ set of wrapper class for laraflow apps
 You can install the package via composer:
 
 ```bash
-composer require laraflow/laraflow
+composer require laraflow/core
 ```
 
 You can publish and run the migrations with:
