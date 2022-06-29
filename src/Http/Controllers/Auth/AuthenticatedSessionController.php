@@ -6,7 +6,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Session;
 use Laraflow\Laraflow\Http\Requests\Auth\LoginRequest;
 use Laraflow\Laraflow\Services\Auth\AuthenticatedSessionService;
 
@@ -50,7 +49,6 @@ class AuthenticatedSessionController extends Controller
         $confirm = $this->authenticatedSessionService->attemptLogin($request);
 
         if ($confirm['status'] === true) {
-            Session::put('locale', 'en');
             notify($confirm['message'], $confirm['level'], $confirm['title']);
             return redirect()->route($confirm['landing_page']);
         }

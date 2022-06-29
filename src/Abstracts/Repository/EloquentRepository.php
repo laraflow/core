@@ -4,7 +4,6 @@ namespace Laraflow\Laraflow\Abstracts\Repository;
 
 use BadMethodCallException;
 use Exception;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -35,10 +34,35 @@ abstract class EloquentRepository implements RepositoryInterface
      * @param Model $model
      * @param int $itemsPerPage
      */
-    public function __construct(Model $model, int $itemsPerPage = 10)
+    public function __construct($model, int $itemsPerPage = 10)
     {
-        $this->model = $model;
+        $this->setModel($model);
         $this->itemsPerPage = $itemsPerPage;
+    }
+
+    /**
+     * Get the associated model
+     * @return mixed
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+     * Associated Dynamically  model
+     * @param mixed $model
+     * @return void
+     */
+    public function setModel($model)
+    {
+        if (is_string($model)) {
+            $this->model = App::make($model);
+        } elseif ($model instanceof Model) {
+            $this->model = $model;
+        } else {
+            throw new \InvalidArgumentException('Eloquent Repository setModel() except instance of Illuminate\Database\Eloquent\Model or Namespace');
+        }
     }
 
     /**
@@ -55,66 +79,19 @@ abstract class EloquentRepository implements RepositoryInterface
      * create a new record in the database
      *
      * @param array $data
-     * @return Model
+     * @return mixed
      * @throws Exception
      */
-    public function create(array $data): ?Model
+    public function create(array $data)
     {
         try {
             $newModel = $this->model->create($data);
             $this->setModel($newModel);
-
             return $this->getModel();
         } catch (Exception $exception) {
             $this->handleException($exception);
 
             return null;
-        }
-    }
-
-    /**
-     * Get the associated model
-     * @return Model
-     */
-    public function getModel(): Model
-    {
-        return $this->model;
-    }
-
-    /**
-     * Associated Dynamically  model
-     * @param Model $model
-     * @return void
-     */
-    public function setModel(Model $model)
-    {
-        $this->model = $model;
-    }
-
-    /**
-     * Handle All catch Exceptions
-     *
-     * @param mixed $exception
-     * @throws Exception
-     */
-    public function handleException($exception)
-    {
-        Log::error("Query Exception: ");
-        Log::error($exception->getMessage());
-        //if application is on production keep silent
-        if (App::environment('production')) {
-            Log::error($exception->getMessage());
-        } //Eloquent Model Exception
-        elseif ($exception instanceof ModelNotFoundException) {
-            throw new ModelNotFoundException($exception->getMessage());
-        } //DB Error
-        elseif ($exception instanceof PDOException) {
-            throw new PDOException($exception->getMessage());
-        } elseif ($exception instanceof \BadMethodCallException) {
-            throw new \BadMethodCallException($exception->getMessage());
-        } //Through general Exception
-        else {
-            throw new Exception($exception->getMessage());
         }
     }
 
@@ -185,112 +162,43 @@ abstract class EloquentRepository implements RepositoryInterface
     }
 
     /**
-     * Eager load database relationships
-     *
-     * @param string|array $relations
-     * @return Builder
+     * @return mixed
      */
-    public function with($relations): Builder
-    {
-        return $this->model->with($relations);
-    }
-
-    /**
-     * @return Builder
-     */
-    public function getQueryBuilder(): Builder
+    public function getQueryBuilder()
     {
         return $this->model->newQuery();
     }
 
     /**
-     * Get the first Model meet this criteria
+     * Handle All catch Exceptions
      *
-     * @param string $column
-     * @param string $operator
-     * @param mixed $value
-     * @return Model|null
+     * @param mixed $exception
      * @throws Exception
+     * @return void
      */
-    public function findFirstWhere(string $column, string $operator, $value): ?Model
+    public function handleException($exception)
     {
-        $freshModel = null;
+        Log::error("Query Exception: ");
+        Log::error($exception->getMessage());
+        //if application is on production keep silent
+        if (App::environment('production')):
+            Log::error($exception->getMessage());
 
-        try {
-            $freshModel = $this->model->where($column, $operator, $value)->first();
-        } catch (PDOException $exception) {
-            $this->handleException($exception);
-        } finally {
-            return $freshModel;
-        }
-    }
+        //Eloquent Model Exception
+        elseif ($exception instanceof ModelNotFoundException):
+            throw new ModelNotFoundException($exception->getMessage());
 
-    /**
-     * Get the all Model meet this criteria
-     *
-     * @param string $column
-     * @param string $operator
-     * @param mixed $value
-     * @param array $with
-     * @return Collection
-     * @throws Exception
-     */
-    public function findAllWhere(string $column, string $operator, $value, array $with = []): ?Collection
-    {
-        $collection = new Collection();
+        //DB Error
+        elseif ($exception instanceof PDOException):
+            throw new PDOException($exception->getMessage());
 
-        try {
-            $collection = $this->model->where($column, $operator, $value)->with($with)->get();
-        } catch (PDOException $exception) {
-            $this->handleException($exception);
-        } finally {
-            return $collection;
-        }
-    }
+        //Invalid magic method called
+        elseif ($exception instanceof BadMethodCallException):
+            throw new BadMethodCallException($exception->getMessage());
 
-    /**
-     * Get the all Model Columns Collection
-     *
-     * @param string $column
-     * @return mixed
-     * @throws Exception
-     */
-    public function findColumn(string $column)
-    {
-        $column = null;
-
-        try {
-            $column = $this->model->all()->pluck($column);
-        } catch (PDOException $exception) {
-            $this->handleException($exception);
-        } finally {
-            return $column;
-        }
-    }
-
-    /**
-     * @param array $filters
-     * @param array $eagerRelations
-     * @param bool $is_sortable
-     * @return mixed
-     * @throws Exception
-     */
-    public function paginateWith(array $filters = [], array $eagerRelations = [], bool $is_sortable = false)
-    {
-        try {
-            //if Sorting is available for this column
-            if ($is_sortable) {
-                $this->model->sortable();
-            }
-
-            if (isset($filters['sort']) && isset($filters['direction'])) {
-                /*                $this->model->orderBy($filters['sort'], $filters['direction']);*/
-                unset($filters['sort'], $filters['direction']);
-            }
-        } catch (BadMethodCallException $exception) {
-            $this->handleException($exception);
-        } finally {
-            return $this->model->where($filters)->with($eagerRelations)->paginate($this->itemsPerPage);
-        }
+        //Through general Exception
+        else:
+            throw new Exception($exception->getMessage());
+        endif;
     }
 }

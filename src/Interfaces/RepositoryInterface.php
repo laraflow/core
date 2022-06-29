@@ -20,10 +20,10 @@ interface RepositoryInterface
      * create a new record in the database
      *
      * @param array $data
-     * @return Model|null
+     * @return mixed
      * @throws Exception
      */
-    public function create(array $data): ?Model;
+    public function create(array $data);
 
     /**
      * update record in the database
@@ -52,16 +52,16 @@ interface RepositoryInterface
 
     /**
      * Get the associated model
-     * @return Model
+     * @return mixed
      */
-    public function getModel(): Model;
+    public function getModel();
 
     /**
      * Associated Dynamically  model
-     * @param Model $model
+     * @param mixed $model
      * @return void
      */
-    public function setModel(Model $model);
+    public function setModel($model);
 
     /**
      * Eager load database relationships
@@ -72,9 +72,9 @@ interface RepositoryInterface
     public function with($relations): Builder;
 
     /**
-     * @return Builder
+     * @return mixed
      */
-    public function getQueryBuilder(): Builder;
+    public function getQueryBuilder();
 
     /**
      * Get the first Model meet this criteria
@@ -86,18 +86,6 @@ interface RepositoryInterface
      * @throws Exception
      */
     public function findFirstWhere(string $column, string $operator, $value): ?Model;
-
-    /**
-     * Get the all Model meet this criteria
-     *
-     * @param string $column
-     * @param string $operator
-     * @param mixed $value
-     * @param array $with
-     * @return Collection|null
-     * @throws Exception
-     */
-    public function findAllWhere(string $column, string $operator, $value, array $with = []): ?Collection;
 
     /**
      * Get the all Model Columns Collection
@@ -117,16 +105,17 @@ interface RepositoryInterface
     public function handleException($exception);
 
     /**
-     * @param array $filters
-     * @param array $eagerRelations
-     * @return mixed
-     */
-    public function paginateWith(array $filters = [], array $eagerRelations = []);
-
-    /**
      * Restore any Soft-Deleted Table Row/Model
      * @param string|int $id
      * @return bool
      */
     public function restore($id): bool;
+
+    /**
+     * Return Query Builder with condition options
+     *
+     * @param array $conditions
+     * @return mixed
+     */
+    public function filter(array $conditions = []);
 }

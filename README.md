@@ -5,7 +5,7 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/laraflow/laraflow/Check%20&%20fix%20styling?label=code%20style)](https://github.com/laraflow/laraflow/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/laraflow/laraflow.svg?style=flat-square)](https://packagist.org/packages/laraflow/laraflow)
 
-set of wrapper class for larflow apps
+set of wrapper class for laraflow apps
 
 ## Installation
 

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
-use Laraflow\LaraFlow\Http\Requests\Auth\LoginRequest;
+use Laraflow\Laraflow\Http\Requests\Auth\LoginRequest;
 use Laraflow\Laraflow\Supports\Constant;
 
 /**

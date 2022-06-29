@@ -7,7 +7,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
-use Laraflow\LaraFlow\Http\Requests\Auth\RegisterRequest;
+use Laraflow\Laraflow\Http\Requests\Auth\RegisterRequest;
 use Laraflow\Laraflow\Services\Auth\RegisteredUserService;
 
 class RegisteredUserController extends Controller

@@ -1,6 +1,6 @@
 <?php
 
-namespace Laraflow\LaraFlow\Http\Requests\Auth;
+namespace Laraflow\Laraflow\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Laraflow\Laraflow\Rules\PhoneNumber;
