@@ -1,10 +1,10 @@
 <?php
 
-namespace Laraflow\Laraflow\Supports;
+namespace Laraflow\Core\Supports;
 
 /**
  * Class Money
- * @package Laraflow\Laraflow\Supports
+ * @package Laraflow\Core\Supports
  */
 class Money
 {

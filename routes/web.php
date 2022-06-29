@@ -1,13 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Laraflow\Laraflow\Http\Controllers\Auth\AuthenticatedSessionController;
-use Laraflow\Laraflow\Http\Controllers\Auth\ConfirmablePasswordController;
-use Laraflow\Laraflow\Http\Controllers\Auth\EmailVerificationNotificationController;
-use Laraflow\Laraflow\Http\Controllers\Auth\EmailVerificationPromptController;
-use Laraflow\Laraflow\Http\Controllers\Auth\PasswordResetController;
-use Laraflow\Laraflow\Http\Controllers\Auth\RegisteredUserController;
-use Laraflow\Laraflow\Http\Controllers\Auth\VerifyEmailController;
+use Laraflow\Core\Http\Controllers\Auth\AuthenticatedSessionController;
+use Laraflow\Core\Http\Controllers\Auth\ConfirmablePasswordController;
+use Laraflow\Core\Http\Controllers\Auth\EmailVerificationNotificationController;
+use Laraflow\Core\Http\Controllers\Auth\EmailVerificationPromptController;
+use Laraflow\Core\Http\Controllers\Auth\PasswordResetController;
+use Laraflow\Core\Http\Controllers\Auth\RegisteredUserController;
+use Laraflow\Core\Http\Controllers\Auth\VerifyEmailController;
 
 /*
  |--------------------------------------------------------------------------

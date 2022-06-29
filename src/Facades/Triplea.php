@@ -1,11 +1,11 @@
 <?php
 
-namespace Laraflow\Laraflow\Facades;
+namespace Laraflow\Core\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Laraflow\Laraflow\Triplea
+ * @see \Laraflow\Core\Triplea
  */
 class Triplea extends Facade
 {

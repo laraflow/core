@@ -1,6 +1,6 @@
 <?php
 
-namespace Laraflow\Laraflow\Services\Utilities;
+namespace Laraflow\Core\Services\Utilities;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 /**
  * Class UtilityService
- * @package Laraflow\Laraflow\Supports
+ * @package Laraflow\Core\Supports
  */
 class UtilityService
 {

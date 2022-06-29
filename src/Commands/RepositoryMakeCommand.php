@@ -1,12 +1,12 @@
 <?php
 
-namespace Laraflow\Laraflow\Commands;
+namespace Laraflow\Core\Commands;
 
 use Illuminate\Console\GeneratorCommand;
 
 /**
  * Class RepositoryMakeCommand
- * @package Laraflow\Laraflow\Commands
+ * @package Laraflow\Core\Commands
  */
 class RepositoryMakeCommand extends GeneratorCommand
 {

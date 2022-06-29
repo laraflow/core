@@ -1,6 +1,6 @@
 <?php
 
-namespace Laraflow\Laraflow;
+namespace Laraflow\Core;
 
 class Laraflow
 {

@@ -8,7 +8,7 @@ use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Laraflow\Laraflow\Services\Auth\AuthenticatedSessionService;
+use Laraflow\Core\Services\Auth\AuthenticatedSessionService;
 
 class PermissionRepository extends EloquentRepository
 {

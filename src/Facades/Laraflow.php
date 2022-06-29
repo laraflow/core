@@ -1,11 +1,11 @@
 <?php
 
-namespace Laraflow\Laraflow\Facades;
+namespace Laraflow\Core\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Laraflow\Laraflow\Laraflow
+ * @see \Laraflow\Core\Laraflow
  */
 class Laraflow extends Facade
 {

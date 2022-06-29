@@ -1,12 +1,12 @@
 <?php
 
-namespace Laraflow\Laraflow\Rules;
+namespace Laraflow\Core\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
 /**
  * Class HexColor
- * @package Laraflow\Laraflow\Rules
+ * @package Laraflow\Core\Rules
  */
 class HexColor implements Rule
 {

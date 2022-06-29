@@ -1,6 +1,6 @@
 <?php
 
-namespace Laraflow\Laraflow\Commands;
+namespace Laraflow\Core\Commands;
 
 use Illuminate\Console\Command;
 

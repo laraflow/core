@@ -1,6 +1,6 @@
 <?php
 
-namespace Laraflow\Laraflow\Http\Middleware;
+namespace Laraflow\Core\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
@@ -10,7 +10,7 @@ use Illuminate\Validation\UnauthorizedException;
  * Ajax Request Middleware
  *
  * Class VerifyAjax
- * @package Laraflow\Laraflow\Middleware
+ * @package Laraflow\Core\Middleware
  */
 class VerifyAjax
 {

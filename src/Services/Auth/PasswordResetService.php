@@ -1,14 +1,14 @@
 <?php
 
-namespace Laraflow\Laraflow\Services\Auth;
+namespace Laraflow\Core\Services\Auth;
 
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
-use Laraflow\Laraflow\Repositories\Eloquent\Auth\UserRepository;
-use Laraflow\Laraflow\Services\Utilities\UtilityService;
-use Laraflow\Laraflow\Supports\Constant;
+use Laraflow\Core\Repositories\Eloquent\Auth\UserRepository;
+use Laraflow\Core\Services\Utilities\UtilityService;
+use Laraflow\Core\Supports\Constant;
 
 class PasswordResetService
 {

@@ -1,14 +1,14 @@
 <?php
 
-namespace Laraflow\Laraflow\Http\Controllers\Auth;
+namespace Laraflow\Core\Http\Controllers\Auth;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
-use Laraflow\Laraflow\Http\Requests\Auth\RegisterRequest;
-use Laraflow\Laraflow\Services\Auth\RegisteredUserService;
+use Laraflow\Core\Http\Requests\Auth\RegisterRequest;
+use Laraflow\Core\Services\Auth\RegisteredUserService;
 
 class RegisteredUserController extends Controller
 {

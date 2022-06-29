@@ -1,6 +1,6 @@
 <?php
 
-namespace Laraflow\Laraflow\Interfaces;
+namespace Laraflow\Core\Interfaces;
 
 interface ImportInterface
 {

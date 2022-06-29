@@ -44,7 +44,7 @@ php artisan vendor:publish --tag="laraflow-views"
 ## Usage
 
 ```php
-$laraflow = new Laraflow\Laraflow();
+$laraflow = new Laraflow\Core();
 echo $laraflow->echoPhrase('Hello, Laraflow!');
 ```
 

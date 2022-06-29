@@ -1,6 +1,6 @@
 <?php
 
-namespace Laraflow\Laraflow\Database\Factories;
+namespace Laraflow\Core\Database\Factories;
 
 /*
 class ModelFactory extends Factory

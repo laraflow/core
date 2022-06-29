@@ -1,13 +1,13 @@
 <?php
 
-namespace Laraflow\Laraflow\Http\Controllers\Auth;
+namespace Laraflow\Core\Http\Controllers\Auth;
 
 use App\Http\Requests\Auth\NewPasswordRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\View\View;
-use Laraflow\Laraflow\Services\Auth\NewPasswordService;
+use Laraflow\Core\Services\Auth\NewPasswordService;
 
 class NewPasswordController extends Controller
 {

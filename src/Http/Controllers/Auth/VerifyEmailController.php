@@ -1,6 +1,6 @@
 <?php
 
-namespace Laraflow\Laraflow\Http\Controllers\Auth;
+namespace Laraflow\Core\Http\Controllers\Auth;
 
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;

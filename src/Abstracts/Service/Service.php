@@ -1,6 +1,6 @@
 <?php
 
-namespace Laraflow\Laraflow\Abstracts\Service;
+namespace Laraflow\Core\Abstracts\Service;
 
 abstract class Service
 {

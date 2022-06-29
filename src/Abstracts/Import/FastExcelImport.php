@@ -1,6 +1,6 @@
 <?php
 
-namespace Laraflow\Laraflow\Abstracts\Import;
+namespace Laraflow\Core\Abstracts\Import;
 
 use Box\Spout\Common\Entity\Style\Border;
 use Box\Spout\Common\Entity\Style\CellAlignment;
@@ -8,7 +8,7 @@ use Box\Spout\Common\Entity\Style\Color;
 use Box\Spout\Common\Exception\InvalidArgumentException;
 use Box\Spout\Writer\Common\Creator\Style\BorderBuilder;
 use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
-use Laraflow\Laraflow\Interfaces\ExportInterface;
+use Laraflow\Core\Interfaces\ExportInterface;
 use Rap2hpoutre\FastExcel\FastExcel;
 
 abstract class FastExcelImport extends FastExcel implements ExportInterface

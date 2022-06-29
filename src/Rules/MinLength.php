@@ -1,6 +1,6 @@
 <?php
 
-namespace Laraflow\Laraflow\Rules;
+namespace Laraflow\Core\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 

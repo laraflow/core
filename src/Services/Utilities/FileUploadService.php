@@ -1,14 +1,14 @@
 <?php
 
-namespace Laraflow\Laraflow\Services\Utilities;
+namespace Laraflow\Core\Services\Utilities;
 
 use Exception;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
-use Laraflow\Laraflow\Abstracts\Service\Service;
-use Laraflow\Laraflow\Supports\Constant;
+use Laraflow\Core\Abstracts\Service\Service;
+use Laraflow\Core\Supports\Constant;
 use Laravolt\Avatar\Facade as Avatar;
 use function public_path;
 

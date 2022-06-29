@@ -1,13 +1,13 @@
 <?php
 
-namespace Laraflow\Laraflow\Services\Utilities;
+namespace Laraflow\Core\Services\Utilities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\HtmlString;
 
 /**
  * Class CustomHtmlService
- * @package Laraflow\Laraflow\Supports
+ * @package Laraflow\Core\Supports
  */
 class CustomHtmlService
 {

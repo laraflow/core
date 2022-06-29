@@ -1,6 +1,6 @@
 <?php
 
-namespace Laraflow\Laraflow\Services\Auth;
+namespace Laraflow\Core\Services\Auth;
 
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;

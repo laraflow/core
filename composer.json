@@ -1,10 +1,10 @@
 {
-    "name": "laraflow/laraflow",
+    "name": "laraflow/core",
     "description": "set of wrapper class for laraflow apps",
     "keywords": [
         "laraflow",
         "laravel",
-        "laraflow"
+        "core"
     ],
     "homepage": "https://github.com/laraflow/laraflow",
     "license": "MIT",
@@ -12,7 +12,7 @@
         {
             "name": "Mohammad Hafijul Islam",
             "email": "hafijul233@gmail.com",
-            "role": "Developer"
+            "role": "Maintainer"
         }
     ],
     "require": {
@@ -43,13 +43,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Laraflow\\Laraflow\\": "src",
-            "Laraflow\\Laraflow\\Database\\Factories\\": "database/factories"
+            "Laraflow\\Core\\": "src",
+            "Laraflow\\Core\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Laraflow\\Laraflow\\Tests\\": "tests"
+            "Laraflow\\Core\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -67,11 +67,11 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Laraflow\\Laraflow\\LaraflowServiceProvider"
+                "Laraflow\\Core\\LaraflowServiceProvider"
             ],
             "aliases": {
-                "Laraflow": "Laraflow\\Laraflow\\Facades\\Laraflow",
-                "Constant" : "Laraflow\\Laraflow\\Supports\\Constant"
+                "Laraflow": "Laraflow\\Core\\Facades\\Laraflow",
+                "Constant" : "Laraflow\\Core\\Supports\\Constant"
             }
         }
     },

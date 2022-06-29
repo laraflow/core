@@ -12,7 +12,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Laraflow\Laraflow\Services\Auth\AuthenticatedSessionService;
+use Laraflow\Core\Services\Auth\AuthenticatedSessionService;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class PermissionController extends Controller

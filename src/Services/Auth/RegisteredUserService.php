@@ -1,15 +1,15 @@
 <?php
 
-namespace Laraflow\Laraflow\Services\Auth;
+namespace Laraflow\Core\Services\Auth;
 
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Laraflow\Laraflow\Repositories\Eloquent\Auth\UserRepository;
-use Laraflow\Laraflow\Services\Utilities\FileUploadService;
-use Laraflow\Laraflow\Services\Utilities\UtilityService;
-use Laraflow\Laraflow\Supports\Constant;
+use Laraflow\Core\Repositories\Eloquent\Auth\UserRepository;
+use Laraflow\Core\Services\Utilities\FileUploadService;
+use Laraflow\Core\Services\Utilities\UtilityService;
+use Laraflow\Core\Supports\Constant;
 
 class RegisteredUserService
 {

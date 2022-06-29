@@ -2,7 +2,7 @@
 
 namespace {{ namespace }};
 
-use Laraflow\Laraflow\Abstracts\Repository\EloquentRepository;
+use Laraflow\Core\Abstracts\Repository\EloquentRepository;
 
 /**
  * Describe this service purposes

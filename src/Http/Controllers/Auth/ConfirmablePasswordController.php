@@ -1,6 +1,6 @@
 <?php
 
-namespace Laraflow\Laraflow\Http\Controllers\Auth;
+namespace Laraflow\Core\Http\Controllers\Auth;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;

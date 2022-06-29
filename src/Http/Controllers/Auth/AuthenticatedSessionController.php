@@ -1,17 +1,17 @@
 <?php
 
-namespace Laraflow\Laraflow\Http\Controllers\Auth;
+namespace Laraflow\Core\Http\Controllers\Auth;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Laraflow\Laraflow\Http\Requests\Auth\LoginRequest;
-use Laraflow\Laraflow\Services\Auth\AuthenticatedSessionService;
+use Laraflow\Core\Http\Requests\Auth\LoginRequest;
+use Laraflow\Core\Services\Auth\AuthenticatedSessionService;
 
 /**
  * Class AuthenticatedSessionController
- * @package Laraflow\Laraflow\Http\Controllers\Auth
+ * @package Laraflow\Core\Http\Controllers\Auth
  */
 class AuthenticatedSessionController extends Controller
 {

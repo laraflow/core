@@ -1,8 +1,8 @@
 <?php
 
-namespace Laraflow\Laraflow;
+namespace Laraflow\Core;
 
-use Laraflow\Laraflow\Commands\LaraflowCommand;
+use Laraflow\Core\Commands\LaraflowCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 

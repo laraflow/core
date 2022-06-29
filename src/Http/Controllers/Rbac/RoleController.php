@@ -15,7 +15,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-use Laraflow\Laraflow\Services\Auth\AuthenticatedSessionService;
+use Laraflow\Core\Services\Auth\AuthenticatedSessionService;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Throwable;
 

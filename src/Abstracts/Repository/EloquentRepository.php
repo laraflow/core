@@ -1,6 +1,6 @@
 <?php
 
-namespace Laraflow\Laraflow\Abstracts\Repository;
+namespace Laraflow\Core\Abstracts\Repository;
 
 use BadMethodCallException;
 use Exception;
@@ -9,12 +9,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
-use Laraflow\Laraflow\Interfaces\RepositoryInterface;
+use Laraflow\Core\Interfaces\RepositoryInterface;
 use PDOException;
 
 /**
  * Class EloquentRepository
- * @package Laraflow\Laraflow\Abstracts\Repository
+ * @package Laraflow\Core\Abstracts\Repository
  */
 abstract class EloquentRepository implements RepositoryInterface
 {

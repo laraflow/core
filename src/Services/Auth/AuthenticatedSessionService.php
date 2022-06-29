@@ -1,18 +1,18 @@
 <?php
 
-namespace Laraflow\Laraflow\Services\Auth;
+namespace Laraflow\Core\Services\Auth;
 
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
-use Laraflow\Laraflow\Http\Requests\Auth\LoginRequest;
-use Laraflow\Laraflow\Supports\Constant;
+use Laraflow\Core\Http\Requests\Auth\LoginRequest;
+use Laraflow\Core\Supports\Constant;
 
 /**
  * Class AuthenticatedSessionService
- * @package Laraflow\Laraflow\Services\Auth
+ * @package Laraflow\Core\Services\Auth
  */
 class AuthenticatedSessionService
 {

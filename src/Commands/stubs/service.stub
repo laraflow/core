@@ -2,7 +2,7 @@
 
 namespace {{ namespace }};
 
-use Laraflow\Laraflow\Abstracts\Service\Service;
+use Laraflow\Core\Abstracts\Service\Service;
 
 /**
  * Describe this service purposes

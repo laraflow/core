@@ -1,14 +1,14 @@
 <?php
 
-namespace Laraflow\Laraflow\Repositories\Eloquent\Auth;
+namespace Laraflow\Core\Repositories\Eloquent\Auth;
 
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Laraflow\Laraflow\Abstracts\Repository\EloquentRepository;
-use Laraflow\Laraflow\Services\Auth\AuthenticatedSessionService;
+use Laraflow\Core\Abstracts\Repository\EloquentRepository;
+use Laraflow\Core\Services\Auth\AuthenticatedSessionService;
 
 class UserRepository extends EloquentRepository
 {

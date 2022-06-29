@@ -1,11 +1,11 @@
 <?php
 
-namespace Laraflow\Laraflow\Http\Requests\Auth;
+namespace Laraflow\Core\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Laraflow\Laraflow\Rules\PhoneNumber;
-use Laraflow\Laraflow\Rules\Username;
-use Laraflow\Laraflow\Supports\Constant;
+use Laraflow\Core\Rules\PhoneNumber;
+use Laraflow\Core\Rules\Username;
+use Laraflow\Core\Supports\Constant;
 
 class LoginRequest extends FormRequest
 {

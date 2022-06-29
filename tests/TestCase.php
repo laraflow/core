@@ -1,9 +1,9 @@
 <?php
 
-namespace Laraflow\Laraflow\Tests;
+namespace Laraflow\Core\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Laraflow\Laraflow\LaraflowServiceProvider;
+use Laraflow\Core\LaraflowServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
@@ -23,7 +23,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(function (string $modelName) {
-            return 'Laraflow\\Laraflow\\Database\\Factories\\' . class_basename($modelName) . 'Factory';
+            return 'Laraflow\\Core\\Database\\Factories\\' . class_basename($modelName) . 'Factory';
         });
     }
 

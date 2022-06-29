@@ -1,5 +1,5 @@
 <?php
 
-use Laraflow\Laraflow\Tests\TestCase;
+use Laraflow\Core\Tests\TestCase;
 
 uses(TestCase::class)->in(__DIR__);

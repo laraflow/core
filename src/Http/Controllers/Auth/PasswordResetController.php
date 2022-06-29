@@ -1,13 +1,13 @@
 <?php
 
-namespace Laraflow\Laraflow\Http\Controllers\Auth;
+namespace Laraflow\Core\Http\Controllers\Auth;
 
 use App\Http\Requests\Auth\NewPasswordRequest;
 use App\Http\Requests\Auth\PasswordResetRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\View\View;
-use Laraflow\Laraflow\Services\Auth\PasswordResetService;
+use Laraflow\Core\Services\Auth\PasswordResetService;
 
 class PasswordResetController extends Controller
 {

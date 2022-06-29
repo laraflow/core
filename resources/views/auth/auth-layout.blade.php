@@ -27,7 +27,7 @@
 <body class="hold-transition @yield('body-class')">
 
 <!-- Preloader -->
-{!! \Laraflow\Laraflow\Services\Utilities\CustomHtmlService::preloader() !!}
+{!! \Laraflow\Core\Services\Utilities\CustomHtmlService::preloader() !!}
 
 <div class="login-box">
     <!-- login-logo -->

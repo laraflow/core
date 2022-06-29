@@ -1,13 +1,13 @@
 <?php
 
-namespace Laraflow\Laraflow\Interfaces;
+namespace Laraflow\Core\Interfaces;
 
 use Box\Spout\Writer\Common\Creator\Style\BorderBuilder;
 use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
 
 /**
  * Interface ExportInterface
- * @package Laraflow\Laraflow\Interfaces
+ * @package Laraflow\Core\Interfaces
  */
 interface ExportInterface
 {

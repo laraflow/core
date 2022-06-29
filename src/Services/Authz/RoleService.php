@@ -11,7 +11,7 @@ use Box\Spout\Common\Exception\InvalidArgumentException;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Laraflow\Laraflow\Services\Auth\AuthenticatedSessionService;
+use Laraflow\Core\Services\Auth\AuthenticatedSessionService;
 use Spatie\Permission\PermissionRegistrar;
 use Throwable;
 use function __;

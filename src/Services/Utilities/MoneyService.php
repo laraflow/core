@@ -1,12 +1,12 @@
 <?php
 
-namespace Laraflow\Laraflow\Services\Utilities;
+namespace Laraflow\Core\Services\Utilities;
 
-use Laraflow\Laraflow\Supports\Money;
+use Laraflow\Core\Supports\Money;
 
 /**
  * Class MoneyService
- * @package Laraflow\Laraflow\Services\Utilities
+ * @package Laraflow\Core\Services\Utilities
  */
 class MoneyService
 {
