@@ -26,11 +26,12 @@ class FileUploadService extends Service
 
         $tmpPath = public_path('/media/tmp/');
 
-        if (!is_dir($tmpPath)) {
+        if (! is_dir($tmpPath)) {
             mkdir($tmpPath, '0777', true);
         }
 
         $imageObject = Image::canvas(256, 256, '#ffffff');
+
         try {
             $imageObject = Avatar::create($name)->getImageObject();
         } catch (Exception $imageMakeException) {
@@ -47,6 +48,7 @@ class FileUploadService extends Service
                 }
             } catch (Exception $imageSaveException) {
                 Log::error($imageSaveException->getMessage());
+
                 return null;
             }
         }
@@ -93,6 +95,7 @@ class FileUploadService extends Service
                 }
             } catch (Exception $imageSaveException) {
                 Log::error($imageSaveException->getMessage());
+
                 return null;
             }
         }

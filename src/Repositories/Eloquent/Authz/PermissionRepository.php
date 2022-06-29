@@ -52,18 +52,18 @@ class PermissionRepository extends EloquentRepository
     private function filterData(array $filters = [], bool $is_sortable = false): Builder
     {
         $query = $this->getQueryBuilder();
-        if (!empty($filters['search'])) :
+        if (! empty($filters['search'])) :
             $query->where('name', 'like', "%{$filters['search']}%")
                 ->orWhere('display_name', 'like', "%{$filters['search']}%")
                 ->orWhere('guard_name', 'like', "%{$filters['search']}%")
                 ->orWhere('enabled', '=', "%{$filters['search']}%");
         endif;
 
-        if (!empty($filters['enabled'])) :
+        if (! empty($filters['enabled'])) :
             $query->where('enabled', '=', $filters['enabled']);
         endif;
 
-        if (!empty($filters['sort']) && !empty($filters['direction'])) :
+        if (! empty($filters['sort']) && ! empty($filters['direction'])) :
             $query->orderBy($filters['sort'], $filters['direction']);
         endif;
 

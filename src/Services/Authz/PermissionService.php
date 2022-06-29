@@ -2,6 +2,7 @@
 
 namespace App\Services\Backend\Setting;
 
+use function __;
 use App\Abstracts\Service\Service;
 use App\Exports\Backend\Setting\CountryExport;
 use App\Models\Backend\Setting\Permission;
@@ -12,7 +13,6 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Throwable;
-use function __;
 
 class PermissionService extends Service
 {
@@ -81,22 +81,26 @@ class PermissionService extends Service
     public function storePermission(array $inputs): array
     {
         \DB::beginTransaction();
+
         try {
             $newPermission = $this->permissionRepository->create($inputs);
             if ($newPermission instanceof Permission) {
                 \DB::commit();
+
                 return ['status' => true, 'message' => __('New Permission Created'),
-                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
+                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
             } else {
                 \DB::rollBack();
+
                 return ['status' => false, 'message' => __('New Permission Creation Failed'),
-                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->permissionRepository->handleException($exception);
             \DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 
@@ -111,27 +115,31 @@ class PermissionService extends Service
     public function updatePermission(array $inputs, $id): array
     {
         \DB::beginTransaction();
+
         try {
             $permission = $this->permissionRepository->show($id);
             if ($permission instanceof Permission) {
                 if ($this->permissionRepository->update($inputs, $id)) {
                     \DB::commit();
+
                     return ['status' => true, 'message' => __('Permission Info Updated'),
-                        'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
+                        'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
                 } else {
                     \DB::rollBack();
+
                     return ['status' => false, 'message' => __('Permission Info Update Failed'),
-                        'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                        'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
                 }
             } else {
                 return ['status' => false, 'message' => __('Permission Model Not Found'),
-                    'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->permissionRepository->handleException($exception);
             \DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 
@@ -145,21 +153,25 @@ class PermissionService extends Service
     public function destroyPermission($id): array
     {
         \DB::beginTransaction();
+
         try {
             if ($this->permissionRepository->delete($id)) {
                 \DB::commit();
+
                 return ['status' => true, 'message' => __('Permission is Trashed'),
-                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
+                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
             } else {
                 \DB::rollBack();
+
                 return ['status' => false, 'message' => __('Permission is Delete Failed'),
-                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->permissionRepository->handleException($exception);
             \DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 
@@ -173,21 +185,25 @@ class PermissionService extends Service
     public function restorePermission($id): array
     {
         \DB::beginTransaction();
+
         try {
             if ($this->permissionRepository->restore($id)) {
                 \DB::commit();
+
                 return ['status' => true, 'message' => __('Permission is Restored'),
-                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
+                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
             } else {
                 \DB::rollBack();
+
                 return ['status' => false, 'message' => __('Permission is Restoration Failed'),
-                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->permissionRepository->handleException($exception);
             \DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 

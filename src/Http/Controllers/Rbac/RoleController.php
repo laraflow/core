@@ -47,8 +47,7 @@ class RoleController extends Controller
         AuthenticatedSessionService $authenticatedSessionService,
         RoleService $roleService,
         PermissionService $permissionService
-    )
-    {
+    ) {
         $this->roleService = $roleService;
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->permissionService = $permissionService;
@@ -67,7 +66,7 @@ class RoleController extends Controller
         $roles = $this->roleService->rolePaginate($filters);
 
         return view('backend.setting.role.index', [
-            'roles' => $roles
+            'roles' => $roles,
         ]);
     }
 
@@ -94,10 +93,12 @@ class RoleController extends Controller
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->route('backend.settings.roles.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back()->withInput();
     }
 
@@ -112,7 +113,7 @@ class RoleController extends Controller
     {
         if ($role = $this->roleService->getRoleById($id)) {
             $permissions = $this->permissionService->getAllPermissions([
-                'sort' => 'display_name', 'direction' => 'asc'
+                'sort' => 'display_name', 'direction' => 'asc',
             ]);
 
             $availablePermissionIds = $role->permissions()->pluck('id')->toArray();
@@ -121,7 +122,7 @@ class RoleController extends Controller
                 'role' => $role,
                 'permissions' => $permissions,
                 'availablePermissionIds' => $availablePermissionIds,
-                'timeline' => Utility::modelAudits($role)
+                'timeline' => Utility::modelAudits($role),
             ]);
         }
 
@@ -158,10 +159,12 @@ class RoleController extends Controller
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->route('backend.settings.roles.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back()->withInput();
     }
 
@@ -182,6 +185,7 @@ class RoleController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
+
             return redirect()->route('backend.settings.roles.index');
         }
         abort(403, 'Wrong user credentials');
@@ -204,6 +208,7 @@ class RoleController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
+
             return redirect()->route('backend.settings.roles.index');
         }
         abort(403, 'Wrong user credentials');
@@ -231,7 +236,7 @@ class RoleController extends Controller
         $permissions = $this->permissionService->getAllPermissions($filters);
 
         return view('backend.setting.permission.index', [
-            'permissions' => $permissions
+            'permissions' => $permissions,
         ]);
     }
 
@@ -277,7 +282,7 @@ class RoleController extends Controller
                 'Remarks' => $role->remarks,
                 'Enabled' => ucfirst($role->enabled),
                 'Created' => $role->created_at->format(config('backend.datetime')),
-                'Updated' => $role->updated_at->format(config('backend.datetime'))
+                'Updated' => $role->updated_at->format(config('backend.datetime')),
             ];
             if (AuthenticatedSessionService::isSuperAdmin()):
                 $format['Deleted'] = ($role->deleted_at != null)
@@ -295,6 +300,7 @@ class RoleController extends Controller
                     ? $role->deletedBy->name
                     : null;
             endif;
+
             return $format;
         });
     }
@@ -318,7 +324,7 @@ class RoleController extends Controller
                 return response()->json(array_merge($jsonResponse, $confirm));
             } else {
                 throw ValidationException::withMessages([
-                    'role' => 'Invalid Role Id Provided'
+                    'role' => 'Invalid Role Id Provided',
                 ]);
             }
         }

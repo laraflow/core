@@ -79,7 +79,7 @@ class AuthenticatedSessionService
      */
     private function ensureIsNotRateLimited(LoginRequest $request): array
     {
-        if (!RateLimiter::tooManyAttempts($this->throttleKey($request), 5)) {
+        if (! RateLimiter::tooManyAttempts($this->throttleKey($request), 5)) {
             return ['status' => true, 'message' => __('auth.throttle'), 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Warning'];
         }
 
@@ -121,28 +121,28 @@ class AuthenticatedSessionService
         $confirmation = ['status' => false,
             'message' => __('auth.login.failed'),
             'level' => Constant::MSG_TOASTR_ERROR,
-            'title' => 'Alert!'];
+            'title' => 'Alert!', ];
 
         if (config('auth.allow_remembering')) {
             $remember_me = $request->boolean('remember');
         }
 
         //authentication is OTP
-        $confirmation = (!isset($authInfo['password']))
+        $confirmation = (! isset($authInfo['password']))
             ? $this->otpBasedLogin($authInfo, $remember_me)
             : $this->credentialBasedLogin($authInfo, $remember_me);
 
         if ($confirmation['status'] === true) {
 
             //is user is banned to log in
-            if (!self::isUserEnabled()) {
+            if (! self::isUserEnabled()) {
 
                 //logout from all guard
                 Auth::logout();
                 $confirmation = ['status' => false,
                     'message' => __('auth.login.banned'),
                     'level' => Constant::MSG_TOASTR_WARNING,
-                    'title' => 'Alert!'];
+                    'title' => 'Alert!', ];
             } elseif ($this->hasForcePasswordReset()) {
                 //make this user as guest to reset password
                 Auth::logout();
@@ -155,7 +155,7 @@ class AuthenticatedSessionService
                     'message' => __('auth.login.forced'),
                     'level' => Constant::MSG_TOASTR_WARNING,
                     'title' => 'Notification!',
-                    'landing_page' => route('auth.password.reset', $tokenInfo['token'])];
+                    'landing_page' => route('auth.password.reset', $tokenInfo['token']), ];
             } else {
                 //set the auth user redirect page
                 $confirmation['landing_page'] = (Auth::user()->home_page ?? Constant::DASHBOARD_ROUTE);
@@ -300,11 +300,12 @@ class AuthenticatedSessionService
             $request->session()->invalidate();
 
             $request->session()->regenerateToken();
+
             return ['status' => true, 'message' => 'User Logout Successful',
-                'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
+                'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
         } catch (\Exception $exception) {
             return ['status' => false, 'message' => 'Error: ' . $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Error!', ];
         }
     }
 }

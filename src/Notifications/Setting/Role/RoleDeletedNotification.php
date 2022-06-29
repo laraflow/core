@@ -75,7 +75,7 @@ class RoleDeletedNotification extends Notification
             'description' => 'Role named '
                 . link_to(route('admin.roles.show', $this->role->id) . '?with=purge', $this->role->name ?? '') . ' deleted by '
                 . link_to(route('admin.users.show', $this->user->id), $this->user->name ?? '') . '.',
-            'url' => route('admin.roles.show', $this->role->id)
+            'url' => route('admin.roles.show', $this->role->id),
         ];
     }
 

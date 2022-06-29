@@ -2,10 +2,10 @@
 
 namespace Laraflow\Core\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Laraflow\Core\Http\Requests\Auth\LoginRequest;
 use Laraflow\Core\Services\Auth\AuthenticatedSessionService;
 
@@ -50,10 +50,12 @@ class AuthenticatedSessionController extends Controller
 
         if ($confirm['status'] === true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->route($confirm['landing_page']);
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back();
     }
 
@@ -69,10 +71,12 @@ class AuthenticatedSessionController extends Controller
         $confirm = $this->authenticatedSessionService->attemptLogout($request);
         if ($confirm['status'] === true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->to(route('home'));
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back();
     }
 }

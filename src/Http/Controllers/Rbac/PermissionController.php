@@ -33,8 +33,7 @@ class PermissionController extends Controller
     public function __construct(
         AuthenticatedSessionService $authenticatedSessionService,
         PermissionService $permissionService
-    )
-    {
+    ) {
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->permissionService = $permissionService;
     }
@@ -52,7 +51,7 @@ class PermissionController extends Controller
         $permissions = $this->permissionService->permissionPaginate($filters);
 
         return view('backend.setting.permission.index', [
-            'permissions' => $permissions
+            'permissions' => $permissions,
         ]);
     }
 
@@ -78,10 +77,12 @@ class PermissionController extends Controller
         $confirm = $this->permissionService->storePermission($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->route('backend.settings.permissions.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back()->withInput();
     }
 
@@ -97,7 +98,7 @@ class PermissionController extends Controller
         if ($permission = $this->permissionService->getPermissionById($id)) {
             return view('backend.setting.permission.show', [
                 'permission' => $permission,
-                'timeline' => Utility::modelAudits($permission)
+                'timeline' => Utility::modelAudits($permission),
             ]);
         }
 
@@ -115,7 +116,7 @@ class PermissionController extends Controller
     {
         if ($permission = $this->permissionService->getPermissionById($id)) {
             return view('backend.setting.permission.edit', [
-                'permission' => $permission
+                'permission' => $permission,
             ]);
         }
 
@@ -136,10 +137,12 @@ class PermissionController extends Controller
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->route('backend.settings.permissions.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back()->withInput();
     }
 
@@ -161,6 +164,7 @@ class PermissionController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
+
             return redirect()->route('backend.settings.permissions.index');
         }
         abort(403, 'Wrong user credentials');
@@ -184,6 +188,7 @@ class PermissionController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
+
             return redirect()->route('backend.settings.permissions.index');
         }
         abort(403, 'Wrong user credentials');
@@ -230,7 +235,7 @@ class PermissionController extends Controller
         $permissions = $this->permissionService->getAllPermissions($filters);
 
         return view('backend.setting.permission.index', [
-            'permissions' => $permissions
+            'permissions' => $permissions,
         ]);
     }
 

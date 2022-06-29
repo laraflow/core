@@ -3,9 +3,9 @@
 namespace Laraflow\Core\Services\Auth;
 
 use App\Providers\RouteServiceProvider;
+use function event;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use function event;
 use function redirect;
 
 class VerifyEmailService

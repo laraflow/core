@@ -47,10 +47,12 @@ class PasswordResetController extends Controller
 
         if ($confirm['status'] === true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->to(route('auth.password.reset', $confirm['token']));
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back();
     }
 
@@ -67,10 +69,12 @@ class PasswordResetController extends Controller
 
         if ($confirm['status'] === true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->to(route('auth.login'));
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back();
     }
 }

@@ -28,7 +28,7 @@ class RegisterRequest extends FormRequest
     {
         $rules = [
             'name' => 'required|string|min:3|max:255',
-            'agree_terms' => 'required|string'
+            'agree_terms' => 'required|string',
         ];
 
         //Credential Field

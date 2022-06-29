@@ -75,7 +75,7 @@ class RoleCreatedNotification extends Notification
             'description' => 'New role named '
                 . link_to(route('admin.roles.show', $this->role->id), $this->role->name ?? '') . ' created by '
                 . link_to(route('admin.users.show', $this->user->id), $this->user->name ?? '') . '.',
-            'url' => route('admin.roles.show', $this->role->id)
+            'url' => route('admin.roles.show', $this->role->id),
         ];
     }
 

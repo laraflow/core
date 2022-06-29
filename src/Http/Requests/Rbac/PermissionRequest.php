@@ -22,7 +22,7 @@ class PermissionRequest extends FormRequest
             "guard_name" => "required|string",
             "display_name" => "required|string",
             "enabled" => "required|string",
-            "remarks" => "nullable|string"
+            "remarks" => "nullable|string",
         ];
     }
 

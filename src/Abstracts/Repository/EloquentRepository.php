@@ -87,6 +87,7 @@ abstract class EloquentRepository implements RepositoryInterface
         try {
             $newModel = $this->model->create($data);
             $this->setModel($newModel);
+
             return $this->getModel();
         } catch (Exception $exception) {
             $this->handleException($exception);

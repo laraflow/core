@@ -50,9 +50,11 @@ class RegisteredUserController extends Controller
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->route(config('backend.config.home_url', 'admin.'));
         } else {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->back();
         }
     }

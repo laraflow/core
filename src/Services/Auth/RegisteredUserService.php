@@ -33,8 +33,7 @@ class RegisteredUserService
     public function __construct(
         UserRepository $userRepository,
         FileUploadService $fileUploadService
-    )
-    {
+    ) {
         $modelPath = config('triplea.user');
         if (is_string($modelPath)) {
             $this->user = new $modelPath();
@@ -54,6 +53,7 @@ class RegisteredUserService
         DB::beginTransaction();
         //format request object
         $inputs = $this->formatRegistrationInfo($registerFormInputs);
+
         try {
             //create new user
             $newUser = $this->userRepository->create($inputs);
@@ -73,6 +73,7 @@ class RegisteredUserService
             }
         } catch (\Exception $exception) {
             $this->userRepository->handleException($exception);
+
             return ['status' => false, 'message' => __($exception->getMessage()), 'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Error!'];
         }
     }
@@ -92,10 +93,9 @@ class RegisteredUserService
             'mobile' => ($request['mobile'] ?? null),
             'email' => ($request['email'] ?? null),
             'remarks' => 'self-registered',
-            'enabled' => Constant::ENABLED_OPTION
+            'enabled' => Constant::ENABLED_OPTION,
         ];
     }
-
 
     /**
      * @param Model $user
@@ -107,6 +107,7 @@ class RegisteredUserService
         //add profile image
         $profileImagePath = $this->fileUploadService->createAvatarImageFromText($user->name);
         $user->addMedia($profileImagePath)->toMediaCollection('avatars');
+
         return $user->save();
     }
 
@@ -117,6 +118,7 @@ class RegisteredUserService
     protected function attachDefaultRoles($user): bool
     {
         $this->userRepository->setModel($user);
+
         return $this->userRepository->manageRoles([Constant::GUEST_ROLE_ID]);
     }
 }

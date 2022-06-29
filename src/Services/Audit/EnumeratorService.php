@@ -38,8 +38,7 @@ class EnumeratorService extends Service
     public function __construct(
         EnumeratorRepository $enumeratorRepository,
         ExamLevelRepository $examLevelRepository
-    )
-    {
+    ) {
         $this->enumeratorRepository = $enumeratorRepository;
         $this->enumeratorRepository->itemsPerPage = 10;
         $this->examLevelRepository = $examLevelRepository;
@@ -96,6 +95,7 @@ class EnumeratorService extends Service
     {
         $newEnumeratorInfo = $this->formatEnumeratorInfo($inputs);
         DB::beginTransaction();
+
         try {
             $newEnumerator = $this->enumeratorRepository->create($newEnumeratorInfo);
             if ($newEnumerator instanceof Enumerator) {
@@ -106,18 +106,21 @@ class EnumeratorService extends Service
                 $newEnumerator->save();
 
                 DB::commit();
+
                 return ['status' => true, 'message' => __('New Enumerator Created'),
-                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
+                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
             } else {
                 DB::rollBack();
+
                 return ['status' => false, 'message' => __('New Enumerator Creation Failed'),
-                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->enumeratorRepository->handleException($exception);
             DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 
@@ -175,6 +178,7 @@ class EnumeratorService extends Service
     {
         $newEnumeratorInfo = $this->formatEnumeratorInfo($inputs);
         DB::beginTransaction();
+
         try {
             $enumerator = $this->enumeratorRepository->show($id);
             if ($enumerator instanceof Enumerator) {
@@ -185,22 +189,25 @@ class EnumeratorService extends Service
                     $enumerator->futurePostings()->sync($inputs['future_post_state_id']);
                     $enumerator->save();
                     DB::commit();
+
                     return ['status' => true, 'message' => __('Enumerator Info Updated'),
-                        'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
+                        'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
                 } else {
                     DB::rollBack();
+
                     return ['status' => false, 'message' => __('Enumerator Info Update Failed'),
-                        'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                        'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
                 }
             } else {
                 return ['status' => false, 'message' => __('Enumerator Model Not Found'),
-                    'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->enumeratorRepository->handleException($exception);
             DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 
@@ -214,21 +221,25 @@ class EnumeratorService extends Service
     public function destroyEnumerator($id): array
     {
         DB::beginTransaction();
+
         try {
             if ($this->enumeratorRepository->delete($id)) {
                 DB::commit();
+
                 return ['status' => true, 'message' => __('Enumerator is Trashed'),
-                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
+                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
             } else {
                 DB::rollBack();
+
                 return ['status' => false, 'message' => __('Enumerator is Delete Failed'),
-                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->enumeratorRepository->handleException($exception);
             DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 
@@ -242,21 +253,25 @@ class EnumeratorService extends Service
     public function restoreEnumerator($id): array
     {
         DB::beginTransaction();
+
         try {
             if ($this->enumeratorRepository->restore($id)) {
                 DB::commit();
+
                 return ['status' => true, 'message' => __('Enumerator is Restored'),
-                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
+                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
             } else {
                 DB::rollBack();
+
                 return ['status' => false, 'message' => __('Enumerator is Restoration Failed'),
-                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->enumeratorRepository->handleException($exception);
             DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 

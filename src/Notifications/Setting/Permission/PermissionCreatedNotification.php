@@ -75,7 +75,7 @@ class PermissionCreatedNotification extends Notification
             'description' => 'New permission named '
                 . link_to(route('backend.settings.permissions.show', $this->permission->id), $this->permission->name ?? '') . ' created by '
                 . link_to(route('admin.users.show', $this->user->id), $this->user->name ?? '') . '.',
-            'url' => route('backend.settings.permissions.show', $this->permission->id)
+            'url' => route('backend.settings.permissions.show', $this->permission->id),
         ];
     }
 

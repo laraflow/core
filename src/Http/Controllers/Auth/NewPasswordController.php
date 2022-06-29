@@ -3,7 +3,6 @@
 namespace Laraflow\Core\Http\Controllers\Auth;
 
 use App\Http\Requests\Auth\NewPasswordRequest;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\View\View;

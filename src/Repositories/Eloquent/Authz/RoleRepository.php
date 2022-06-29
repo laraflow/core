@@ -36,9 +36,11 @@ class RoleRepository extends EloquentRepository
              */
             $role = $this->show($id);
             $role->permissions()->attach($permissions);
+
             return true;
         } catch (\Exception $exception) {
             \Log::error($exception->getMessage());
+
             return false;
         }
     }
@@ -56,9 +58,11 @@ class RoleRepository extends EloquentRepository
              */
             $role = $this->show($id);
             $role->permissions()->sync($permissions);
+
             return true;
         } catch (\Exception $exception) {
             \Log::error($exception->getMessage());
+
             return false;
         }
     }
@@ -90,6 +94,7 @@ class RoleRepository extends EloquentRepository
             return true;
         } catch (\Exception $exception) {
             \Log::error($exception->getMessage());
+
             return false;
         }
     }
@@ -105,6 +110,7 @@ class RoleRepository extends EloquentRepository
     public function paginateWith(array $filters = [], array $eagerRelations = [], bool $is_sortable = false): LengthAwarePaginator
     {
         $query = $this->getQueryBuilder();
+
         try {
             $query = $this->filterData($filters, $is_sortable);
         } catch (Exception $exception) {
@@ -125,21 +131,21 @@ class RoleRepository extends EloquentRepository
     {
         $query = $this->getQueryBuilder();
 
-        if (!empty($filters['search'])) :
+        if (! empty($filters['search'])) :
             $query->where('name', 'like', "%{$filters['search']}%")
                 ->orWhere('guard_name', 'like', "%{$filters['search']}%")
                 ->orWhere('enabled', '=', "%{$filters['search']}%");
         endif;
 
-        if (!empty($filters['enabled'])) :
+        if (! empty($filters['enabled'])) :
             $query->where('enabled', '=', $filters['enabled']);
         endif;
 
-        if (!empty($filters['sort']) && !empty($filters['direction'])) :
+        if (! empty($filters['sort']) && ! empty($filters['direction'])) :
             $query->orderBy($filters['sort'], $filters['direction']);
         endif;
 
-        if (isset($filters['id']) && !empty($filters['id'])) :
+        if (isset($filters['id']) && ! empty($filters['id'])) :
             if (is_array($filters['id'])):
                 $query->whereIn('id', $filters['id']); else :
                 $query->where('id', $filters['id']);
@@ -168,6 +174,7 @@ class RoleRepository extends EloquentRepository
     public function getAllWith(array $filters = [], array $eagerRelations = [], bool $is_sortable = false)
     {
         $query = $this->getQueryBuilder();
+
         try {
             $query = $this->filterData($filters, $is_sortable);
         } catch (Exception $exception) {

@@ -21,7 +21,7 @@ class RoleRequest extends FormRequest
             "name" => "required|string",
             "guard_name" => "required|string",
             "enabled" => "required|string",
-            "remarks" => "nullable|string"
+            "remarks" => "nullable|string",
         ];
     }
 

@@ -72,22 +72,26 @@ class SurveyService extends Service
     public function storeSurvey(array $inputs): array
     {
         DB::beginTransaction();
+
         try {
             $newSurvey = $this->surveyRepository->create($inputs);
             if ($newSurvey instanceof Survey) {
                 DB::commit();
+
                 return ['status' => true, 'message' => __('New Survey Created'),
-                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
+                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
             } else {
                 DB::rollBack();
+
                 return ['status' => false, 'message' => __('New Survey Creation Failed'),
-                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->surveyRepository->handleException($exception);
             DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 
@@ -102,27 +106,31 @@ class SurveyService extends Service
     public function updateSurvey(array $inputs, $id): array
     {
         DB::beginTransaction();
+
         try {
             $survey = $this->surveyRepository->show($id);
             if ($survey instanceof Survey) {
                 if ($this->surveyRepository->update($inputs, $id)) {
                     DB::commit();
+
                     return ['status' => true, 'message' => __('Survey Info Updated'),
-                        'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
+                        'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
                 } else {
                     DB::rollBack();
+
                     return ['status' => false, 'message' => __('Survey Info Update Failed'),
-                        'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                        'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
                 }
             } else {
                 return ['status' => false, 'message' => __('Survey Model Not Found'),
-                    'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->surveyRepository->handleException($exception);
             DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 
@@ -136,21 +144,25 @@ class SurveyService extends Service
     public function destroySurvey($id): array
     {
         DB::beginTransaction();
+
         try {
             if ($this->surveyRepository->delete($id)) {
                 DB::commit();
+
                 return ['status' => true, 'message' => __('Survey is Trashed'),
-                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
+                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
             } else {
                 DB::rollBack();
+
                 return ['status' => false, 'message' => __('Survey is Delete Failed'),
-                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->surveyRepository->handleException($exception);
             DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 
@@ -164,21 +176,25 @@ class SurveyService extends Service
     public function restoreSurvey($id): array
     {
         DB::beginTransaction();
+
         try {
             if ($this->surveyRepository->restore($id)) {
                 DB::commit();
+
                 return ['status' => true, 'message' => __('Survey is Restored'),
-                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
+                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
             } else {
                 DB::rollBack();
+
                 return ['status' => false, 'message' => __('Survey is Restoration Failed'),
-                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->surveyRepository->handleException($exception);
             DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 

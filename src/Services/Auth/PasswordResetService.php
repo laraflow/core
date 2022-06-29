@@ -73,21 +73,24 @@ class PasswordResetService
                     'message' => __('auth.token', ['minutes' => config('auth.passwords.users.expire')]),
                     'level' => Constant::MSG_TOASTR_SUCCESS,
                     'title' => 'Notification!',
-                    'token' => $resetToken];
+                    'token' => $resetToken, ];
+
                 break;
 
             case Password::RESET_THROTTLED :
                 $confirmation = ['status' => false,
                     'message' => __('auth.throttle', ['seconds' => config('auth.passwords.users.throttle')]),
                     'level' => Constant::MSG_TOASTR_ERROR,
-                    'title' => 'Alert!'];
+                    'title' => 'Alert!', ];
+
                 break;
 
             default:
                 $confirmation = ['status' => false,
                     'message' => __('auth.login.failed'),
                     'level' => Constant::MSG_TOASTR_ERROR,
-                    'title' => 'Alert!'];
+                    'title' => 'Alert!', ];
+
                 break;
         }
 
@@ -117,28 +120,32 @@ class PasswordResetService
                 $confirmation = ['status' => true,
                     'message' => __('passwords.reset'),
                     'level' => Constant::MSG_TOASTR_SUCCESS,
-                    'title' => 'Notification!'];
+                    'title' => 'Notification!', ];
+
                 break;
 
             case Password::RESET_THROTTLED :
                 $confirmation = ['status' => false,
                     'message' => __('auth.throttle', ['seconds' => config('auth.passwords.users.throttle')]),
                     'level' => Constant::MSG_TOASTR_ERROR,
-                    'title' => 'Alert!'];
+                    'title' => 'Alert!', ];
+
                 break;
 
             case Password::INVALID_TOKEN:
                 $confirmation = ['status' => false,
                     'message' => __('passwords.token'),
                     'level' => Constant::MSG_TOASTR_ERROR,
-                    'title' => 'Alert!'];
+                    'title' => 'Alert!', ];
+
                 break;
 
             default:
                 $confirmation = ['status' => false,
                     'message' => __('auth.login.failed'),
                     'level' => Constant::MSG_TOASTR_ERROR,
-                    'title' => 'Alert!'];
+                    'title' => 'Alert!', ];
+
                 break;
         }
 

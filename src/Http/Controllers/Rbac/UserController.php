@@ -48,8 +48,7 @@ class UserController extends Controller
         AuthenticatedSessionService $authenticatedSessionService,
         UserService $userService,
         RoleService $roleService
-    )
-    {
+    ) {
         $this->userService = $userService;
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->roleService = $roleService;
@@ -73,7 +72,7 @@ class UserController extends Controller
         $users = $this->userService->userPaginate($filters);
 
         return view('backend.setting.user.index', [
-            'users' => $users
+            'users' => $users,
         ]);
     }
 
@@ -88,7 +87,7 @@ class UserController extends Controller
         $roles = $this->roleService->roleDropdown();
 
         return view('backend.setting.user.create', [
-            'roles' => $roles
+            'roles' => $roles,
         ]);
     }
 
@@ -108,10 +107,12 @@ class UserController extends Controller
         $confirm = $this->userService->storeUser($inputs, $photo);
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->route('backend.settings.users.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back()->withInput();
     }
 
@@ -127,7 +128,7 @@ class UserController extends Controller
         if ($user = $this->userService->getUserById($id)) {
             return view('backend.setting.user.show', [
                 'user' => $user,
-                'timeline' => Utility::modelAudits($user)
+                'timeline' => Utility::modelAudits($user),
             ]);
         }
 
@@ -150,7 +151,7 @@ class UserController extends Controller
             return view('backend.setting.user.edit', [
                 'user' => $user,
                 'roles' => $roles,
-                'user_roles' => $user_roles
+                'user_roles' => $user_roles,
             ]);
         }
 
@@ -175,10 +176,12 @@ class UserController extends Controller
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->route('backend.settings.users.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back()->withInput();
     }
 
@@ -198,6 +201,7 @@ class UserController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
+
             return redirect()->route('backend.settings.users.index');
         }
 
@@ -221,6 +225,7 @@ class UserController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
+
             return redirect()->route('backend.settings.users.index');
         }
 
@@ -249,7 +254,7 @@ class UserController extends Controller
         $users = $this->userService->getAllUsers($filters);
 
         return view('backend.setting.user.index', [
-            'users' => $users
+            'users' => $users,
         ]);
     }
 
