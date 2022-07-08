@@ -68,7 +68,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Laraflow\\Core\\LaraflowServiceProvider"
+                "Laraflow\\Core\\LaraflowServiceProvider",
+                "Laraflow\\Core\\MoneyServiceProvider"
             ]
         }
     },
