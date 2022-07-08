@@ -5,12 +5,13 @@ namespace Laraflow\Core\Services\Utilities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\HtmlString;
+use Laraflow\Core\Abstracts\Service\Service;
 
 /**
  * Class CustomHtmlService
  * @package Laraflow\Core\Supports
  */
-class CustomHtmlService
+class CustomHtmlService extends Service
 {
     /**
      * Switch function for enable and disable status of model
@@ -120,21 +121,4 @@ class CustomHtmlService
         return new HtmlString($HTML);
     }
 
-    /**
-     * Display Preloader on Application
-     *
-     * @return HtmlString
-     */
-    public static function preloader()
-    {
-        $HTML = '';
-
-        if (config('backend.preloader') != null):
-            $HTML .= ('<div class="preloader flex-column justify-content-center align-items-center">'
-                . '<img class="animation__shake" src="' . asset(config('backend.preloader')) . '" height="60" width="60">'
-                . '</div>');
-        endif;
-
-        return new HtmlString($HTML);
-    }
 }
