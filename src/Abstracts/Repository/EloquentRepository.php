@@ -24,20 +24,13 @@ abstract class EloquentRepository implements RepositoryInterface
     public $model;
 
     /**
-     * @var int number of items will be on pagination
-     */
-    public $itemsPerPage = 10;
-
-    /**
      * Repository constructor.
      * Constructor to bind model to repo
      * @param Model $model
-     * @param int $itemsPerPage
      */
-    public function __construct($model, int $itemsPerPage = 10)
+    public function __construct($model)
     {
         $this->setModel($model);
-        $this->itemsPerPage = $itemsPerPage;
     }
 
     /**
@@ -119,23 +112,13 @@ abstract class EloquentRepository implements RepositoryInterface
     }
 
     /**
-     * remove record from the database
-     * @param string|int $id
-     * @return bool
-     */
-    public function delete($id): bool
-    {
-        return (bool)$this->model->destroy($id);
-    }
-
-    /**
      * show the record with the given id
      * @param string|int $id
      * @param bool $purge
      * @return mixed
      * @throws Exception
      */
-    public function show($id, bool $purge = false)
+    public function find($id, bool $purge = false)
     {
         $newModel = null;
 
@@ -150,6 +133,20 @@ abstract class EloquentRepository implements RepositoryInterface
         } finally {
             return $newModel;
         }
+    }
+
+    /**
+     * remove record from the database
+     * @param string|int $id
+     * @param bool $hardDelete
+     * @return bool
+     */
+    public function delete($id, $hardDelete = false): bool
+    {
+        if ($hardDelete == true) {
+            return (bool)$this->model->forceDelete();
+        }
+        return (bool)$this->model->destroy($id);
     }
 
     /**
@@ -174,8 +171,8 @@ abstract class EloquentRepository implements RepositoryInterface
      * Handle All catch Exceptions
      *
      * @param mixed $exception
-     * @throws Exception
      * @return void
+     * @throws Exception
      */
     public function handleException($exception)
     {
@@ -202,4 +199,5 @@ abstract class EloquentRepository implements RepositoryInterface
             throw new Exception($exception->getMessage());
         endif;
     }
+
 }

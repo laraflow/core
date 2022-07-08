@@ -37,9 +37,10 @@ interface RepositoryInterface
     /**
      * remove record from the database
      * @param string|int $id
+     * @param bool $hardDelete
      * @return bool
      */
-    public function delete($id): bool;
+    public function delete($id, $hardDelete = false): bool;
 
     /**
      * show the record with the given id
@@ -48,7 +49,7 @@ interface RepositoryInterface
      * @return mixed
      * @throws Exception
      */
-    public function show($id, bool $purge = false);
+    public function find($id, bool $purge = false);
 
     /**
      * Get the associated model
@@ -64,37 +65,9 @@ interface RepositoryInterface
     public function setModel($model);
 
     /**
-     * Eager load database relationships
-     *
-     * @param string|array $relations
-     * @return Builder
-     */
-    public function with($relations): Builder;
-
-    /**
      * @return mixed
      */
     public function getQueryBuilder();
-
-    /**
-     * Get the first Model meet this criteria
-     *
-     * @param string $column
-     * @param string $operator
-     * @param mixed $value
-     * @return Model|null
-     * @throws Exception
-     */
-    public function findFirstWhere(string $column, string $operator, $value): ?Model;
-
-    /**
-     * Get the all Model Columns Collection
-     *
-     * @param string $column
-     * @return mixed
-     * @throws Exception
-     */
-    public function findColumn(string $column);
 
     /**
      * Handle All catch Exceptions
