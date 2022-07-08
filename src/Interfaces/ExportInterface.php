@@ -2,9 +2,6 @@
 
 namespace Laraflow\Core\Interfaces;
 
-use Box\Spout\Writer\Common\Creator\Style\BorderBuilder;
-use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
-
 /**
  * Interface ExportInterface
  * @package Laraflow\Core\Interfaces
@@ -20,20 +17,20 @@ interface ExportInterface
     public function map($row): array;
 
     /**
-     * @param BorderBuilder $borderBuilder
+     * @param $borderBuilder
      * @return mixed
      */
-    public function setBorderStyle(BorderBuilder $borderBuilder);
+    public function setBorderStyle($borderBuilder);
 
     /**
-     * @param StyleBuilder $styleBuilder
+     * @param $styleBuilder
      * @return mixed
      */
-    public function setRowStyle(StyleBuilder $styleBuilder);
+    public function setRowStyle($styleBuilder);
 
     /**
-     * @param StyleBuilder $styleBuilder
+     * @param $styleBuilder
      * @return mixed
      */
-    public function setHeadingStyle(StyleBuilder $styleBuilder);
+    public function setHeadingStyle($styleBuilder);
 }

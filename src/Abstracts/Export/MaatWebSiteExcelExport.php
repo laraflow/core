@@ -11,7 +11,7 @@ use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
 use Laraflow\Core\Interfaces\ExportInterface;
 use Rap2hpoutre\FastExcel\FastExcel;
 
-abstract class FastExcelExport extends FastExcel implements ExportInterface
+abstract class MaatWebSiteExcelExport extends FastExcel implements ExportInterface
 {
     /**
      * @var array
