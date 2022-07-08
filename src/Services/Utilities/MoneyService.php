@@ -2,13 +2,14 @@
 
 namespace Laraflow\Core\Services\Utilities;
 
+use Laraflow\Core\Abstracts\Service\Service;
 use Laraflow\Core\Supports\Money;
 
 /**
  * Class MoneyService
  * @package Laraflow\Core\Services\Utilities
  */
-class MoneyService
+class MoneyService extends Service
 {
     /**
      * Return all currency list available for number formatting

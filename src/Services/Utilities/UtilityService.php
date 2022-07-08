@@ -6,12 +6,13 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
+use Laraflow\Core\Abstracts\Service\Service;
 
 /**
  * Class UtilityService
  * @package Laraflow\Core\Supports
  */
-class UtilityService
+class UtilityService extends Service
 {
     /**
      * Hash any text with laravel default has algo.
