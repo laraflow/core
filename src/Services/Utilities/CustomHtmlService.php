@@ -3,6 +3,7 @@
 namespace Laraflow\Core\Services\Utilities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\HtmlString;
 
 /**
@@ -54,7 +55,7 @@ class CustomHtmlService
     public static function pagination($collection, string $type = 'default')
     {
         return $collection->onEachSide(2)->appends(request()->query())
-            ->links('layouts.paginate.' . $type . '-paginate');
+            ->links(Config::get('core.paginate_location') . $type . '-paginate');
     }
 
     /**
@@ -68,29 +69,13 @@ class CustomHtmlService
     public static function confirmModal(string $modelName = 'Item', array $actions = []): HtmlString
     {
         $HTML = '';
-        if (in_array('delete', $actions)) :
-            $HTML .= view("layouts.partials.soft-delete-modal", [
-                'model' => $modelName,
-            ]);
-        endif;
-
-        if (in_array('restore', $actions)) :
-            $HTML .= view("layouts.partials.restore-modal", [
-                'model' => $modelName,
-            ]);
-        endif;
-
-        if (in_array('export', $actions)) :
-            $HTML .= view("layouts.partials.export-modal", [
-                'model' => $modelName,
-            ]);
-        endif;
-
-        if (in_array('import', $actions)) :
-            $HTML .= view("layouts.partials.import-modal", [
-                'model' => $modelName,
-            ]);
-        endif;
+        foreach (Config::get('core.popup_actions') as $action => $layout):
+            if (in_array($action, $actions)) :
+                $HTML .= view($layout, [
+                    'model' => $modelName,
+                ]);
+            endif;
+        endforeach;
 
         return new HtmlString($HTML);
     }
@@ -110,7 +95,7 @@ class CustomHtmlService
             'restored' => '<i class="fas fa-trash-restore bg-warning" data-toggle="tooltip" data-placement="top" title="Restored"></i>',
         ];
 
-        return new HtmlString($eventIcons[$event] ?? '<i class="fas fa-user bg-secondary" data-toggle="tooltip" data-placement="top" title="Undefined"></i>');
+        return new HtmlString(($eventIcons[$event] ?? '<i class="fas fa-user bg-secondary" data-toggle="tooltip" data-placement="top" title="Undefined"></i>'));
     }
 
     /**
@@ -125,11 +110,11 @@ class CustomHtmlService
         $HTML = "";
         if (count($tags) > 0) :
             $HTML = "<div class='d-inline-block'>";
-        $icon = ($icon_class !== null) ? "<i class='{$icon_class} mr-1'></i>" : null;
-        foreach ($tags as $tag):
+            $icon = ($icon_class !== null) ? "<i class='{$icon_class} mr-1'></i>" : null;
+            foreach ($tags as $tag):
                 $HTML .= "<span class='ml-1 badge badge-pill p-2 d-block d-md-inline-block " . UtilityService::randomBadgeBackground() . "'>{$icon} {$tag}</span>";
-        endforeach;
-        $HTML .= "</div>";
+            endforeach;
+            $HTML .= "</div>";
         endif;
 
         return new HtmlString($HTML);

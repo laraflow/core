@@ -69,11 +69,7 @@
         "laravel": {
             "providers": [
                 "Laraflow\\Core\\LaraflowServiceProvider"
-            ],
-            "aliases": {
-                "Laraflow": "Laraflow\\Core\\Facades\\Laraflow",
-                "Constant" : "Laraflow\\Core\\Supports\\Constant"
-            }
+            ]
         }
     },
     "minimum-stability": "dev",
