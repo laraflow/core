@@ -18,12 +18,10 @@
     "require": {
         "php": "^7.4|^8.1",
         "ext-pdo": "*",
-        "hafijul233/form": "^0.0.9",
         "illuminate/contracts": "^8.83",
         "intervention/image": "^2.7",
         "laravolt/avatar": "^4.1",
         "maatwebsite/excel": "^3.1",
-        "owen-it/laravel-auditing": "^13.0",
         "rap2hpoutre/fast-excel": "^3.2",
         "spatie/laravel-medialibrary": "^9.12",
         "spatie/laravel-package-tools": "^1.9.2",
@@ -34,18 +32,12 @@
         "nunomaduro/collision": "^5.11",
         "nunomaduro/larastan": "^1.0",
         "orchestra/testbench": "^6.24",
-        "pestphp/pest": "^1.21",
-        "pestphp/pest-plugin-laravel": "^1.1",
-        "phpstan/extension-installer": "^1.1",
-        "phpstan/phpstan-deprecation-rules": "^1.0",
-        "phpstan/phpstan-phpunit": "^1.0",
         "phpunit/phpunit": "^9.5",
         "spatie/laravel-ray": "^1.26"
     },
     "autoload": {
         "psr-4": {
-            "Laraflow\\Core\\": "src",
-            "Laraflow\\Core\\Database\\Factories\\": "database/factories"
+            "Laraflow\\Core\\": "src"
         }
     },
     "autoload-dev": {
@@ -53,17 +45,8 @@
             "Laraflow\\Core\\Tests\\": "tests"
         }
     },
-    "scripts": {
-        "analyse": "vendor/bin/phpstan analyse",
-        "test": "vendor/bin/pest",
-        "test-coverage": "vendor/bin/pest --coverage"
-    },
     "config": {
-        "sort-packages": true,
-        "allow-plugins": {
-            "pestphp/pest-plugin": true,
-            "phpstan/extension-installer": true
-        }
+        "sort-packages": true
     },
     "extra": {
         "laravel": {
