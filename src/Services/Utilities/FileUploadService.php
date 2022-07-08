@@ -20,7 +20,7 @@ class FileUploadService extends Service
      * @return string|null
      * @throws Exception
      */
-    public function createAvatarImageFromText(string $name, string $extension = 'jpg'): ?string
+    public function avatarImageFromText(string $name, string $extension = 'jpg'): ?string
     {
         $fileName = $this->randomFileName($extension);
 
@@ -57,20 +57,11 @@ class FileUploadService extends Service
     }
 
     /**
-     * @param string $extension
-     * @return string
-     */
-    public function randomFileName(string $extension = 'jpg'): string
-    {
-        return Str::random(32) . '.' . $extension;
-    }
-
-    /**
      * @param UploadedFile $file
      * @param string $extension
      * @return string|null
      */
-    public function createAvatarImageFromInput(UploadedFile $file, string $extension = 'jpg'): ?string
+    public function avatarImageFromInput(UploadedFile $file, string $extension = 'jpg'): ?string
     {
         $fileName = $this->randomFileName($extension);
         $tmpPath = public_path('/media/tmp/');
@@ -101,5 +92,14 @@ class FileUploadService extends Service
         }
 
         return null;
+    }
+
+    /**
+     * @param string $extension
+     * @return string
+     */
+    public function randomFileName(string $extension = 'jpg'): string
+    {
+        return Str::random(32) . '.' . $extension;
     }
 }
