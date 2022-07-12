@@ -3,7 +3,7 @@
 namespace Laraflow\Core\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Laraflow\Core\LaraflowServiceProvider;
+use Laraflow\Core\CoreServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
@@ -30,7 +30,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            LaraflowServiceProvider::class,
+            CoreServiceProvider::class,
         ];
     }
 }
