@@ -2,13 +2,13 @@
 
 namespace Laraflow\Core\Abstracts\Export;
 
-use Box\Spout\Common\Entity\Style\Border;
-use Box\Spout\Common\Entity\Style\CellAlignment;
-use Box\Spout\Common\Entity\Style\Color;
-use Box\Spout\Common\Exception\InvalidArgumentException;
-use Box\Spout\Writer\Common\Creator\Style\BorderBuilder;
-use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
+use InvalidArgumentException;
 use Laraflow\Core\Interfaces\ExportInterface;
+use OpenSpout\Common\Entity\Style\Border;
+use OpenSpout\Common\Entity\Style\CellAlignment;
+use OpenSpout\Common\Entity\Style\Color;
+use OpenSpout\Writer\Common\Creator\Style\BorderBuilder;
+use OpenSpout\Writer\Common\Creator\Style\StyleBuilder;
 use Rap2hpoutre\FastExcel\FastExcel;
 
 abstract class FastExcelExport extends FastExcel implements ExportInterface
@@ -33,7 +33,7 @@ abstract class FastExcelExport extends FastExcel implements ExportInterface
     /**
      * Export Constructor
      *
-     * @throws InvalidArgumentException
+     * @throws InvalidArgumentException|\OpenSpout\Common\Exception\InvalidArgumentException
      */
     public function __construct()
     {
