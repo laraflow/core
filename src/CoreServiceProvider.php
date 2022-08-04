@@ -15,6 +15,12 @@ class CoreServiceProvider extends ServiceProvider
             __DIR__ . '/../config/core.php' => config_path('core.php'),
         ], 'core-config');
 
+        //view
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'core');
+        $this->publishes([
+            __DIR__ . '/../resources/views' => resource_path('views/vendor/core'),
+        ], 'core-view');
+
         /*//route
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
 
@@ -28,12 +34,6 @@ class CoreServiceProvider extends ServiceProvider
             __DIR__ . '/../resources/lang' => $this->app->langPath('vendor/core/lang'),
         ], 'core-lang');
 
-        //view
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'core');
-
-        $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/vendor/core'),
-        ], 'core-view');
 
         //asset
         $this->publishes([

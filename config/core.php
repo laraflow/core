@@ -3,9 +3,9 @@
 return [
     'paginate_location' => 'layouts.paginate.',
     'popup_actions' => [
-        'delete' => "layouts.partials.soft-delete-modal",
-        'restore' => "layouts.partials.restore-modal",
-        'export' => "layouts.partials.export-modal",
-        'import' => "layouts.partials.import-modal",
+        'delete' => "core::popup.delete",
+        'restore' => "core::popup.restore",
+        'export' => "core::popup.export",
+        'import' => "core::popup.import",
     ]
 ];
