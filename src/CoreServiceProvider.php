@@ -3,8 +3,9 @@
 namespace Laraflow\Core;
 
 use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\ServiceProvider;
+use Laraflow\Core\Http\Response\XmlResponse;
 
 /**
  * Class CoreServiceProvider
@@ -47,6 +48,7 @@ class CoreServiceProvider extends ServiceProvider
 
         $this->loadMacro();
         $this->loadDirective();
+        $this->loadBinding();
     }
 
     public function register()
@@ -74,4 +76,10 @@ class CoreServiceProvider extends ServiceProvider
         });
     }
 
+    private function loadBinding()
+    {
+        $this->app->bind('xml', function () {
+            return new XmlResponse();
+        });
+    }
 }
