@@ -9,18 +9,17 @@ use Laraflow\Core\Abstracts\Service\Service;
 
 /**
  * Class CustomHtmlService
- * @package Laraflow\Core\Supports
  */
 class CustomHtmlService extends Service
 {
     /**
      * Switch function for enable and disable status of model
      *
-     * @param Model $model
-     * @param string $field
-     * @param array $options
-     * @param mixed|null $current_value
-     * @param array $states
+     * @param  Model  $model
+     * @param  string  $field
+     * @param  array  $options
+     * @param  mixed|null  $current_value
+     * @param  array  $states
      * @return HtmlString
      */
     public static function flagChangeButton(Model $model, string $field, array $options = [], $current_value = null, array $states = []): HtmlString
@@ -33,15 +32,15 @@ class CustomHtmlService extends Service
         $states['on'] = $states['on'] ?? 'success';
         $states['off'] = $states['off'] ?? 'danger';
         $HTML = "<input class='toggle-class' type='checkbox' ";
-        $HTML .= "data-onstyle='" . $states['on'] . "' data-offstyle='" . $states['off'] . "' data-toggle='toggle' data-size='small'";
+        $HTML .= "data-onstyle='".$states['on']."' data-offstyle='".$states['off']."' data-toggle='toggle' data-size='small'";
         $HTML .= "data-model='$model_path' data-id='$model_id' data-field='$field' ";
-        $HTML .= "data-on='" . $options['on'] . "' data-off='" . $options['off'] . "'";
+        $HTML .= "data-on='".$options['on']."' data-off='".$options['off']."'";
         if (is_null($current_value)) {
-            $HTML .= ($options['on'] == $model->$field) ? " checked" : "";
+            $HTML .= ($options['on'] == $model->$field) ? ' checked' : '';
         } else {
-            $HTML .= ($options['on'] == $current_value) ? " checked" : "";
+            $HTML .= ($options['on'] == $current_value) ? ' checked' : '';
         }
-        $HTML .= ">";
+        $HTML .= '>';
 
         return new HtmlString($HTML);
     }
@@ -50,33 +49,33 @@ class CustomHtmlService extends Service
      * Custom pagination query string appending function
      *
      * @param $collection
-     * @param string $type [default, simple]
+     * @param  string  $type [default, simple]
      * @return mixed
      */
     public static function pagination($collection, string $type = 'default')
     {
         return $collection->onEachSide(2)->appends(request()->query())
-            ->links(Config::get('core.paginate_location') . $type . '-paginate');
+            ->links(Config::get('core.paginate_location').$type.'-paginate');
     }
 
     /**
      * Confirmation model popup handler for delete, restore and export
      * authorization confirmation approval.
      *
-     * @param string $modelName
-     * @param array $actions
+     * @param  string  $modelName
+     * @param  array  $actions
      * @return HtmlString
      */
     public static function confirmModal(string $modelName = 'Item', array $actions = []): HtmlString
     {
         $HTML = '';
-        foreach (Config::get('core.popup_actions') as $action => $layout):
-            if (in_array($action, $actions)) :
+        foreach (Config::get('core.popup_actions') as $action => $layout) {
+            if (in_array($action, $actions)) {
                 $HTML .= view($layout, [
                     'model' => $modelName,
                 ]);
-            endif;
-        endforeach;
+            }
+        }
 
         return new HtmlString($HTML);
     }
@@ -84,7 +83,7 @@ class CustomHtmlService extends Service
     /**
      * Audit Operation event icon style provider return string
      *
-     * @param string $event
+     * @param  string  $event
      * @return HtmlString
      */
     public static function eventIcons(string $event): HtmlString
@@ -102,23 +101,22 @@ class CustomHtmlService extends Service
     /**
      * Display tags as inline list items
      *
-     * @param array $tags
-     * @param string|null $icon_class
+     * @param  array  $tags
+     * @param  string|null  $icon_class
      * @return HtmlString
      */
     public static function displayTags(array $tags, string $icon_class = null): HtmlString
     {
-        $HTML = "";
-        if (count($tags) > 0) :
+        $HTML = '';
+        if (count($tags) > 0) {
             $HTML = "<div class='d-inline-block'>";
             $icon = ($icon_class !== null) ? "<i class='{$icon_class} mr-1'></i>" : null;
-            foreach ($tags as $tag):
-                $HTML .= "<span class='ml-1 badge badge-pill p-2 d-block d-md-inline-block " . UtilityService::randomBadgeBackground() . "'>{$icon} {$tag}</span>";
-            endforeach;
-            $HTML .= "</div>";
-        endif;
+            foreach ($tags as $tag) {
+                $HTML .= "<span class='ml-1 badge badge-pill p-2 d-block d-md-inline-block ".UtilityService::randomBadgeBackground()."'>{$icon} {$tag}</span>";
+            }
+            $HTML .= '</div>';
+        }
 
         return new HtmlString($HTML);
     }
-
 }

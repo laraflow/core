@@ -11,14 +11,17 @@ abstract class MaatWebSiteExcelExport extends FastExcel implements ExportInterfa
      * @var array
      */
     public $formatRow = [];
+
     /**
      * @var BorderBuilder
      */
     protected $borderStyle;
+
     /**
      * @var StyleBuilder
      */
     protected $headingStyle;
+
     /**
      * @var StyleBuilder
      */
@@ -54,7 +57,7 @@ abstract class MaatWebSiteExcelExport extends FastExcel implements ExportInterfa
     }
 
     /**
-     * @param StyleBuilder $styleBuilder
+     * @param  StyleBuilder  $styleBuilder
      * @return FastExcelExport
      */
     public function setHeadingStyle($styleBuilder): self
@@ -73,7 +76,7 @@ abstract class MaatWebSiteExcelExport extends FastExcel implements ExportInterfa
     }
 
     /**
-     * @param BorderBuilder $borderBuilder
+     * @param  BorderBuilder  $borderBuilder
      * @return FastExcelExport
      */
     public function setBorderStyle($borderBuilder): self
@@ -84,7 +87,7 @@ abstract class MaatWebSiteExcelExport extends FastExcel implements ExportInterfa
     }
 
     /**
-     * @param StyleBuilder $styleBuilder
+     * @param  StyleBuilder  $styleBuilder
      * @return FastExcelExport
      */
     public function setRowStyle($styleBuilder): self
@@ -105,7 +108,7 @@ abstract class MaatWebSiteExcelExport extends FastExcel implements ExportInterfa
     /**
      * Modify Output Row Cells
      *
-     * @param mixed $row
+     * @param  mixed  $row
      * @return array
      */
     abstract public function map($row): array;

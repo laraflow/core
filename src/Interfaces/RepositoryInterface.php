@@ -19,8 +19,9 @@ interface RepositoryInterface
     /**
      * create a new record in the database
      *
-     * @param array $data
+     * @param  array  $data
      * @return mixed
+     *
      * @throws Exception
      */
     public function create(array $data);
@@ -28,38 +29,43 @@ interface RepositoryInterface
     /**
      * update record in the database
      *
-     * @param array $data
-     * @param string|int $id
+     * @param  array  $data
+     * @param  string|int  $id
      * @return bool
      */
     public function update(array $data, $id): bool;
 
     /**
      * remove record from the database
-     * @param string|int $id
-     * @param bool $hardDelete
+     *
+     * @param  string|int  $id
+     * @param  bool  $hardDelete
      * @return bool
      */
     public function delete($id, $hardDelete = false): bool;
 
     /**
      * show the record with the given id
-     * @param string|int $id
-     * @param bool $purge
+     *
+     * @param  string|int  $id
+     * @param  bool  $purge
      * @return mixed
+     *
      * @throws Exception
      */
     public function find($id, bool $purge = false);
 
     /**
      * Get the associated model
+     *
      * @return mixed
      */
     public function getModel();
 
     /**
      * Associated Dynamically  model
-     * @param mixed $model
+     *
+     * @param  mixed  $model
      * @return void
      */
     public function setModel($model);
@@ -72,14 +78,16 @@ interface RepositoryInterface
     /**
      * Handle All catch Exceptions
      *
-     * @param mixed $exception
+     * @param  mixed  $exception
+     *
      * @throws Exception
      */
     public function handleException($exception);
 
     /**
      * Restore any Soft-Deleted Table Row/Model
-     * @param string|int $id
+     *
+     * @param  string|int  $id
      * @return bool
      */
     public function restore($id): bool;
@@ -87,7 +95,7 @@ interface RepositoryInterface
     /**
      * Return Query Builder with condition options
      *
-     * @param array $conditions
+     * @param  array  $conditions
      * @return mixed
      */
     public function filter(array $conditions = []);

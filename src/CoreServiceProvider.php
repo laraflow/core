@@ -11,7 +11,6 @@ use Laraflow\Core\Http\Response\XmlResponse;
 
 /**
  * Class CoreServiceProvider
- * @package Laraflow\Core
  */
 class CoreServiceProvider extends ServiceProvider
 {
@@ -19,14 +18,14 @@ class CoreServiceProvider extends ServiceProvider
     {
         //config
         $this->publishes([
-            __DIR__ . '/../config/core.php' => config_path('core.php'),
-            __DIR__ . '/../config/xml.php' => config_path('xml.php'),
+            __DIR__.'/../config/core.php' => config_path('core.php'),
+            __DIR__.'/../config/xml.php' => config_path('xml.php'),
         ], 'core-config');
 
         //view
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'core');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'core');
         $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/vendor/core'),
+            __DIR__.'/../resources/views' => resource_path('views/vendor/core'),
         ], 'core-view');
 
         /*//route
@@ -57,10 +56,10 @@ class CoreServiceProvider extends ServiceProvider
     {
         //config
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/core.php', 'core'
+            __DIR__.'/../config/core.php', 'core'
         );
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/xml.php', 'xml'
+            __DIR__.'/../config/xml.php', 'xml'
         );
     }
 
@@ -89,8 +88,7 @@ class CoreServiceProvider extends ServiceProvider
     {
         $this->commands([
             RepositoryMakeCommand::class,
-            ServiceMakeCommand::class
+            ServiceMakeCommand::class,
         ]);
-
     }
 }
