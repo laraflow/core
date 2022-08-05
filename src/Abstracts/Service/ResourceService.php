@@ -2,31 +2,27 @@
 
 namespace Laraflow\Core\Abstracts\Service;
 
-use BadMethodCallException;
-use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Log;
 use Laraflow\Core\Interfaces\ResourceServiceInterface;
-use PDOException;
 
 /**
  * Class ResourceService
- * @package Laraflow\Core\Abstracts\Repository
+ * @package Laraflow\Core\Abstracts\Service
  */
 abstract class ResourceService implements ResourceServiceInterface
 {
     /**
-     * @var Model
+     * @var Model|mixed
      */
     public $model;
 
     /**
-     * Repository constructor.
+     * ResourceService constructor.
      * Constructor to bind model to repo
-     * @param Model $model
+     *
+     * @param mixed $model
      */
     public function __construct($model)
     {
@@ -35,22 +31,24 @@ abstract class ResourceService implements ResourceServiceInterface
 
     /**
      * Get the associated model
-     * @return mixed
+     *
+     * @return Model
      */
-    public function getModel()
+    public function getModel(): Model
     {
         return $this->model;
     }
 
     /**
-     * Associated Dynamically  model
+     * Associated model class to service
+     *
      * @param mixed $model
      * @return void
      */
     public function setModel($model)
     {
         if (is_string($model)) {
-            $this->model = App::make($model);
+            $this->model = \App::make($model);
         } elseif ($model instanceof Model) {
             $this->model = $model;
         } else {
@@ -74,16 +72,16 @@ abstract class ResourceService implements ResourceServiceInterface
      *
      * @param array $data
      * @return mixed
-     * @throws Exception
+     * @throws \Exception
      */
-    public function create(array $data)
+    public function create(array $data): ?Model
     {
         try {
             $newModel = $this->model->create($data);
             $this->setModel($newModel);
 
             return $this->getModel();
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             $this->handleException($exception);
 
             return null;
@@ -96,7 +94,7 @@ abstract class ResourceService implements ResourceServiceInterface
      * @param array $data
      * @param string|int $id
      * @return bool
-     * @throws Exception
+     * @throws \Exception
      */
     public function update(array $data, $id): bool
     {
@@ -105,7 +103,7 @@ abstract class ResourceService implements ResourceServiceInterface
             $this->setModel($recordModel);
 
             return $this->model->update($data);
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             $this->handleException($exception);
 
             return false;
@@ -117,9 +115,9 @@ abstract class ResourceService implements ResourceServiceInterface
      * @param string|int $id
      * @param bool $withTrashed
      * @return mixed
-     * @throws Exception
+     * @throws \Exception
      */
-    public function find($id, bool $withTrashed = false)
+    public function find($id, bool $withTrashed = false): ?Model
     {
         $newModel = null;
 
@@ -165,31 +163,31 @@ abstract class ResourceService implements ResourceServiceInterface
      *
      * @param mixed $exception
      * @return void
-     * @throws Exception
+     * @throws \Exception
      */
     public function handleException($exception)
     {
-        Log::error("Query Exception: ");
-        Log::error($exception->getMessage());
+        \Log::error("Query Exception->" . $exception->getMessage());
+
         //if application is on production keep silent
-        if (App::environment('production')):
-            Log::error($exception->getMessage());
+        if (\App::environment('production')):
+            \Log::error($exception->getMessage());
 
         //Eloquent Model Exception
         elseif ($exception instanceof ModelNotFoundException):
             throw new ModelNotFoundException($exception->getMessage());
 
-        //DB Error
-        elseif ($exception instanceof PDOException):
-            throw new PDOException($exception->getMessage());
+        //Database Exception
+        elseif ($exception instanceof \PDOException):
+            throw new \PDOException($exception->getMessage());
 
         //Invalid magic method called
-        elseif ($exception instanceof BadMethodCallException):
-            throw new BadMethodCallException($exception->getMessage());
+        elseif ($exception instanceof \BadMethodCallException):
+            throw new \BadMethodCallException($exception->getMessage());
 
         //Through general Exception
         else:
-            throw new Exception($exception->getMessage());
+            throw new \Exception($exception->getMessage());
         endif;
     }
 }
