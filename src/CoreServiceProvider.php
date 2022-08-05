@@ -2,17 +2,22 @@
 
 namespace Laraflow\Core;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Response;
 
+/**
+ * Class CoreServiceProvider
+ * @package Laraflow\Core
+ */
 class CoreServiceProvider extends ServiceProvider
 {
-
     public function boot()
     {
-
         //config
         $this->publishes([
             __DIR__ . '/../config/core.php' => config_path('core.php'),
+            __DIR__ . '/../config/xml.php' => config_path('xml.php'),
         ], 'core-config');
 
         //view
@@ -39,6 +44,9 @@ class CoreServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../public' => public_path('vendor/core'),
         ], 'core-asset');*/
+
+        $this->loadMacro();
+        $this->loadDirective();
     }
 
     public function register()
@@ -47,6 +55,23 @@ class CoreServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__ . '/../config/core.php', 'core'
         );
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/xml.php', 'xml'
+        );
+    }
+
+    private function loadMacro()
+    {
+        Response::macro('xml', function ($value, $status = 200, $config = []) {
+            return (new XmlResponse())->array2xml($value, false, $config, $status);
+        });
+    }
+
+    private function loadDirective()
+    {
+        Blade::directive('money', function ($string) {
+            return "<?php echo  \Laraflow\Core\Services\Utilities\MoneyService::format({$string}); ?>";
+        });
     }
 
 }

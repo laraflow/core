@@ -58,9 +58,11 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Laraflow\\Core\\CoreServiceProvider",
-                "Laraflow\\Core\\MoneyServiceProvider"
-            ]
+                "Laraflow\\Core\\CoreServiceProvider"
+            ],
+            "aliases": {
+                "Xml": "Laraflow\\Core\\Facades\\XmlFacade"
+            }
         }
     },
     "minimum-stability": "dev",
