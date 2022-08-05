@@ -4,7 +4,6 @@ namespace Laraflow\Core\Supports;
 
 /**
  * Class Money
- * @package Laraflow\Core\Supports
  */
 class Money
 {

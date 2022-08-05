@@ -4,14 +4,13 @@ namespace Laraflow\Core\Interfaces;
 
 /**
  * Interface ExportInterface
- * @package Laraflow\Core\Interfaces
  */
 interface ExportInterface
 {
     /**
      * Modify Output Row Cells
      *
-     * @param mixed $row
+     * @param  mixed  $row
      * @return array
      */
     public function map($row): array;

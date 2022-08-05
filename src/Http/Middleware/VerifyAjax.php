@@ -10,15 +10,14 @@ use Illuminate\Validation\UnauthorizedException;
  * Ajax Request Middleware
  *
  * Class VerifyAjax
- * @package Laraflow\Core\Middleware
  */
 class VerifyAjax
 {
     /**
      * Handle an incoming request.
      *
-     * @param Request $request
-     * @param Closure $next
+     * @param  Request  $request
+     * @param  Closure  $next
      * @return mixed
      */
     public function handle(Request $request, Closure $next)

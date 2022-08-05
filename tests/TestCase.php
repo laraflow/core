@@ -23,7 +23,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(function (string $modelName) {
-            return 'Laraflow\\Core\\Database\\Factories\\' . class_basename($modelName) . 'Factory';
+            return 'Laraflow\\Core\\Database\\Factories\\'.class_basename($modelName).'Factory';
         });
     }
 

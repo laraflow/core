@@ -7,7 +7,6 @@ use Laraflow\Core\Supports\Money;
 
 /**
  * Class MoneyService
- * @package Laraflow\Core\Services\Utilities
  */
 class MoneyService extends Service
 {
@@ -24,9 +23,9 @@ class MoneyService extends Service
     /**
      * Return Currency Formatted string from number
      *
-     * @param mixed $amount
-     * @param string $currency
-     * @param bool $onlyCurrency
+     * @param  mixed  $amount
+     * @param  string  $currency
+     * @param  bool  $onlyCurrency
      * @return string|null
      */
     public static function format($amount = null, string $currency = Money::USD, bool $onlyCurrency = false)
@@ -46,10 +45,10 @@ class MoneyService extends Service
             );
 
             $amount = ($onlyCurrency == true)
-                ? $currency . ' ' . $formattedAmount
+                ? $currency.' '.$formattedAmount
                 : (($currencyConfig['symbol_first'] == true)
-                    ? $currencyConfig['symbol'] . ' ' . $formattedAmount
-                    : $formattedAmount . ' ' . $currencyConfig['symbol']);
+                    ? $currencyConfig['symbol'].' '.$formattedAmount
+                    : $formattedAmount.' '.$currencyConfig['symbol']);
         }
 
         return $amount;
@@ -58,11 +57,11 @@ class MoneyService extends Service
     /**
      * Return single currency
      *
-     * @param string $name
+     * @param  string  $name
      * @return array|null
      */
     public static function get(string $name)
     {
-        return (Money::$currency[$name] ?? null);
+        return Money::$currency[$name] ?? null;
     }
 }
