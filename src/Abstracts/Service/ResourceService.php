@@ -11,7 +11,7 @@ use Laraflow\Core\Interfaces\ResourceServiceInterface;
  * Class ResourceService
  * @package Laraflow\Core\Abstracts\Service
  */
-abstract class ResourceService implements ResourceServiceInterface
+abstract class ResourceService extends Service implements ResourceServiceInterface
 {
     /**
      * @var Model|mixed
