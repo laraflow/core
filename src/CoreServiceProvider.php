@@ -5,6 +5,8 @@ namespace Laraflow\Core;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\ServiceProvider;
+use Laraflow\Core\Commands\RepositoryMakeCommand;
+use Laraflow\Core\Commands\ServiceMakeCommand;
 use Laraflow\Core\Http\Response\XmlResponse;
 
 /**
@@ -81,5 +83,14 @@ class CoreServiceProvider extends ServiceProvider
         $this->app->bind('xml', function () {
             return new XmlResponse();
         });
+    }
+
+    private function loadCommands()
+    {
+        $this->commands([
+            RepositoryMakeCommand::class,
+            ServiceMakeCommand::class
+        ]);
+
     }
 }

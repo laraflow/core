@@ -5,13 +5,14 @@ namespace Laraflow\Core\Abstracts\Service;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Laraflow\Core\Interfaces\ResourceServiceInterface;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class ResourceService
  * @package Laraflow\Core\Abstracts\Service
  */
-abstract class ResourceService extends Service implements ResourceServiceInterface
+abstract class ResourceService extends Service
 {
     /**
      * @var Model|mixed
@@ -167,11 +168,11 @@ abstract class ResourceService extends Service implements ResourceServiceInterfa
      */
     public function handleException($exception)
     {
-        \Log::error("Query Exception->" . $exception->getMessage());
+        Log::error("Query Exception->" . $exception->getMessage());
 
         //if application is on production keep silent
-        if (\App::environment('production')):
-            \Log::error($exception->getMessage());
+        if (App::environment('production')):
+            Log::error($exception->getMessage());
 
         //Eloquent Model Exception
         elseif ($exception instanceof ModelNotFoundException):
@@ -190,4 +191,5 @@ abstract class ResourceService extends Service implements ResourceServiceInterfa
             throw new \Exception($exception->getMessage());
         endif;
     }
+
 }
