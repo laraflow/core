@@ -27,9 +27,9 @@ class CoreServiceProvider extends ServiceProvider
         ], 'core-config');
 
         //view
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'core');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'core');
         $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/vendor/core'),
+            __DIR__.'/../resources/views' => resource_path('views/vendor/core'),
         ], 'core-view');
 
         /*//route
@@ -60,11 +60,11 @@ class CoreServiceProvider extends ServiceProvider
     {
         //config
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/core.php', 'core'
+            __DIR__.'/../config/core.php', 'core'
         );
 
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/xml.php', 'xml'
+            __DIR__.'/../config/xml.php', 'xml'
         );
     }
 
@@ -89,7 +89,6 @@ class CoreServiceProvider extends ServiceProvider
                 config('core.blame.deletedBy', 'deleted_by'))
                 ->nullable()
                 ->default(null);
-
         });
     }
 
