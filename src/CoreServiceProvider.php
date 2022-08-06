@@ -96,7 +96,7 @@ class CoreServiceProvider extends ServiceProvider
     private function loadDirective()
     {
         Blade::directive('money', function ($string) {
-            return "<?php echo  \Laraflow\Core\Services\Utilities\MoneyService::format({$string}); ?>";
+            return "<?php echo  \Laraflow\Core\Supports\Money::format({$string}); ?>";
         });
     }
 
