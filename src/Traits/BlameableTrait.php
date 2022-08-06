@@ -4,6 +4,8 @@ namespace Laraflow\Core\Traits;
 
 use ErrorException;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 trait BlameableTrait
 {
@@ -69,18 +71,46 @@ trait BlameableTrait
         /**
          * Trigger Event and append deleter id to model
          */
-        static::deleting(function (Model $model) {
+        if (static::usesSoftDelete()) {
+            static::deleting(function (Model $model) {
 
-            $modelDeletedByAttribute = config('blameable.deletedBy', 'created_by');
+                $modelDeletedByAttribute = config('blameable.deletedBy', 'created_by');
 
-            $blameable_id = (auth()->check())
-                ? auth()->user()->id
-                : config('blameable.user')::where('email', 'admin@admin.com')->first()->id;
+                $blameable_id = (auth()->check())
+                    ? auth()->user()->id
+                    : config('blameable.user')::where('email', 'admin@admin.com')->first()->id;
 
-            $model->$modelDeletedByAttribute = $blameable_id ?? null;
+                $model->$modelDeletedByAttribute = $blameable_id ?? null;
 
-            $model->save();
-        });
+                $model->save();
+            });
+        }
+    }
+
+    public static function checkBlameableColumns() {
+        $table = (new static)->getTable();
+        $createdByAttribute = config('blameable.createdBy', 'created_by');
+        $updatedByAttribute = config('blameable.updatedBy', 'updated_by');
+        $deletedByAttribute = config('blameable.deletedBy', 'deleted_by');
+        if (!Schema::hasColumn($table, $createdByAttribute)
+            && !Schema::hasColumn($table, $updatedByAttribute)
+            && !Schema::hasColumn($table, $deletedByAttribute)) {
+            //
+        }
+    }
+
+    public static function addBlameableColumns() {
+        $table = (new static)->getTable();
+        $createdByAttribute = config('blameable.createdBy', 'created_by');
+        $updatedByAttribute = config('blameable.updatedBy', 'updated_by');
+        $deletedByAttribute = config('blameable.deletedBy', 'deleted_by');
+        if (!Schema::hasColumn($table, $createdByAttribute)
+            && !Schema::hasColumn($table, $updatedByAttribute)
+            && !Schema::hasColumn($table, $deletedByAttribute)) {
+            Schema::table($table, function (Blueprint $table) {
+                $table->blameable();
+            });
+        }
     }
 
     /**
@@ -123,6 +153,18 @@ trait BlameableTrait
             config('blameable.user'),
             config('blameable.deletedBy', 'deleted_by'),
             'id');
+    }
+
+    protected static function usesSoftDelete()
+    {
+        static $softDelete;
+
+        if (is_null($softDelete)) {
+            $instance = new static;
+            return $softDelete = method_exists($instance, 'bootSoftDeletes');
+        }
+
+        return $softDelete;
     }
 
 }
