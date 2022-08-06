@@ -22,6 +22,7 @@ class CoreServiceProvider extends ServiceProvider
             __DIR__.'/../config/core.php' => config_path('core.php'),
             __DIR__.'/../config/xml.php' => config_path('xml.php'),
             __DIR__.'/../config/audit.php' => config_path('audit.php'),
+            __DIR__.'/../config/media-library.php' => config_path('media-library.php'),
         ], 'core-config');
 
         //view
