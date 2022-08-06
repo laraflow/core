@@ -13,29 +13,9 @@ class Constant
     public const ENABLED_OPTIONS = ['yes' => 'Yes', 'no' => 'No'];
 
     /**
-     * System Model Status
-     */
-    public const GUEST_ROLE_ID = 4;
-
-    /**
-     * System User Permission Guards
-     */
-    public const PERMISSION_GUARDS = ['web' => 'WEB'];
-
-    /**
-     * System User Permission Guard
-     */
-    public const PERMISSION_GUARD = 'web';
-
-    /**
      * System Permission Title Constraint
      */
     public const PERMISSION_NAME_ALLOW_CHAR = '([a-zA-Z0-9.-_]+)';
-
-    /**
-     * Keyword to purge Soft Deleted Models
-     */
-    public const PURGE_MODEL_QSA = 'purge';
 
     /**
      * Timing Constants
@@ -59,13 +39,13 @@ class Constant
     /**
      * Toastr Message Levels
      */
-    public const MSG_TOASTR_ERROR = 'error';
+    public const MESSAGE_ERROR = 'error';
 
-    public const MSG_TOASTR_WARNING = 'warning';
+    public const MESSAGE_WARNING = 'warning';
 
-    public const MSG_TOASTR_SUCCESS = 'success';
+    public const MESSAGE_SUCCESS = 'success';
 
-    public const MSG_TOASTR_INFO = 'info';
+    public const MESSAGE_INFO = 'info';
 
     /**
      * Authentication Login Medium
@@ -88,7 +68,7 @@ class Constant
     public const EXPORT_OPTIONS = [
         'xlsx' => 'Microsoft Excel (.xlsx)',
         'ods' => 'Open Document Spreadsheet (.ods)',
-        'csv' => 'Comma Seperated Values (.csv)',
+        'csv' => 'Comma Separated Values (.csv)',
     ];
 
     /**
@@ -132,38 +112,4 @@ class Constant
      * Default Exp[ort type
      */
     public const EXPORT_DEFAULT = 'xlsx';
-
-    /**
-     * CATALOG TYPES
-     */
-    public const CATALOG_TYPE = [
-        'GENDER' => 'GEN',
-        'MARITAL_STATUS' => 'MAS',
-        'RELIGION' => 'REL',
-        'UNIVERSITY' => 'UNI',
-        'BOARD' => 'BOR',
-        'QUOTA' => 'QOT',
-    ];
-
-    /**
-     * CATALOG TYPES
-     */
-    public const CATALOG_LABEL = [
-        'GEN' => 'Gender',
-        'MAS' => 'Marital Status',
-        'REL' => 'Religion',
-        'UNI' => 'University',
-        'BOR' => 'Board',
-        'QOT' => 'Quote',
-    ];
-
-    public const GPA_TYPE = [
-        1 => '1st Division',
-        2 => '2nd Division',
-        3 => '3rd Division',
-        4 => 'GPA(Out of 4)',
-        5 => 'GPA(Out of 5)',
-        6 => 'Others',
-
-    ];
 }

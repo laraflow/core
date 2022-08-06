@@ -20,7 +20,6 @@ class CoreServiceProvider extends ServiceProvider
         //config
         $this->publishes([
             __DIR__.'/../config/core.php' => config_path('core.php'),
-            __DIR__.'/../config/xml.php' => config_path('xml.php'),
             __DIR__.'/../config/audit.php' => config_path('audit.php'),
             __DIR__.'/../config/media-library.php' => config_path('media-library.php'),
             __DIR__.'/../config/columnsortable.php' => config_path('columnsortable.php'),
@@ -61,10 +60,6 @@ class CoreServiceProvider extends ServiceProvider
         //config
         $this->mergeConfigFrom(
             __DIR__.'/../config/core.php', 'core'
-        );
-
-        $this->mergeConfigFrom(
-            __DIR__.'/../config/xml.php', 'xml'
         );
     }
 
