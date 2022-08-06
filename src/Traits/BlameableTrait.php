@@ -16,7 +16,7 @@ trait BlameableTrait
      */
     public static function checkConfig()
     {
-        if (is_null(config('blameable'))) {
+        if (is_null(config('core.blame'))) {
             if (app()->environment('production')) {
                 \Log::error('Blameable Config is missing. please import config or fix model namespace');
             } else {
@@ -41,11 +41,11 @@ trait BlameableTrait
          */
         static::creating(function (Model $model) {
 
-            $modelCreatedByAttribute = config('blameable.createdBy', 'created_by');
+            $modelCreatedByAttribute = config('core.blame.createdBy', 'created_by');
 
             $blameable_id = (auth()->check())
                 ? auth()->user()->id
-                : config('blameable.user')::where('email', 'admin@admin.com')->first()->id;
+                : config('core.blame.user')::where('email', 'admin@admin.com')->first()->id;
 
             $model->$modelCreatedByAttribute = $blameable_id ?? null;
 
@@ -57,11 +57,11 @@ trait BlameableTrait
          */
         static::updating(function (Model $model) {
 
-            $modelUpdatedByAttribute = config('blameable.updatedBy', 'created_by');
+            $modelUpdatedByAttribute = config('core.blame.updatedBy', 'created_by');
 
             $blameable_id = (auth()->check())
                 ? auth()->user()->id
-                : config('blameable.user')::where('email', 'admin@admin.com')->first()->id;
+                : config('core.blame.user')::where('email', 'admin@admin.com')->first()->id;
 
             $model->$modelUpdatedByAttribute = $blameable_id ?? null;
 
@@ -74,11 +74,11 @@ trait BlameableTrait
         if (static::usesSoftDelete()) {
             static::deleting(function (Model $model) {
 
-                $modelDeletedByAttribute = config('blameable.deletedBy', 'created_by');
+                $modelDeletedByAttribute = config('core.blame.deletedBy', 'created_by');
 
                 $blameable_id = (auth()->check())
                     ? auth()->user()->id
-                    : config('blameable.user')::where('email', 'admin@admin.com')->first()->id;
+                    : config('core.blame.user')::where('email', 'admin@admin.com')->first()->id;
 
                 $model->$modelDeletedByAttribute = $blameable_id ?? null;
 
@@ -89,9 +89,9 @@ trait BlameableTrait
 
     public static function checkBlameableColumns() {
         $table = (new static)->getTable();
-        $createdByAttribute = config('blameable.createdBy', 'created_by');
-        $updatedByAttribute = config('blameable.updatedBy', 'updated_by');
-        $deletedByAttribute = config('blameable.deletedBy', 'deleted_by');
+        $createdByAttribute = config('core.blame.createdBy', 'created_by');
+        $updatedByAttribute = config('core.blame.updatedBy', 'updated_by');
+        $deletedByAttribute = config('core.blame.deletedBy', 'deleted_by');
         if (!Schema::hasColumn($table, $createdByAttribute)
             && !Schema::hasColumn($table, $updatedByAttribute)
             && !Schema::hasColumn($table, $deletedByAttribute)) {
@@ -101,9 +101,9 @@ trait BlameableTrait
 
     public static function addBlameableColumns() {
         $table = (new static)->getTable();
-        $createdByAttribute = config('blameable.createdBy', 'created_by');
-        $updatedByAttribute = config('blameable.updatedBy', 'updated_by');
-        $deletedByAttribute = config('blameable.deletedBy', 'deleted_by');
+        $createdByAttribute = config('core.blame.createdBy', 'created_by');
+        $updatedByAttribute = config('core.blame.updatedBy', 'updated_by');
+        $deletedByAttribute = config('core.blame.deletedBy', 'deleted_by');
         if (!Schema::hasColumn($table, $createdByAttribute)
             && !Schema::hasColumn($table, $updatedByAttribute)
             && !Schema::hasColumn($table, $deletedByAttribute)) {
@@ -117,13 +117,12 @@ trait BlameableTrait
      * relation of model is created by a user
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     * @throws ErrorException
      */
     public function creator()
     {
         return $this->belongsTo(
-            config('blameable.user'),
-            config('blameable.createdBy', 'created_by'),
+            config('core.blame.user'),
+            config('core.blame.createdBy', 'created_by'),
             'id');
     }
 
@@ -131,13 +130,12 @@ trait BlameableTrait
      * if this model is updated by a user
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     * @throws ErrorException
      */
     public function editor()
     {
         return $this->belongsTo(
-            config('blameable.user'),
-            config('blameable.updatedBy', 'updated_by'),
+            config('core.blame.user'),
+            config('core.blame.updatedBy', 'updated_by'),
             'id');
     }
 
@@ -145,13 +143,12 @@ trait BlameableTrait
      * if this model is deleted by a user
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     * @throws ErrorException
      */
     public function deletor()
     {
         return $this->belongsTo(
-            config('blameable.user'),
-            config('blameable.deletedBy', 'deleted_by'),
+            config('core.blame.user'),
+            config('core.blame.deletedBy', 'deleted_by'),
             'id');
     }
 

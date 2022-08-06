@@ -64,10 +64,6 @@ class CoreServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__ . '/../config/xml.php', 'xml'
         );
-
-        $this->mergeConfigFrom(
-            __DIR__ . '/../config/blameable.php', 'blameable'
-        );
     }
 
     private function loadMacro()
@@ -78,17 +74,17 @@ class CoreServiceProvider extends ServiceProvider
 
         Blueprint::macro('blameable', function () {
             $this->unsignedBigInteger(
-                config('blameable.createdBy', 'created_by'))
+                config('core.blame.createdBy', 'created_by'))
                 ->nullable()
                 ->default(null);
 
             $this->unsignedBigInteger(
-                config('blameable.updatedBy', 'updated_by'))
+                config('core.blame.updatedBy', 'updated_by'))
                 ->nullable()
                 ->default(null);
 
             $this->unsignedBigInteger(
-                config('blameable.deletedBy', 'deleted_by'))
+                config('core.blame.deletedBy', 'deleted_by'))
                 ->nullable()
                 ->default(null);
 
