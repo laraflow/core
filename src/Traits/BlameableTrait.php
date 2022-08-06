@@ -4,10 +4,6 @@ namespace Laraflow\Core\Traits;
 
 use ErrorException;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 trait BlameableTrait
 {
@@ -19,8 +15,8 @@ trait BlameableTrait
     public static function checkConfig()
     {
         if (is_null(config('blameable'))) {
-            if (App::environment('production')) {
-                Log::error('Blameable Config is missing. please import config or fix model namespace');
+            if (app()->environment('production')) {
+                \Log::error('Blameable Config is missing. please import config or fix model namespace');
             } else {
                 throw new ErrorException('Blameable Config is missing. please import config or fix model namespace');
             }
@@ -30,7 +26,7 @@ trait BlameableTrait
     }
 
     /**
-     * load this event listener to class
+     * load this event listener to model
      *
      * @throws ErrorException
      */
@@ -42,81 +38,91 @@ trait BlameableTrait
          * Trigger Event and append creator id to model
          */
         static::creating(function (Model $model) {
-            if (Auth::check()) {
-                $user = Auth::user();
-            } else {
-                $userModel = config('blameable.user');
-                $user = $userModel::where('email', 'admin@admin.com')->first();
-            }
-            $model->created_by = isset($user) ? $user->id : 1;
+
+            $modelCreatedByAttribute = config('blameable.createdBy', 'created_by');
+
+            $blameable_id = (auth()->check())
+                ? auth()->user()->id
+                : config('blameable.user')::where('email', 'admin@admin.com')->first()->id;
+
+            $model->$modelCreatedByAttribute = $blameable_id ?? null;
+
+            $model->save();
         });
 
         /**
          * Trigger Event and append updater id to model
          */
         static::updating(function (Model $model) {
-            if (Auth::check()) {
-                $user = Auth::user()->id;
-            } else {
-                $userModel = config('blameable.user');
-                $user = $userModel::where('email', 'admin@admin.com')->first()->id;
-            }
-            $model->updated_by = isset($user) ? $user : 1;
+
+            $modelUpdatedByAttribute = config('blameable.updatedBy', 'created_by');
+
+            $blameable_id = (auth()->check())
+                ? auth()->user()->id
+                : config('blameable.user')::where('email', 'admin@admin.com')->first()->id;
+
+            $model->$modelUpdatedByAttribute = $blameable_id ?? null;
+
+            $model->save();
         });
 
         /**
          * Trigger Event and append deleter id to model
          */
         static::deleting(function (Model $model) {
-            if (Auth::check()) {
-                $user = Auth::user()->id;
-            } else {
-                $userModel = config('blameable.user');
-                $user = $userModel::where('email', 'admin@admin.com')->first()->id;
-            }
-            $model->deleted_by = isset($user) ? $user : 1;
+
+            $modelDeletedByAttribute = config('blameable.deletedBy', 'created_by');
+
+            $blameable_id = (auth()->check())
+                ? auth()->user()->id
+                : config('blameable.user')::where('email', 'admin@admin.com')->first()->id;
+
+            $model->$modelDeletedByAttribute = $blameable_id ?? null;
+
+            $model->save();
         });
     }
 
     /**
-     * if this model is created by a user
+     * relation of model is created by a user
      *
-     * @return BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      * @throws ErrorException
      */
-    public function createdBy(): BelongsTo
+    public function creator()
     {
-        self::checkConfig();
-
-        $userModel = config('blameable.user');
-        return $this->belongsTo($userModel, config('blameable.columns.createdByAttribute', 'created_by'), config('blameable.foreign_id', 'id'));
+        return $this->belongsTo(
+            config('blameable.user'),
+            config('blameable.createdBy', 'created_by'),
+            'id');
     }
 
     /**
      * if this model is updated by a user
      *
-     * @return BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      * @throws ErrorException
      */
-    public function updatedBy()
+    public function editor()
     {
-        self::checkConfig();
-
-        $userModel = config('blameable.user');
-        return $this->belongsTo($userModel, config('blameable.columns.updatedByAttribute', 'updated_by'), config('blameable.foreign_id', 'id'));
+        return $this->belongsTo(
+            config('blameable.user'),
+            config('blameable.updatedBy', 'updated_by'),
+            'id');
     }
 
     /**
      * if this model is deleted by a user
      *
-     * @return BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      * @throws ErrorException
      */
-    public function deletedBy()
+    public function deletor()
     {
-        self::checkConfig();
-
-        $userModel = config('blameable.user');
-        return $this->belongsTo($userModel, config('blameable.columns.deletedByAttribute', 'deleted_by'), config('blameable.foreign_id', 'id'));
+        return $this->belongsTo(
+            config('blameable.user'),
+            config('blameable.deletedBy', 'deleted_by'),
+            'id');
     }
+
 }
