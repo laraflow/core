@@ -56,7 +56,9 @@
             "phpstan/extension-installer": true
         },
         "platform-check" : false,
-        "platform" : {"php":"7.4"},
+        "platform" : {
+			"php":"7.4"
+		}
     },
     "extra": {
         "laravel": {
