@@ -6,6 +6,9 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Response;
 use Laraflow\Core\Exceptions\XmlResponseException;
+use ReflectionClass;
+use ReflectionException;
+use SimpleXMLElement;
 
 /**
  * Class XmlResponse
@@ -51,75 +54,18 @@ class XmlResponse
     }
 
     /**
-     * @return mixed
+     * replaces the current setting
+     *
+     * @param array $config
+     * @return void
      */
-    private function header()
+    private function config($config = [])
     {
-        return [
-            'Content-Type' => $this->charset(),
-        ];
-    }
-
-    /**
-     * @param  array  $header
-     * @return string
-     */
-    private function charset($header = []): string
-    {
-        $charset = 'application/xml; ';
-
-        if (! empty($this->charset)) {
-            $charset .= "charset={$this->charset}";
+        foreach ($config as $key => $value) {
+            if ($this->isConfig($key)) {
+                $this->{$key} = $value;
+            }
         }
-
-        return $charset;
-    }
-
-    /**
-     * add encoding
-     */
-    private function encodingXml()
-    {
-        if (! empty($this->charset) && strpos($this->template, 'encoding') === false) {
-            $this->template = "<?xml version=\"1.0\" encoding=\"{$this->charset}\"?>{$this->template}";
-        }
-    }
-
-    /**
-     * @param  string  $value
-     * @return bool
-     */
-    private function isType(string $value): bool
-    {
-        return in_array($value, [
-            'model',
-            'collection',
-            'array',
-            'object',
-        ]);
-    }
-
-    /**
-     * @param $value
-     * @return mixed
-     */
-    private function caseSensitive($value)
-    {
-        if ($this->caseSensitive) {
-            $value = explode('_', $value);
-            $value = lcfirst(implode('', array_map('ucfirst', $value)));
-        }
-
-        return $value;
-    }
-
-    private function rowName($row)
-    {
-        if (! empty($this->rowName)) {
-            return $this->rowName;
-        }
-
-        return 'row_'.$row;
     }
 
     /**
@@ -138,29 +84,29 @@ class XmlResponse
     }
 
     /**
-     * replaces the current setting
+     * @param array $array
+     * @param array $config
+     * @return string
      *
-     * @param  array  $config
-     * @return void
+     * @throws XmlResponseException
+     * @throws ReflectionException
      */
-    private function config($config = [])
+    public function asXml($array = [], $config = []): string
     {
-        foreach ($config as $key => $value) {
-            if ($this->isConfig($key)) {
-                $this->{$key} = $value;
-            }
-        }
+        $this->asXml = true;
+
+        return $this->array2xml($array, false, $config);
     }
 
     /**
      * @param $array
-     * @param  bool  $xml
-     * @param  array  $config
-     * @param  int  $status
+     * @param bool $xml
+     * @param array $config
+     * @param int $status
      * @return mixed
      *
      * @throws XmlResponseException
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function array2xml($array, $xml = false, $config = [], $status = 200)
     {
@@ -168,7 +114,7 @@ class XmlResponse
             $array = $array->toArray();
         }
 
-        if (! $this->isType(gettype($array))) {
+        if (!$this->isType(gettype($array))) {
             throw new XmlResponseException('It is not possible to convert data to XML Response');
         }
 
@@ -176,7 +122,7 @@ class XmlResponse
 
         if ($xml === false) {
             $this->encodingXml();
-            $xml = new \SimpleXMLElement($this->template);
+            $xml = new SimpleXMLElement($this->template);
         }
 
         foreach ($array as $key => $value) {
@@ -187,9 +133,9 @@ class XmlResponse
                     $this->array2xml($value, $xml->addChild($this->caseSensitive($key)));
                 }
             } elseif (is_object($value)) {
-                $this->array2xml($value, $xml->addChild($this->caseSensitive((new \ReflectionClass(get_class($value)))->getShortName())));
+                $this->array2xml($value, $xml->addChild($this->caseSensitive((new ReflectionClass(get_class($value)))->getShortName())));
             } else {
-                if (! is_null($value) || $this->showEmptyField) {
+                if (!is_null($value) || $this->showEmptyField) {
                     if (is_numeric($key)) {
                         $xml->addChild($this->caseSensitive($this->rowName($key)), htmlspecialchars($value));
                     } else {
@@ -207,17 +153,74 @@ class XmlResponse
     }
 
     /**
-     * @param  array  $array
-     * @param  array  $config
-     * @return string
-     *
-     * @throws XmlResponseException
-     * @throws \ReflectionException
+     * @param string $value
+     * @return bool
      */
-    public function asXml($array = [], $config = []): string
+    private function isType(string $value): bool
     {
-        $this->asXml = true;
+        return in_array($value, [
+            'model',
+            'collection',
+            'array',
+            'object',
+        ]);
+    }
 
-        return $this->array2xml($array, false, $config);
+    /**
+     * add encoding
+     */
+    private function encodingXml()
+    {
+        if (!empty($this->charset) && strpos($this->template, 'encoding') === false) {
+            $this->template = "<?xml version=\"1.0\" encoding=\"{$this->charset}\"?>{$this->template}";
+        }
+    }
+
+    /**
+     * @param $value
+     * @return mixed
+     */
+    private function caseSensitive($value)
+    {
+        if ($this->caseSensitive) {
+            $value = explode('_', $value);
+            $value = lcfirst(implode('', array_map('ucfirst', $value)));
+        }
+
+        return $value;
+    }
+
+    private function rowName($row)
+    {
+        if (!empty($this->rowName)) {
+            return $this->rowName;
+        }
+
+        return 'row_' . $row;
+    }
+
+    /**
+     * @return mixed
+     */
+    private function header()
+    {
+        return [
+            'Content-Type' => $this->charset(),
+        ];
+    }
+
+    /**
+     * @param array $header
+     * @return string
+     */
+    private function charset($header = []): string
+    {
+        $charset = 'application/xml; ';
+
+        if (!empty($this->charset)) {
+            $charset .= "charset={$this->charset}";
+        }
+
+        return $charset;
     }
 }

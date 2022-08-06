@@ -17,7 +17,7 @@ class UtilityService extends Service
      * Hash any text with laravel default has algo.
      * Currently, only support bcrypt() with cost 10
      *
-     * @param  string  $password
+     * @param string $password
      * @return string
      */
     public static function hashPassword(string $password): string
@@ -54,7 +54,7 @@ class UtilityService extends Service
     /**
      * Admin LTE 3 Supported Random Badge Colors
      *
-     * @param  bool  $rounded
+     * @param bool $rounded
      * @return string
      */
     public static function randomBadgeBackground(bool $rounded = false): string
@@ -84,7 +84,7 @@ class UtilityService extends Service
     /**
      * Rename laravel log filename to more human readable format
      *
-     * @param  string  $filename
+     * @param string $filename
      * @return array|string|string[]|null
      */
     public static function formatLogFilename(string $filename)
@@ -93,8 +93,8 @@ class UtilityService extends Service
     }
 
     /**
-     * @param  Model  $model
-     * @param  string  $group
+     * @param Model $model
+     * @param string $group
      * @return array
      */
     public static function modelAudits(Model $model, string $group = 'date'): array
@@ -114,7 +114,7 @@ class UtilityService extends Service
      * return a list of route names filtered with http verbs
      * [GET, POST, PUT, DELETE, etc]
      *
-     * @param  string  $method
+     * @param string $method
      * @return array
      */
     public static function routeNames(string $method = 'GET'): array
@@ -140,7 +140,7 @@ class UtilityService extends Service
     /**
      * Convert Route Name Human Readable Style
      *
-     * @param  string  $permission
+     * @param string $permission
      * @return string
      */
     public static function permissionDisplay(string $permission): string
