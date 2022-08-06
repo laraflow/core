@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^7.4|^8.1",
         "ext-iconv": "*",
         "ext-simplexml": "*",
         "ext-xml": "*",
@@ -25,9 +25,9 @@
         "intervention/image": "^2.7",
         "kyslik/column-sortable": "^6.4",
         "laravolt/avatar": "^4.1",
-        "openspout/openspout": "^3.7",
         "owen-it/laravel-auditing": "^13.0",
         "php-flasher/flasher-laravel": "^1.7",
+        "rap2hpoutre/fast-excel": "^4.1",
         "spatie/laravel-backup": "^6.16",
         "spatie/laravel-medialibrary": "^9.12"
     },
@@ -58,6 +58,10 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true,
             "phpstan/extension-installer": true
+        },
+        "platform-check": false,
+        "platform": {
+            "php" : "7.4.30"
         }
     },
     "extra": {
