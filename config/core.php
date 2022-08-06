@@ -86,8 +86,8 @@ return [
     ],
 
     //XML Response handler
-     'xml' => [
-         /*
+    'xml' => [
+        /*
          |--------------------------------------------------------------------------
          | Default template
          |--------------------------------------------------------------------------
@@ -97,10 +97,10 @@ return [
          | <root xmlns:v1="http://www.site.com/schema"></root>
          |
          */
-         'template' => '<root></root>',
-         'caseSensitive' => false,
-         'showEmptyField' => true, //Show empty field
-         'charset' => 'utf-8',
-         'rowName' => null,
-     ]
+        'template' => '<root></root>',
+        'caseSensitive' => false,
+        'showEmptyField' => true, //Show empty field
+        'charset' => 'utf-8',
+        'rowName' => null,
+    ],
 ];
