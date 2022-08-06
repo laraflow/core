@@ -73,8 +73,8 @@ trait APIResponseTrait
     /**
      * Used after successfully creating a new resource.
      *
-     * @param mixed $data
-     * @param string $message
+     * @param  mixed  $data
+     * @param  string  $message
      * @return Response
      */
     protected function respondCreated($data = null, string $message = ''): Response
@@ -86,9 +86,9 @@ trait APIResponseTrait
      * Provides a single, simple method to return an API response, formatted
      * to match the requested format, with proper content-type and status code.
      *
-     * @param array|string|null $data
-     * @param int|null $status
-     * @param string $message
+     * @param  array|string|null  $data
+     * @param  int|null  $status
+     * @param  string  $message
      * @return Response
      */
     protected function respond($data = null, ?int $status = null, string $message = ''): Response
@@ -124,7 +124,7 @@ trait APIResponseTrait
      * Handles formatting a response. Currently makes some heavy assumptions
      * and needs updating! :)
      *
-     * @param array|string|null $data
+     * @param  array|string|null  $data
      * @return string|null
      */
     protected function format($data = null)
@@ -146,7 +146,7 @@ trait APIResponseTrait
 
         // Determine correct response type through content negotiation if not explicitly declared
         if (
-            (empty($this->format) || !in_array($this->format, ['json', 'xml'], true))
+            (empty($this->format) || ! in_array($this->format, ['json', 'xml'], true))
             && $this->request instanceof Request
         ) {
             $mime = $this->request->negotiate(
@@ -159,7 +159,7 @@ trait APIResponseTrait
         $this->response->setContentType($mime);
 
         // if we don't have a formatter, make one
-        if (!isset($this->formatter)) {
+        if (! isset($this->formatter)) {
             // if no formatter, use the default
             $this->formatter = $format->getFormatter($mime);
         }
@@ -176,8 +176,8 @@ trait APIResponseTrait
     /**
      * Used after a resource has been successfully deleted.
      *
-     * @param mixed $data
-     * @param string $message
+     * @param  mixed  $data
+     * @param  string  $message
      * @return Response
      */
     protected function respondDeleted($data = null, string $message = ''): Response
@@ -188,8 +188,8 @@ trait APIResponseTrait
     /**
      * Used after a resource has been successfully updated.
      *
-     * @param mixed $data
-     * @param string $message
+     * @param  mixed  $data
+     * @param  string  $message
      * @return Response
      */
     protected function respondUpdated($data = null, string $message = ''): Response
@@ -201,7 +201,7 @@ trait APIResponseTrait
      * Used after a command has been successfully executed but there is no
      * meaningful reply to send back to the client.
      *
-     * @param string $message
+     * @param  string  $message
      * @return Response
      */
     protected function respondNoContent(string $message = 'No Content'): Response
@@ -214,9 +214,9 @@ trait APIResponseTrait
      * or had bad authorization credentials. User is encouraged to try again
      * with the proper information.
      *
-     * @param string $description
-     * @param string|null $code
-     * @param string $message
+     * @param  string  $description
+     * @param  string|null  $code
+     * @param  string  $message
      * @return Response
      */
     protected function failUnauthorized(string $description = 'Unauthorized', ?string $code = null, string $message = ''): Response
@@ -227,15 +227,15 @@ trait APIResponseTrait
     /**
      * Used for generic failures that no custom methods exist for.
      *
-     * @param array|string $messages
-     * @param int $status HTTP status code
-     * @param string|null $code Custom, API-specific, error code
-     * @param string $customMessage
+     * @param  array|string  $messages
+     * @param  int  $status HTTP status code
+     * @param  string|null  $code Custom, API-specific, error code
+     * @param  string  $customMessage
      * @return Response
      */
     protected function fail($messages, int $status = 400, ?string $code = null, string $customMessage = ''): Response
     {
-        if (!is_array($messages)) {
+        if (! is_array($messages)) {
             $messages = ['error' => $messages];
         }
 
@@ -252,9 +252,9 @@ trait APIResponseTrait
      * Used when access is always denied to this resource and no amount
      * of trying again will help.
      *
-     * @param string $description
-     * @param string|null $code
-     * @param string $message
+     * @param  string  $description
+     * @param  string|null  $code
+     * @param  string  $message
      * @return Response
      */
     protected function failForbidden(string $description = 'Forbidden', ?string $code = null, string $message = ''): Response
@@ -265,9 +265,9 @@ trait APIResponseTrait
     /**
      * Used when a specified resource cannot be found.
      *
-     * @param string $description
-     * @param string|null $code
-     * @param string $message
+     * @param  string  $description
+     * @param  string|null  $code
+     * @param  string  $message
      * @return Response
      */
     protected function failNotFound(string $description = 'Not Found', ?string $code = null, string $message = ''): Response
@@ -278,9 +278,9 @@ trait APIResponseTrait
     /**
      * Used when the data provided by the client cannot be validated.
      *
-     * @param string $description
-     * @param string|null $code
-     * @param string $message
+     * @param  string  $description
+     * @param  string|null  $code
+     * @param  string  $message
      * @return Response
      *
      * @deprecated Use failValidationErrors instead
@@ -293,9 +293,9 @@ trait APIResponseTrait
     /**
      * Used when the data provided by the client cannot be validated on one or more fields.
      *
-     * @param string|string[] $errors
-     * @param string|null $code
-     * @param string $message
+     * @param  string|string[]  $errors
+     * @param  string|null  $code
+     * @param  string  $message
      * @return Response
      */
     protected function failValidationErrors($errors, ?string $code = null, string $message = ''): Response
@@ -306,9 +306,9 @@ trait APIResponseTrait
     /**
      * Use when trying to create a new resource and it already exists.
      *
-     * @param string $description
-     * @param string|null $code
-     * @param string $message
+     * @param  string  $description
+     * @param  string|null  $code
+     * @param  string  $message
      * @return Response
      */
     protected function failResourceExists(string $description = 'Conflict', ?string $code = null, string $message = ''): Response
@@ -321,9 +321,9 @@ trait APIResponseTrait
      * Not Found, because here we know the data previously existed, but is now gone,
      * where Not Found means we simply cannot find any information about it.
      *
-     * @param string $description
-     * @param string|null $code
-     * @param string $message
+     * @param  string  $description
+     * @param  string|null  $code
+     * @param  string  $message
      * @return Response
      */
     protected function failResourceGone(string $description = 'Gone', ?string $code = null, string $message = ''): Response
@@ -334,9 +334,9 @@ trait APIResponseTrait
     /**
      * Used when the user has made too many requests for the resource recently.
      *
-     * @param string $description
-     * @param string|null $code
-     * @param string $message
+     * @param  string  $description
+     * @param  string|null  $code
+     * @param  string  $message
      * @return Response
      */
     protected function failTooManyRequests(string $description = 'Too Many Requests', ?string $code = null, string $message = ''): Response
@@ -351,9 +351,9 @@ trait APIResponseTrait
     /**
      * Used when there is a server error.
      *
-     * @param string $description The error message to show the user.
-     * @param string|null $code A custom, API-specific, error code.
-     * @param string $message A custom "reason" message to return.
+     * @param  string  $description The error message to show the user.
+     * @param  string|null  $code A custom, API-specific, error code.
+     * @param  string  $message A custom "reason" message to return.
      * @return Response The value of the Response's send() method.
      */
     protected function failServerError(string $description = 'Internal Server Error', ?string $code = null, string $message = ''): Response
@@ -364,7 +364,7 @@ trait APIResponseTrait
     /**
      * Sets the format the response should be in.
      *
-     * @param string|null $format
+     * @param  string|null  $format
      * @return $this
      */
     protected function setResponseFormat(?string $format = null): APIResponseTrait

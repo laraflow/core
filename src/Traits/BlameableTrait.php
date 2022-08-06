@@ -103,9 +103,9 @@ trait BlameableTrait
         $createdByAttribute = config('core.blame.createdBy', 'created_by');
         $updatedByAttribute = config('core.blame.updatedBy', 'updated_by');
         $deletedByAttribute = config('core.blame.deletedBy', 'deleted_by');
-        if (!Schema::hasColumn($table, $createdByAttribute)
-            && !Schema::hasColumn($table, $updatedByAttribute)
-            && !Schema::hasColumn($table, $deletedByAttribute)) {
+        if (! Schema::hasColumn($table, $createdByAttribute)
+            && ! Schema::hasColumn($table, $updatedByAttribute)
+            && ! Schema::hasColumn($table, $deletedByAttribute)) {
             //
         }
     }
@@ -116,9 +116,9 @@ trait BlameableTrait
         $createdByAttribute = config('core.blame.createdBy', 'created_by');
         $updatedByAttribute = config('core.blame.updatedBy', 'updated_by');
         $deletedByAttribute = config('core.blame.deletedBy', 'deleted_by');
-        if (!Schema::hasColumn($table, $createdByAttribute)
-            && !Schema::hasColumn($table, $updatedByAttribute)
-            && !Schema::hasColumn($table, $deletedByAttribute)) {
+        if (! Schema::hasColumn($table, $createdByAttribute)
+            && ! Schema::hasColumn($table, $updatedByAttribute)
+            && ! Schema::hasColumn($table, $deletedByAttribute)) {
             Schema::table($table, function (Blueprint $table) {
                 $table->blameable();
             });
