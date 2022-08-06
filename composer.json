@@ -23,6 +23,7 @@
         "ext-xmlreader": "*",
         "illuminate/contracts": "^8.83",
         "intervention/image": "^2.7",
+        "kyslik/column-sortable": "^6.4",
         "laravolt/avatar": "^4.1",
         "owen-it/laravel-auditing": "^13.0",
         "php-flasher/flasher-laravel": "^1.7",
