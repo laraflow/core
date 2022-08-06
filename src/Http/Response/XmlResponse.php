@@ -61,14 +61,14 @@ class XmlResponse
     }
 
     /**
-     * @param array $header
+     * @param  array  $header
      * @return string
      */
     private function charset($header = []): string
     {
         $charset = 'application/xml; ';
 
-        if (!empty($this->charset)) {
+        if (! empty($this->charset)) {
             $charset .= "charset={$this->charset}";
         }
 
@@ -80,13 +80,13 @@ class XmlResponse
      */
     private function encodingXml()
     {
-        if (!empty($this->charset) && strpos($this->template, 'encoding') === false) {
+        if (! empty($this->charset) && strpos($this->template, 'encoding') === false) {
             $this->template = "<?xml version=\"1.0\" encoding=\"{$this->charset}\"?>{$this->template}";
         }
     }
 
     /**
-     * @param string $value
+     * @param  string  $value
      * @return bool
      */
     private function isType(string $value): bool
@@ -115,11 +115,11 @@ class XmlResponse
 
     private function rowName($row)
     {
-        if (!empty($this->rowName)) {
+        if (! empty($this->rowName)) {
             return $this->rowName;
         }
 
-        return 'row_' . $row;
+        return 'row_'.$row;
     }
 
     /**
@@ -140,7 +140,7 @@ class XmlResponse
     /**
      * replaces the current setting
      *
-     * @param array $config
+     * @param  array  $config
      * @return void
      */
     private function config($config = [])
@@ -154,9 +154,9 @@ class XmlResponse
 
     /**
      * @param $array
-     * @param bool $xml
-     * @param array $config
-     * @param int $status
+     * @param  bool  $xml
+     * @param  array  $config
+     * @param  int  $status
      * @return mixed
      *
      * @throws XmlResponseException
@@ -168,7 +168,7 @@ class XmlResponse
             $array = $array->toArray();
         }
 
-        if (!$this->isType(gettype($array))) {
+        if (! $this->isType(gettype($array))) {
             throw new XmlResponseException('It is not possible to convert data to XML Response');
         }
 
@@ -189,7 +189,7 @@ class XmlResponse
             } elseif (is_object($value)) {
                 $this->array2xml($value, $xml->addChild($this->caseSensitive((new \ReflectionClass(get_class($value)))->getShortName())));
             } else {
-                if (!is_null($value) || $this->showEmptyField) {
+                if (! is_null($value) || $this->showEmptyField) {
                     if (is_numeric($key)) {
                         $xml->addChild($this->caseSensitive($this->rowName($key)), htmlspecialchars($value));
                     } else {
@@ -207,8 +207,8 @@ class XmlResponse
     }
 
     /**
-     * @param array $array
-     * @param array $config
+     * @param  array  $array
+     * @param  array  $config
      * @return string
      *
      * @throws XmlResponseException
