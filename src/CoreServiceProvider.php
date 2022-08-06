@@ -2,7 +2,9 @@
 
 namespace Laraflow\Core;
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\ServiceProvider;
 use Laraflow\Core\Commands\RepositoryMakeCommand;
@@ -18,14 +20,14 @@ class CoreServiceProvider extends ServiceProvider
     {
         //config
         $this->publishes([
-            __DIR__.'/../config/core.php' => config_path('core.php'),
-            __DIR__.'/../config/xml.php' => config_path('xml.php'),
+            __DIR__ . '/../config/core.php' => config_path('core.php'),
+            __DIR__ . '/../config/xml.php' => config_path('xml.php'),
         ], 'core-config');
 
         //view
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'core');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'core');
         $this->publishes([
-            __DIR__.'/../resources/views' => resource_path('views/vendor/core'),
+            __DIR__ . '/../resources/views' => resource_path('views/vendor/core'),
         ], 'core-view');
 
         /*//route
@@ -56,10 +58,15 @@ class CoreServiceProvider extends ServiceProvider
     {
         //config
         $this->mergeConfigFrom(
-            __DIR__.'/../config/core.php', 'core'
+            __DIR__ . '/../config/core.php', 'core'
         );
+
         $this->mergeConfigFrom(
-            __DIR__.'/../config/xml.php', 'xml'
+            __DIR__ . '/../config/xml.php', 'xml'
+        );
+
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/blameable.php', 'blameable'
         );
     }
 
@@ -67,6 +74,24 @@ class CoreServiceProvider extends ServiceProvider
     {
         Response::macro('xml', function ($value, $status = 200, $config = []) {
             return (new XmlResponse())->array2xml($value, false, $config, $status);
+        });
+
+        Blueprint::macro('blameable', function () {
+            $this->unsignedBigInteger(
+                Config::get('blameable.createdBy', 'created_by'))
+                ->nullable()
+                ->default(null);
+
+            $this->unsignedBigInteger(
+                Config::get('blameable.updatedBy', 'updated_by'))
+                ->nullable()
+                ->default(null);
+
+            $this->unsignedBigInteger(
+                Config::get('blameable.deletedBy', 'deleted_by'))
+                ->nullable()
+                ->default(null);
+
         });
     }
 

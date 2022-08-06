@@ -1,6 +1,6 @@
 <?php
 
-namespace Laraflow\Core\Http\Response;
+namespace Laraflow\Core\Traits;
 
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Foundation\Application;

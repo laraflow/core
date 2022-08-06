@@ -2,7 +2,6 @@
 
 namespace Laraflow\Core\Traits;
 
-use App\Models\Backend\Setting\User;
 use ErrorException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,7 +9,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
-trait BlamableTrait
+trait BlameableTrait
 {
     /**
      * check if the trait required config file is present
@@ -46,7 +45,7 @@ trait BlamableTrait
             if (Auth::check()) {
                 $user = Auth::user();
             } else {
-                $userModel = config('blameable.models.user');
+                $userModel = config('blameable.user');
                 $user = $userModel::where('email', 'admin@admin.com')->first();
             }
             $model->created_by = isset($user) ? $user->id : 1;
@@ -59,7 +58,7 @@ trait BlamableTrait
             if (Auth::check()) {
                 $user = Auth::user()->id;
             } else {
-                $userModel = config('blameable.models.user');
+                $userModel = config('blameable.user');
                 $user = $userModel::where('email', 'admin@admin.com')->first()->id;
             }
             $model->updated_by = isset($user) ? $user : 1;
@@ -72,7 +71,7 @@ trait BlamableTrait
             if (Auth::check()) {
                 $user = Auth::user()->id;
             } else {
-                $userModel = config('blameable.models.user');
+                $userModel = config('blameable.user');
                 $user = $userModel::where('email', 'admin@admin.com')->first()->id;
             }
             $model->deleted_by = isset($user) ? $user : 1;
@@ -89,7 +88,7 @@ trait BlamableTrait
     {
         self::checkConfig();
 
-        $userModel = config('blameable.models.user');
+        $userModel = config('blameable.user');
         return $this->belongsTo($userModel, config('blameable.columns.createdByAttribute', 'created_by'), config('blameable.foreign_id', 'id'));
     }
 
@@ -103,7 +102,7 @@ trait BlamableTrait
     {
         self::checkConfig();
 
-        $userModel = config('blameable.models.user');
+        $userModel = config('blameable.user');
         return $this->belongsTo($userModel, config('blameable.columns.updatedByAttribute', 'updated_by'), config('blameable.foreign_id', 'id'));
     }
 
@@ -117,7 +116,7 @@ trait BlamableTrait
     {
         self::checkConfig();
 
-        $userModel = config('blameable.models.user');
+        $userModel = config('blameable.user');
         return $this->belongsTo($userModel, config('blameable.columns.deletedByAttribute', 'deleted_by'), config('blameable.foreign_id', 'id'));
     }
 }
