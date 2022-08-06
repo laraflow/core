@@ -23,8 +23,6 @@ trait BlameableTrait
                 throw new ErrorException('Blameable Config is missing. please import config or fix model namespace');
             }
         }
-
-
     }
 
     /**
@@ -40,7 +38,6 @@ trait BlameableTrait
          * Trigger Event and append creator id to model
          */
         static::creating(function (Model $model) {
-
             $modelCreatedByAttribute = config('core.blame.createdBy', 'created_by');
 
             $blameable_id = (auth()->check())
@@ -56,7 +53,6 @@ trait BlameableTrait
          * Trigger Event and append updater id to model
          */
         static::updating(function (Model $model) {
-
             $modelUpdatedByAttribute = config('core.blame.updatedBy', 'created_by');
 
             $blameable_id = (auth()->check())
@@ -73,7 +69,6 @@ trait BlameableTrait
          */
         if (static::usesSoftDelete()) {
             static::deleting(function (Model $model) {
-
                 $modelDeletedByAttribute = config('core.blame.deletedBy', 'created_by');
 
                 $blameable_id = (auth()->check())
@@ -87,26 +82,28 @@ trait BlameableTrait
         }
     }
 
-    public static function checkBlameableColumns() {
+    public static function checkBlameableColumns()
+    {
         $table = (new static)->getTable();
         $createdByAttribute = config('core.blame.createdBy', 'created_by');
         $updatedByAttribute = config('core.blame.updatedBy', 'updated_by');
         $deletedByAttribute = config('core.blame.deletedBy', 'deleted_by');
-        if (!Schema::hasColumn($table, $createdByAttribute)
-            && !Schema::hasColumn($table, $updatedByAttribute)
-            && !Schema::hasColumn($table, $deletedByAttribute)) {
+        if (! Schema::hasColumn($table, $createdByAttribute)
+            && ! Schema::hasColumn($table, $updatedByAttribute)
+            && ! Schema::hasColumn($table, $deletedByAttribute)) {
             //
         }
     }
 
-    public static function addBlameableColumns() {
+    public static function addBlameableColumns()
+    {
         $table = (new static)->getTable();
         $createdByAttribute = config('core.blame.createdBy', 'created_by');
         $updatedByAttribute = config('core.blame.updatedBy', 'updated_by');
         $deletedByAttribute = config('core.blame.deletedBy', 'deleted_by');
-        if (!Schema::hasColumn($table, $createdByAttribute)
-            && !Schema::hasColumn($table, $updatedByAttribute)
-            && !Schema::hasColumn($table, $deletedByAttribute)) {
+        if (! Schema::hasColumn($table, $createdByAttribute)
+            && ! Schema::hasColumn($table, $updatedByAttribute)
+            && ! Schema::hasColumn($table, $deletedByAttribute)) {
             Schema::table($table, function (Blueprint $table) {
                 $table->blameable();
             });
@@ -158,10 +155,10 @@ trait BlameableTrait
 
         if (is_null($softDelete)) {
             $instance = new static;
+
             return $softDelete = method_exists($instance, 'bootSoftDeletes');
         }
 
         return $softDelete;
     }
-
 }

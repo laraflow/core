@@ -79,6 +79,6 @@ return [
         |
         */
 
-        'deletedBy' => 'deleted_by'
-    ]
+        'deletedBy' => 'deleted_by',
+    ],
 ];
