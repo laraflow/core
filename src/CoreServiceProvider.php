@@ -4,7 +4,6 @@ namespace Laraflow\Core;
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\ServiceProvider;
 use Laraflow\Core\Commands\RepositoryMakeCommand;
@@ -79,17 +78,17 @@ class CoreServiceProvider extends ServiceProvider
 
         Blueprint::macro('blameable', function () {
             $this->unsignedBigInteger(
-                Config::get('blameable.createdBy', 'created_by'))
+                config('blameable.createdBy', 'created_by'))
                 ->nullable()
                 ->default(null);
 
             $this->unsignedBigInteger(
-                Config::get('blameable.updatedBy', 'updated_by'))
+                config('blameable.updatedBy', 'updated_by'))
                 ->nullable()
                 ->default(null);
 
             $this->unsignedBigInteger(
-                Config::get('blameable.deletedBy', 'deleted_by'))
+                config('blameable.deletedBy', 'deleted_by'))
                 ->nullable()
                 ->default(null);
 
