@@ -11,7 +11,7 @@ class MinLength implements Rule
     /**
      * Create a new rule instance.
      *
-     * @param int $limit
+     * @param  int  $limit
      */
     public function __construct($limit)
     {
@@ -21,13 +21,13 @@ class MinLength implements Rule
     /**
      * Determine if the validation rule passes.
      *
-     * @param string $attribute
-     * @param mixed $value
+     * @param  string  $attribute
+     * @param  mixed  $value
      * @return bool
      */
     public function passes($attribute, $value): bool
     {
-        return !(strlen($value) < $this->limit);
+        return ! (strlen($value) < $this->limit);
     }
 
     /**

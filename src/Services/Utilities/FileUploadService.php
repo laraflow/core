@@ -14,8 +14,8 @@ use function public_path;
 class FileUploadService extends Service
 {
     /**
-     * @param string $name
-     * @param string $extension
+     * @param  string  $name
+     * @param  string  $extension
      * @return string|null
      *
      * @throws Exception
@@ -26,7 +26,7 @@ class FileUploadService extends Service
 
         $tmpPath = public_path('/media/tmp/');
 
-        if (!is_dir($tmpPath)) {
+        if (! is_dir($tmpPath)) {
             mkdir($tmpPath, '0777', true);
         }
 
@@ -40,8 +40,8 @@ class FileUploadService extends Service
         } finally {
             try {
                 if ($imageObject instanceof \Intervention\Image\Image) {
-                    if ($imageObject->resize(256, 256)->save($tmpPath . $fileName, 80, $extension)) {
-                        return $tmpPath . $fileName;
+                    if ($imageObject->resize(256, 256)->save($tmpPath.$fileName, 80, $extension)) {
+                        return $tmpPath.$fileName;
                     } else {
                         return null;
                     }
@@ -57,17 +57,17 @@ class FileUploadService extends Service
     }
 
     /**
-     * @param string $extension
+     * @param  string  $extension
      * @return string
      */
     private function randomFileName(string $extension = 'jpg'): string
     {
-        return Str::random(32) . '.' . $extension;
+        return Str::random(32).'.'.$extension;
     }
 
     /**
-     * @param UploadedFile $file
-     * @param string $extension
+     * @param  UploadedFile  $file
+     * @param  string  $extension
      * @return string|null
      */
     public function avatarImageFromInput(UploadedFile $file, string $extension = 'jpg'): ?string
@@ -87,8 +87,8 @@ class FileUploadService extends Service
                     if ($imageObject->resize(256, null, function ($constraint) {
                         $constraint->aspectRatio();
                     })->crop(256, 256, 0, 0)
-                        ->save($tmpPath . $fileName, 80, $extension)) {
-                        return $tmpPath . $fileName;
+                        ->save($tmpPath.$fileName, 80, $extension)) {
+                        return $tmpPath.$fileName;
                     } else {
                         return null;
                     }

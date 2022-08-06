@@ -63,7 +63,7 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
     }
 
     /**
-     * @param StyleBuilder $styleBuilder
+     * @param  StyleBuilder  $styleBuilder
      * @return FastExcelImport
      */
     public function setHeadingStyle(StyleBuilder $styleBuilder): self
@@ -82,7 +82,7 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
     }
 
     /**
-     * @param BorderBuilder $borderBuilder
+     * @param  BorderBuilder  $borderBuilder
      * @return FastExcelImport
      */
     public function setBorderStyle(BorderBuilder $borderBuilder): self
@@ -93,7 +93,7 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
     }
 
     /**
-     * @param StyleBuilder $styleBuilder
+     * @param  StyleBuilder  $styleBuilder
      * @return FastExcelImport
      */
     public function setRowStyle(StyleBuilder $styleBuilder): self
@@ -114,7 +114,7 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
     /**
      * Modify Output Row Cells
      *
-     * @param mixed $row
+     * @param  mixed  $row
      * @return array
      */
     abstract public function map($row): array;
