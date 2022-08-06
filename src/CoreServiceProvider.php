@@ -20,8 +20,9 @@ class CoreServiceProvider extends ServiceProvider
     {
         //config
         $this->publishes([
-            __DIR__ . '/../config/core.php' => config_path('core.php'),
-            __DIR__ . '/../config/xml.php' => config_path('xml.php'),
+            __DIR__.'/../config/core.php' => config_path('core.php'),
+            __DIR__.'/../config/xml.php' => config_path('xml.php'),
+            __DIR__.'/../config/audit.php' => config_path('audit.php'),
         ], 'core-config');
 
         //view
