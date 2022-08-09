@@ -92,7 +92,7 @@ class Utility
     }
 
     /**
-     * @param Model $model
+     * @param  Model  $model
      * @return array
      */
     public static function modelAudits(Model $model): array

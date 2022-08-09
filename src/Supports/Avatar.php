@@ -11,7 +11,6 @@ use Laravolt\Avatar\Facade as AvatarFacade;
 
 class Avatar
 {
-
     const IMAGE_JPG = 'jpg';
 
     const COLOR_WHITE = '#FFFFFF';
@@ -21,7 +20,7 @@ class Avatar
     public $extension = self::IMAGE_JPG;
 
     /**
-     * @var \Intervention\Image\Image|null $image
+     * @var \Intervention\Image\Image|null
      */
     private $image;
 
@@ -43,8 +42,8 @@ class Avatar
     /**
      * create a avatar image from text
      *
-     * @param string $name
-     * @param string $extension
+     * @param  string  $name
+     * @param  string  $extension
      * @return string|null
      *
      * @throws Exception
@@ -61,9 +60,10 @@ class Avatar
     /**
      * create a avatar image from input
      *
-     * @param string $key
-     * @param string $extension
+     * @param  string  $key
+     * @param  string  $extension
      * @return string|null
+     *
      * @throws Exception
      */
     public static function fromInput(string $key, string $extension = self::IMAGE_JPG): ?string
@@ -76,9 +76,10 @@ class Avatar
     }
 
     /**
-     * @param string $location
-     * @param string $extension
+     * @param  string  $location
+     * @param  string  $extension
      * @return string|null
+     *
      * @throws Exception
      */
     public static function fromFile(string $location, string $extension = self::IMAGE_JPG): ?string
@@ -91,7 +92,7 @@ class Avatar
     }
 
     /**
-     * @param \Intervention\Image\Image|null $image
+     * @param  \Intervention\Image\Image|null  $image
      */
     public function setImage(\Intervention\Image\Image $image): void
     {
@@ -106,31 +107,31 @@ class Avatar
     /**
      * Return temp location path
      *
-     * @param string|null $temp_path
+     * @param  string|null  $temp_path
      * @return string
      */
     public function getTempDirectory(string $temp_path = null): string
     {
         $tmpPath = $temp_path ?? config('laravolt.avatar.temp_path');
 
-        if (!is_dir($tmpPath))
+        if (! is_dir($tmpPath)) {
             mkdir($tmpPath, '0777', true);
+        }
 
         return $tmpPath;
     }
 
     /**
-     * @param null $extension
+     * @param  null  $extension
      * @return string
      */
     public function getTargetFilePath($extension = null): string
     {
-        $filepath = rtrim($this->getTempDirectory()) . DIRECTORY_SEPARATOR . $this->filename;
+        $filepath = rtrim($this->getTempDirectory()).DIRECTORY_SEPARATOR.$this->filename;
 
         return ($extension != null)
             ? "{$filepath}.{$extension}"
             : "{$filepath}";
-
     }
 
     /**
@@ -142,8 +143,9 @@ class Avatar
     }
 
     /**
-     * @param string $text
+     * @param  string  $text
      * @return self
+     *
      * @throws \Exception
      */
     private function text(string $text): self
@@ -154,17 +156,19 @@ class Avatar
                 ->setDimension($this->config['width'], $this->config['height'])
                 ->getImageObject());
         } catch (\Exception $exception) {
-            Log::error("Avatar from text exception : " . $exception->getMessage());
+            Log::error('Avatar from text exception : '.$exception->getMessage());
             $this->setImage($this->default());
         }
+
         return $this;
     }
 
     /**
      * Return Image Object created from file location
      *
-     * @param string $location
+     * @param  string  $location
      * @return self
+     *
      * @throws \Exception
      */
     private function file(string $location): self
@@ -173,17 +177,19 @@ class Avatar
             $this->filename($location);
             $this->setImage(Image::make($location));
         } catch (\Exception $exception) {
-            Log::error("Avatar from filesystem exception : " . $exception->getMessage());
+            Log::error('Avatar from filesystem exception : '.$exception->getMessage());
             $this->setImage($this->default());
         }
+
         return $this;
     }
 
     /**
      * Return Image Object created from request class
      *
-     * @param string $key
+     * @param  string  $key
      * @return self
+     *
      * @throws \Exception
      */
     private function input(string $key): self
@@ -193,14 +199,15 @@ class Avatar
             $this->filename($file->getClientOriginalName());
             $this->setImage(Image::make($file));
         } catch (\Exception $exception) {
-            Log::error("Avatar from request input exception : " . $exception->getMessage());
+            Log::error('Avatar from request input exception : '.$exception->getMessage());
             $this->setImage($this->default());
         }
+
         return $this;
     }
 
     /**
-     * @param string|null $filename
+     * @param  string|null  $filename
      * @return void
      */
     private function filename(string $filename = null)
@@ -214,7 +221,7 @@ class Avatar
     }
 
     /**
-     * @param string $extension
+     * @param  string  $extension
      * @return bool
      */
     public function save($extension = self::IMAGE_JPG): bool
@@ -222,6 +229,7 @@ class Avatar
         $img = $this->getImage()
             ->resize($this->config['width'], $this->config['height'])
             ->save($this->getTargetFilePath($extension), 100, $extension);
-        return (bool)($img instanceof \Intervention\Image\Image);
+
+        return (bool) ($img instanceof \Intervention\Image\Image);
     }
 }
