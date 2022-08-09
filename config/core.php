@@ -12,6 +12,18 @@ return [
     |
     */
 
+    'user' => \App\User::class,
+
+    /*
+    |--------------------------------------------------------------------------
+    | User Model Definition
+    |--------------------------------------------------------------------------
+    |
+    | Please specify a user model that should be used to setup `creator`
+    | and `updater` relationship.
+    |
+    */
+
     'paginate_location' => 'layouts.paginate.',
 
     /*
@@ -34,18 +46,6 @@ return [
     //Blameable Trait and Uses
 
     'blame' => [
-
-        /*
-        |--------------------------------------------------------------------------
-        | User Model Definition
-        |--------------------------------------------------------------------------
-        |
-        | Please specify a user model that should be used to setup `creator`
-        | and `updater` relationship.
-        |
-        */
-
-        'user' => \App\User::class,
 
         /*
         |--------------------------------------------------------------------------

@@ -28,7 +28,7 @@ trait BlameableTrait
 
             $blameable_id = (auth()->check())
                 ? auth()->user()->id
-                : config('core.blame.user')::where('email', 'admin@admin.com')->first()->id;
+                : config('core.user')::where('email', 'admin@admin.com')->first()->id;
 
             $model->$modelCreatedByAttribute = $blameable_id ?? null;
 
@@ -43,7 +43,7 @@ trait BlameableTrait
 
             $blameable_id = (auth()->check())
                 ? auth()->user()->id
-                : config('core.blame.user')::where('email', 'admin@admin.com')->first()->id;
+                : config('core.user')::where('email', 'admin@admin.com')->first()->id;
 
             $model->$modelUpdatedByAttribute = $blameable_id ?? null;
 
@@ -59,7 +59,7 @@ trait BlameableTrait
 
                 $blameable_id = (auth()->check())
                     ? auth()->user()->id
-                    : config('core.blame.user')::where('email', 'admin@admin.com')->first()->id;
+                    : config('core.user')::where('email', 'admin@admin.com')->first()->id;
 
                 $model->$modelDeletedByAttribute = $blameable_id ?? null;
 
@@ -133,7 +133,7 @@ trait BlameableTrait
     public function creator()
     {
         return $this->belongsTo(
-            config('core.blame.user'),
+            config('core.user'),
             config('core.blame.createdBy', 'created_by'),
             'id');
     }
@@ -146,7 +146,7 @@ trait BlameableTrait
     public function editor()
     {
         return $this->belongsTo(
-            config('core.blame.user'),
+            config('core.user'),
             config('core.blame.updatedBy', 'updated_by'),
             'id');
     }
@@ -159,7 +159,7 @@ trait BlameableTrait
     public function deletor()
     {
         return $this->belongsTo(
-            config('core.blame.user'),
+            config('core.user'),
             config('core.blame.deletedBy', 'deleted_by'),
             'id');
     }
