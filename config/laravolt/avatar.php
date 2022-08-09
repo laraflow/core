@@ -145,4 +145,7 @@ return [
             ],
         ],
     ],
+
+    //Temp folder location
+    'temp_path' => storage_path('/media/tmp/'),
 ];
