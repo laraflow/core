@@ -1,6 +1,6 @@
 <?php
 
-namespace Laraflow\Core\Http\Response;
+namespace Laraflow\Core\Traits;
 
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Foundation\Application;
@@ -71,6 +71,18 @@ trait APIResponseTrait
     protected $formatter;
 
     /**
+     * Used after successfully creating a new resource.
+     *
+     * @param  mixed  $data
+     * @param  string  $message
+     * @return Response
+     */
+    protected function respondCreated($data = null, string $message = ''): Response
+    {
+        return $this->respond($data, $this->codes['created'], $message);
+    }
+
+    /**
      * Provides a single, simple method to return an API response, formatted
      * to match the requested format, with proper content-type and status code.
      *
@@ -104,44 +116,61 @@ trait APIResponseTrait
         return $this->response->setContent($output)->setStatusCode($status, $message);
     }
 
-    /**
-     * Used for generic failures that no custom methods exist for.
-     *
-     * @param  array|string  $messages
-     * @param  int  $status HTTP status code
-     * @param  string|null  $code Custom, API-specific, error code
-     * @param  string  $customMessage
-     * @return Response
-     */
-    protected function fail($messages, int $status = 400, ?string $code = null, string $customMessage = ''): Response
-    {
-        if (! is_array($messages)) {
-            $messages = ['error' => $messages];
-        }
-
-        $response = [
-            'status' => $status,
-            'error' => $code ?? $status,
-            'messages' => $messages,
-        ];
-
-        return $this->respond($response, $status, $customMessage);
-    }
-
     //--------------------------------------------------------------------
     // Response Helpers
     //--------------------------------------------------------------------
 
     /**
-     * Used after successfully creating a new resource.
+     * Handles formatting a response. Currently makes some heavy assumptions
+     * and needs updating! :)
      *
-     * @param  mixed  $data
-     * @param  string  $message
-     * @return Response
+     * @param  array|string|null  $data
+     * @return string|null
      */
-    protected function respondCreated($data = null, string $message = ''): Response
+    protected function format($data = null)
     {
-        return $this->respond($data, $this->codes['created'], $message);
+        // If the data is a string, there's not much we can do to it...
+        if (is_string($data)) {
+            // The content type should be text/... and not application/...
+            $contentType = $this->response->getHeaderLine('Content-Type');
+            $contentType = str_replace('application/json', 'text/html', $contentType);
+            $contentType = str_replace('application/', 'text/', $contentType);
+            $this->response->setContentType($contentType);
+            $this->format = 'html';
+
+            return $data;
+        }
+
+        $format = Services::format();
+        $mime = "application/{$this->format}";
+
+        // Determine correct response type through content negotiation if not explicitly declared
+        if (
+            (empty($this->format) || ! in_array($this->format, ['json', 'xml'], true))
+            && $this->request instanceof Request
+        ) {
+            $mime = $this->request->negotiate(
+                'media',
+                $format->getConfig()->supportedResponseFormats,
+                false
+            );
+        }
+
+        $this->response->setContentType($mime);
+
+        // if we don't have a formatter, make one
+        if (! isset($this->formatter)) {
+            // if no formatter, use the default
+            $this->formatter = $format->getFormatter($mime);
+        }
+
+        if ($mime !== 'application/json') {
+            // Recursively convert objects into associative arrays
+            // Conversion not required for JSONFormatter
+            $data = json_decode(json_encode($data), true);
+        }
+
+        return $this->formatter->format($data);
     }
 
     /**
@@ -193,6 +222,30 @@ trait APIResponseTrait
     protected function failUnauthorized(string $description = 'Unauthorized', ?string $code = null, string $message = ''): Response
     {
         return $this->fail($description, $this->codes['unauthorized'], $code, $message);
+    }
+
+    /**
+     * Used for generic failures that no custom methods exist for.
+     *
+     * @param  array|string  $messages
+     * @param  int  $status HTTP status code
+     * @param  string|null  $code Custom, API-specific, error code
+     * @param  string  $customMessage
+     * @return Response
+     */
+    protected function fail($messages, int $status = 400, ?string $code = null, string $customMessage = ''): Response
+    {
+        if (! is_array($messages)) {
+            $messages = ['error' => $messages];
+        }
+
+        $response = [
+            'status' => $status,
+            'error' => $code ?? $status,
+            'messages' => $messages,
+        ];
+
+        return $this->respond($response, $status, $customMessage);
     }
 
     /**
@@ -291,6 +344,10 @@ trait APIResponseTrait
         return $this->fail($description, $this->codes['too_many_requests'], $code, $message);
     }
 
+    //--------------------------------------------------------------------
+    // Utility Methods
+    //--------------------------------------------------------------------
+
     /**
      * Used when there is a server error.
      *
@@ -302,63 +359,6 @@ trait APIResponseTrait
     protected function failServerError(string $description = 'Internal Server Error', ?string $code = null, string $message = ''): Response
     {
         return $this->fail($description, $this->codes['server_error'], $code, $message);
-    }
-
-    //--------------------------------------------------------------------
-    // Utility Methods
-    //--------------------------------------------------------------------
-
-    /**
-     * Handles formatting a response. Currently makes some heavy assumptions
-     * and needs updating! :)
-     *
-     * @param  array|string|null  $data
-     * @return string|null
-     */
-    protected function format($data = null)
-    {
-        // If the data is a string, there's not much we can do to it...
-        if (is_string($data)) {
-            // The content type should be text/... and not application/...
-            $contentType = $this->response->getHeaderLine('Content-Type');
-            $contentType = str_replace('application/json', 'text/html', $contentType);
-            $contentType = str_replace('application/', 'text/', $contentType);
-            $this->response->setContentType($contentType);
-            $this->format = 'html';
-
-            return $data;
-        }
-
-        $format = Services::format();
-        $mime = "application/{$this->format}";
-
-        // Determine correct response type through content negotiation if not explicitly declared
-        if (
-            (empty($this->format) || ! in_array($this->format, ['json', 'xml'], true))
-            && $this->request instanceof Request
-        ) {
-            $mime = $this->request->negotiate(
-                'media',
-                $format->getConfig()->supportedResponseFormats,
-                false
-            );
-        }
-
-        $this->response->setContentType($mime);
-
-        // if we don't have a formatter, make one
-        if (! isset($this->formatter)) {
-            // if no formatter, use the default
-            $this->formatter = $format->getFormatter($mime);
-        }
-
-        if ($mime !== 'application/json') {
-            // Recursively convert objects into associative arrays
-            // Conversion not required for JSONFormatter
-            $data = json_decode(json_encode($data), true);
-        }
-
-        return $this->formatter->format($data);
     }
 
     /**

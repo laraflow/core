@@ -2,6 +2,7 @@
 
 namespace Laraflow\Core;
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\ServiceProvider;
@@ -19,7 +20,12 @@ class CoreServiceProvider extends ServiceProvider
         //config
         $this->publishes([
             __DIR__.'/../config/core.php' => config_path('core.php'),
-            __DIR__.'/../config/xml.php' => config_path('xml.php'),
+            __DIR__.'/../config/audit.php' => config_path('audit.php'),
+            __DIR__.'/../config/backup.php' => config_path('backup.php'),
+            __DIR__.'/../config/columnsortable.php' => config_path('columnsortable.php'),
+            __DIR__.'/../config/constant.php' => config_path('constant.php'),
+            __DIR__.'/../config/media-library.php' => config_path('media-library.php'),
+            __DIR__.'/../config/laravolt/avatar.php' => config_path('laravolt/avatar.php'),
         ], 'core-config');
 
         //view
@@ -59,7 +65,7 @@ class CoreServiceProvider extends ServiceProvider
             __DIR__.'/../config/core.php', 'core'
         );
         $this->mergeConfigFrom(
-            __DIR__.'/../config/xml.php', 'xml'
+            __DIR__.'/../config/constant.php', 'constant'
         );
     }
 
@@ -68,12 +74,29 @@ class CoreServiceProvider extends ServiceProvider
         Response::macro('xml', function ($value, $status = 200, $config = []) {
             return (new XmlResponse())->array2xml($value, false, $config, $status);
         });
+
+        Blueprint::macro('blameable', function () {
+            $this->unsignedBigInteger(
+                config('core.blame.createdBy', 'created_by'))
+                ->nullable()
+                ->default(null);
+
+            $this->unsignedBigInteger(
+                config('core.blame.updatedBy', 'updated_by'))
+                ->nullable()
+                ->default(null);
+
+            $this->unsignedBigInteger(
+                config('core.blame.deletedBy', 'deleted_by'))
+                ->nullable()
+                ->default(null);
+        });
     }
 
     private function loadDirective()
     {
         Blade::directive('money', function ($string) {
-            return "<?php echo  \Laraflow\Core\Services\Utilities\MoneyService::format({$string}); ?>";
+            return "<?php echo  \Laraflow\Core\Supports\Money::format({$string}); ?>";
         });
     }
 

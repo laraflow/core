@@ -1,17 +1,16 @@
 <?php
 
-namespace Laraflow\Core\Services\Utilities;
+namespace Laraflow\Core\Supports;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
-use Laraflow\Core\Abstracts\Service\Service;
 
 /**
- * Class UtilityService
+ * Class Utility
  */
-class UtilityService extends Service
+class Utility
 {
     /**
      * Hash any text with laravel default has algo.
@@ -94,10 +93,9 @@ class UtilityService extends Service
 
     /**
      * @param  Model  $model
-     * @param  string  $group
      * @return array
      */
-    public static function modelAudits(Model $model, string $group = 'date'): array
+    public static function modelAudits(Model $model): array
     {
         $auditCollection = [];
 
@@ -147,36 +145,4 @@ class UtilityService extends Service
     {
         return ucwords(str_replace(['.', '-', '_'], [' ', ' ', ' '], $permission));
     }
-
-    /*
-     * @param Address $addressBook
-     * @return string
-
-    public static function getAddressBlock(Address $addressBook): string
-    {
-        $address = ($addressBook->street_1 ?? null) . ', ';
-
-        if (!empty($addressBook->street_2)):
-            $address .= ($addressBook->street_2 . ', ');
-        endif;
-
-        if (!empty($addressBook->post_code)):
-            $address .= ($addressBook->post_code . ', ');
-        endif;
-
-        if (!empty($addressBook->city_id)):
-            $address .= ($addressBook->city->name . ', ');
-        endif;
-
-        if (!empty($addressBook->state_id)):
-            $address .= ($addressBook->state->name . ', ');
-        endif;
-
-        if (!empty($addressBook->country_id)):
-            $address .= ($addressBook->country->name . '.');
-        endif;
-
-        return $address;
-    }
-     */
 }

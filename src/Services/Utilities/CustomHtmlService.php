@@ -112,7 +112,7 @@ class CustomHtmlService extends Service
             $HTML = "<div class='d-inline-block'>";
             $icon = ($icon_class !== null) ? "<i class='{$icon_class} mr-1'></i>" : null;
             foreach ($tags as $tag) {
-                $HTML .= "<span class='ml-1 badge badge-pill p-2 d-block d-md-inline-block ".UtilityService::randomBadgeBackground()."'>{$icon} {$tag}</span>";
+                $HTML .= "<span class='ml-1 badge badge-pill p-2 d-block d-md-inline-block ".Utility::randomBadgeBackground()."'>{$icon} {$tag}</span>";
             }
             $HTML .= '</div>';
         }
