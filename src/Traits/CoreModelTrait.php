@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Laraflow\Core\Traits;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,7 +9,6 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
  * Trait CoreModelTrait
- * @package Laraflow\Core\Traits
  */
 trait CoreModelTrait
 {
