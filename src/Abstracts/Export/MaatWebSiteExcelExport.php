@@ -109,7 +109,6 @@ abstract class MaatWebSiteExcelExport extends FastExcel implements ExportInterfa
      * Modify Output Row Cells
      *
      * @param  mixed  $row
-     * @return array
      */
     abstract public function map($row): array;
 }

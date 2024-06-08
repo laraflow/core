@@ -62,10 +62,6 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
             ->setCellAlignment(CellAlignment::LEFT));
     }
 
-    /**
-     * @param  StyleBuilder  $styleBuilder
-     * @return FastExcelImport
-     */
     public function setHeadingStyle(StyleBuilder $styleBuilder): self
     {
         //add Border Style for excel and ods
@@ -81,10 +77,6 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
         return $this;
     }
 
-    /**
-     * @param  BorderBuilder  $borderBuilder
-     * @return FastExcelImport
-     */
     public function setBorderStyle(BorderBuilder $borderBuilder): self
     {
         $this->borderStyle = $borderBuilder;
@@ -92,10 +84,6 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
         return $this;
     }
 
-    /**
-     * @param  StyleBuilder  $styleBuilder
-     * @return FastExcelImport
-     */
     public function setRowStyle(StyleBuilder $styleBuilder): self
     {
         //add Border Style for excel and ods
@@ -115,7 +103,6 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
      * Modify Output Row Cells
      *
      * @param  mixed  $row
-     * @return array
      */
     abstract public function map($row): array;
 }

@@ -36,7 +36,6 @@ abstract class ResourceService extends Service
     /**
      * Get all instances of model
      *
-     * @param  array  $conditions
      * @return Collection|Model[]
      */
     public function index(array $conditions = [])
@@ -47,7 +46,6 @@ abstract class ResourceService extends Service
     /**
      * create a new record in the database
      *
-     * @param  array  $data
      * @return mixed
      *
      * @throws Exception
@@ -68,8 +66,6 @@ abstract class ResourceService extends Service
 
     /**
      * Get the associated model
-     *
-     * @return Model
      */
     public function getModel(): Model
     {
@@ -109,16 +105,16 @@ abstract class ResourceService extends Service
         if (App::environment('production')) {
             Log::error($exception->getMessage());
 
-        //Eloquent Model Exception
+            //Eloquent Model Exception
         } elseif ($exception instanceof ModelNotFoundException) {
             throw new ModelNotFoundException($exception->getMessage());
-        //Database Exception
+            //Database Exception
         } elseif ($exception instanceof PDOException) {
             throw new PDOException($exception->getMessage());
-        //Invalid magic method called
+            //Invalid magic method called
         } elseif ($exception instanceof BadMethodCallException) {
             throw new BadMethodCallException($exception->getMessage());
-        //Through general Exception
+            //Through general Exception
         } else {
             throw new Exception($exception->getMessage());
         }
@@ -127,9 +123,7 @@ abstract class ResourceService extends Service
     /**
      * update record in the database
      *
-     * @param  array  $data
      * @param  string|int  $id
-     * @return bool
      *
      * @throws Exception
      */
@@ -151,7 +145,6 @@ abstract class ResourceService extends Service
      * show the record with the given id
      *
      * @param  string|int  $id
-     * @param  bool  $withTrashed
      * @return mixed
      *
      * @throws Exception
@@ -178,7 +171,6 @@ abstract class ResourceService extends Service
      *
      * @param  string|int  $id
      * @param  bool  $hardDelete
-     * @return bool
      */
     public function delete($id, $hardDelete = false): bool
     {
@@ -193,7 +185,6 @@ abstract class ResourceService extends Service
      * remove record from the database
      *
      * @param  string|int  $id
-     * @return bool
      */
     public function restore($id): bool
     {

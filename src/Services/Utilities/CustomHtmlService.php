@@ -15,12 +15,7 @@ class CustomHtmlService extends Service
     /**
      * Switch function for enable and disable status of model
      *
-     * @param  Model  $model
-     * @param  string  $field
-     * @param  array  $options
      * @param  mixed|null  $current_value
-     * @param  array  $states
-     * @return HtmlString
      */
     public static function flagChangeButton(Model $model, string $field, array $options = [], $current_value = null, array $states = []): HtmlString
     {
@@ -48,8 +43,7 @@ class CustomHtmlService extends Service
     /**
      * Custom pagination query string appending function
      *
-     * @param $collection
-     * @param  string  $type [default, simple]
+     * @param  string  $type  [default, simple]
      * @return mixed
      */
     public static function pagination($collection, string $type = 'default')
@@ -61,10 +55,6 @@ class CustomHtmlService extends Service
     /**
      * Confirmation model popup handler for delete, restore and export
      * authorization confirmation approval.
-     *
-     * @param  string  $modelName
-     * @param  array  $actions
-     * @return HtmlString
      */
     public static function confirmModal(string $modelName = 'Item', array $actions = []): HtmlString
     {
@@ -82,9 +72,6 @@ class CustomHtmlService extends Service
 
     /**
      * Audit Operation event icon style provider return string
-     *
-     * @param  string  $event
-     * @return HtmlString
      */
     public static function eventIcons(string $event): HtmlString
     {
@@ -100,12 +87,8 @@ class CustomHtmlService extends Service
 
     /**
      * Display tags as inline list items
-     *
-     * @param  array  $tags
-     * @param  string|null  $icon_class
-     * @return HtmlString
      */
-    public static function displayTags(array $tags, string $icon_class = null): HtmlString
+    public static function displayTags(array $tags, ?string $icon_class = null): HtmlString
     {
         $HTML = '';
         if (count($tags) > 0) {

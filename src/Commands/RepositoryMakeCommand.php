@@ -32,8 +32,6 @@ class RepositoryMakeCommand extends GeneratorCommand
 
     /**
      * Get the stub file for the generator.
-     *
-     * @return string
      */
     protected function getStub(): string
     {
@@ -42,9 +40,6 @@ class RepositoryMakeCommand extends GeneratorCommand
 
     /**
      * Resolve the fully-qualified path to the stub.
-     *
-     * @param  string  $stub
-     * @return string
      */
     protected function resolveStubPath(string $stub): string
     {
@@ -57,7 +52,6 @@ class RepositoryMakeCommand extends GeneratorCommand
      * Get the default namespace for the class.
      *
      * @param  string  $rootNamespace
-     * @return string
      */
     protected function getDefaultNamespace($rootNamespace): string
     {

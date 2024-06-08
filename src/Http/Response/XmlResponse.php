@@ -68,10 +68,6 @@ class XmlResponse
         }
     }
 
-    /**
-     * @param $value
-     * @return bool
-     */
     private function isConfig($value): bool
     {
         return in_array($value, [
@@ -86,7 +82,6 @@ class XmlResponse
     /**
      * @param  array  $array
      * @param  array  $config
-     * @return string
      *
      * @throws XmlResponseException
      * @throws ReflectionException
@@ -99,7 +94,6 @@ class XmlResponse
     }
 
     /**
-     * @param $array
      * @param  bool  $xml
      * @param  array  $config
      * @param  int  $status
@@ -152,10 +146,6 @@ class XmlResponse
         return Response::make($xml->asXML(), $status, $this->header());
     }
 
-    /**
-     * @param  string  $value
-     * @return bool
-     */
     private function isType(string $value): bool
     {
         return in_array($value, [
@@ -177,7 +167,6 @@ class XmlResponse
     }
 
     /**
-     * @param $value
      * @return mixed
      */
     private function caseSensitive($value)
@@ -211,7 +200,6 @@ class XmlResponse
 
     /**
      * @param  array  $header
-     * @return string
      */
     private function charset($header = []): string
     {

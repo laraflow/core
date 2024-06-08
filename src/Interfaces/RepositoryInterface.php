@@ -19,7 +19,6 @@ interface RepositoryInterface
     /**
      * create a new record in the database
      *
-     * @param  array  $data
      * @return mixed
      *
      * @throws Exception
@@ -29,9 +28,7 @@ interface RepositoryInterface
     /**
      * update record in the database
      *
-     * @param  array  $data
      * @param  string|int  $id
-     * @return bool
      */
     public function update(array $data, $id): bool;
 
@@ -40,7 +37,6 @@ interface RepositoryInterface
      *
      * @param  string|int  $id
      * @param  bool  $hardDelete
-     * @return bool
      */
     public function delete($id, $hardDelete = false): bool;
 
@@ -48,7 +44,6 @@ interface RepositoryInterface
      * show the record with the given id
      *
      * @param  string|int  $id
-     * @param  bool  $purge
      * @return mixed
      *
      * @throws Exception
@@ -88,14 +83,12 @@ interface RepositoryInterface
      * Restore any Soft-Deleted Table Row/Model
      *
      * @param  string|int  $id
-     * @return bool
      */
     public function restore($id): bool;
 
     /**
      * Return Query Builder with condition options
      *
-     * @param  array  $conditions
      * @return mixed
      */
     public function filter(array $conditions = []);

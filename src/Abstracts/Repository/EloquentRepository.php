@@ -73,7 +73,6 @@ abstract class EloquentRepository implements RepositoryInterface
     /**
      * create a new record in the database
      *
-     * @param  array  $data
      * @return mixed
      *
      * @throws Exception
@@ -95,9 +94,7 @@ abstract class EloquentRepository implements RepositoryInterface
     /**
      * update record in the database
      *
-     * @param  array  $data
      * @param  string|int  $id
-     * @return bool
      *
      * @throws Exception
      */
@@ -119,7 +116,6 @@ abstract class EloquentRepository implements RepositoryInterface
      * show the record with the given id
      *
      * @param  string|int  $id
-     * @param  bool  $purge
      * @return mixed
      *
      * @throws Exception
@@ -146,7 +142,6 @@ abstract class EloquentRepository implements RepositoryInterface
      *
      * @param  string|int  $id
      * @param  bool  $hardDelete
-     * @return bool
      */
     public function delete($id, $hardDelete = false): bool
     {
@@ -161,7 +156,6 @@ abstract class EloquentRepository implements RepositoryInterface
      * remove record from the database
      *
      * @param  string|int  $id
-     * @return bool
      */
     public function restore($id): bool
     {
@@ -192,16 +186,16 @@ abstract class EloquentRepository implements RepositoryInterface
         if (App::environment('production')) {
             Log::error($exception->getMessage());
 
-        //Eloquent Model Exception
+            //Eloquent Model Exception
         } elseif ($exception instanceof ModelNotFoundException) {
             throw new ModelNotFoundException($exception->getMessage());
-        //DB Error
+            //DB Error
         } elseif ($exception instanceof PDOException) {
             throw new PDOException($exception->getMessage());
-        //Invalid magic method called
+            //Invalid magic method called
         } elseif ($exception instanceof BadMethodCallException) {
             throw new BadMethodCallException($exception->getMessage());
-        //Through general Exception
+            //Through general Exception
         } else {
             throw new Exception($exception->getMessage());
         }

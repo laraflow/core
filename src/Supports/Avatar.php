@@ -42,9 +42,6 @@ class Avatar
     /**
      * create a avatar image from text
      *
-     * @param  string  $name
-     * @param  string  $extension
-     * @return string|null
      *
      * @throws Exception
      */
@@ -60,9 +57,6 @@ class Avatar
     /**
      * create a avatar image from input
      *
-     * @param  string  $key
-     * @param  string  $extension
-     * @return string|null
      *
      * @throws Exception
      */
@@ -76,10 +70,6 @@ class Avatar
     }
 
     /**
-     * @param  string  $location
-     * @param  string  $extension
-     * @return string|null
-     *
      * @throws Exception
      */
     public static function fromFile(string $location, string $extension = self::IMAGE_JPG): ?string
@@ -106,11 +96,8 @@ class Avatar
 
     /**
      * Return temp location path
-     *
-     * @param  string|null  $temp_path
-     * @return string
      */
-    public function getTempDirectory(string $temp_path = null): string
+    public function getTempDirectory(?string $temp_path = null): string
     {
         $tmpPath = $temp_path ?? config('laravolt.avatar.temp_path');
 
@@ -123,7 +110,6 @@ class Avatar
 
     /**
      * @param  null  $extension
-     * @return string
      */
     public function getTargetFilePath($extension = null): string
     {
@@ -134,18 +120,12 @@ class Avatar
             : "{$filepath}";
     }
 
-    /**
-     * @return \Intervention\Image\Image
-     */
     public function default(): \Intervention\Image\Image
     {
         return Image::canvas($this->config['width'], $this->config['height'], self::COLOR_WHITE);
     }
 
     /**
-     * @param  string  $text
-     * @return self
-     *
      * @throws \Exception
      */
     private function text(string $text): self
@@ -166,8 +146,6 @@ class Avatar
     /**
      * Return Image Object created from file location
      *
-     * @param  string  $location
-     * @return self
      *
      * @throws \Exception
      */
@@ -187,8 +165,6 @@ class Avatar
     /**
      * Return Image Object created from request class
      *
-     * @param  string  $key
-     * @return self
      *
      * @throws \Exception
      */
@@ -207,10 +183,9 @@ class Avatar
     }
 
     /**
-     * @param  string|null  $filename
      * @return void
      */
-    private function filename(string $filename = null)
+    private function filename(?string $filename = null)
     {
         if ($filename != null) {
             $fileInfo = pathinfo($filename);
@@ -222,7 +197,6 @@ class Avatar
 
     /**
      * @param  string  $extension
-     * @return bool
      */
     public function save($extension = self::IMAGE_JPG): bool
     {

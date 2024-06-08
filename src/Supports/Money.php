@@ -2651,9 +2651,6 @@ class Money
      * Return Currency Formatted string from number
      *
      * @param  mixed  $amount
-     * @param  string  $currency
-     * @param  bool  $onlyCurrency
-     * @return string|null
      */
     public static function format($amount = null, string $currency = self::USD, bool $onlyCurrency = false): ?string
     {
@@ -2683,9 +2680,6 @@ class Money
 
     /**
      * Return single currency
-     *
-     * @param  string  $name
-     * @return array|null
      */
     public static function get(string $name): ?array
     {

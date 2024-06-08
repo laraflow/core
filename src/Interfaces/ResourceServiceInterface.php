@@ -9,7 +9,6 @@ interface ResourceServiceInterface
     /**
      * Get all instances of model
      *
-     * @param  array  $conditions
      * @return mixed
      */
     public function index(array $conditions = []);
@@ -17,7 +16,6 @@ interface ResourceServiceInterface
     /**
      * create a new record in the database
      *
-     * @param  array  $data
      * @return mixed
      *
      * @throws Exception
@@ -27,9 +25,7 @@ interface ResourceServiceInterface
     /**
      * update record in the database
      *
-     * @param  array  $data
      * @param  string|int  $id
-     * @return bool
      */
     public function update(array $data, $id): bool;
 
@@ -38,7 +34,6 @@ interface ResourceServiceInterface
      *
      * @param  string|int  $id
      * @param  bool  $hardDelete
-     * @return bool
      */
     public function delete($id, $hardDelete = false): bool;
 
@@ -46,7 +41,6 @@ interface ResourceServiceInterface
      * show the record with the given id
      *
      * @param  string|int  $id
-     * @param  bool  $withTrashed
      * @return mixed
      *
      * @throws Exception
@@ -81,14 +75,12 @@ interface ResourceServiceInterface
      * Restore any Soft-Deleted Table Row/Model
      *
      * @param  string|int  $id
-     * @return bool
      */
     public function restore($id): bool;
 
     /**
      * Return Query Builder with condition options
      *
-     * @param  array  $conditions
      * @return mixed
      */
     public function filter(array $conditions = []);
